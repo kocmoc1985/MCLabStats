@@ -18,17 +18,19 @@ import sql.Sql_B;
  * @author KOCMOC
  */
 public class Controller {
+
     private Sql_B sql = new Sql_B(false, true);
     private XyGraph graph = new XyGraph("Test", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-    
-    public Controller() {
+    private String PATH;
+
+    public Controller(String PATH) {
+        this.PATH = PATH;
         connect();
     }
-   
-    
-    private void connect(){
+
+    private void connect() {
         try {
-            sql.connect_mdb("", "", "c:/test/data.mdb");
+            sql.connect_mdb("", "", PATH);
             System.out.println("Connected");
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -36,16 +38,17 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     public void testBuild(){
+
+    public void testBuild() {
+        //
         String q = SQL_Q.test_a();
         //
         try {
             ResultSet rs = sql.execute(q);
-            graph.addData(rs, "valueColName", "ModeColName");
+            graph.addData(rs, "value", "ModeColName");
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }

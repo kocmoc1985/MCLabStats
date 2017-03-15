@@ -24,22 +24,28 @@ public class XyGraph extends MyXYGB {
 
     public XyGraph(String title, int displayMode) {
         super(title, displayMode);
+        System.out.println("GRAPH: " + getGraph());
+        Gui.GraphPanel.add(getGraph());
+
     }
 
     public void addData(ResultSet rs, String valueColName, String modeColName) {
         try {
             while (rs.next()) {
                 double val = rs.getDouble(valueColName);
-                String mode = rs.getString(modeColName);
-                Point p = new Point((int) val, "" + val);
+//                String mode = rs.getString(modeColName);
 
-                if (mode.equals("1")) {
-                    p.setPointColor(Color.red);
-                } else {
-                    p.setPointColor(Color.blue);
-                }
+                val = val * 1000;
 
-                p.addPointInfo("mode", mode);
+                Point p = new Point(((int) val), "" + val);
+
+//                if (mode.equals("1")) {
+//                    p.setPointColor(Color.red);
+//                } else {
+//                    p.setPointColor(Color.blue);
+//                }
+
+//                p.addPointInfo("mode", mode);
 
                 addPoint(p);
 
@@ -47,5 +53,8 @@ public class XyGraph extends MyXYGB {
         } catch (SQLException ex) {
             Logger.getLogger(MyXYGB.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
+
     }
 }
