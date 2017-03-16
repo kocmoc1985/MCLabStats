@@ -20,15 +20,10 @@ import java.util.logging.Logger;
  */
 public class XyGraph extends MyXYGB {
 
-    public XyGraph(String title) {
-        super(title);
-    }
 
     public XyGraph(String title, int displayMode) {
         super(title, displayMode);
-        System.out.println("GRAPH: " + getGraph());
         Gui.GraphPanel.add(getGraph());
-
     }
 
     @Override
@@ -74,7 +69,7 @@ public class XyGraph extends MyXYGB {
     }
     private boolean LIMITS_SET = false;
 
-    public void addData(ResultSet rs, String valueColName, String modeColName) {
+    public void addData(ResultSet rs, String valueColName) {
         LIMITS_SET = false;
         try {
             while (rs.next()) {

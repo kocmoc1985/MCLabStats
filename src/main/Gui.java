@@ -43,6 +43,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
         jPanel2 = new javax.swing.JPanel();
         GraphPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        HistoPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -59,23 +60,34 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
             }
         });
 
+        HistoPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        HistoPanel.setLayout(new java.awt.GridLayout(1, 1));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(243, 243, 243)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(GraphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(243, 243, 243)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(GraphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(HistoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
-                .addComponent(GraphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(HistoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(45, 45, 45))
         );
@@ -93,7 +105,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,6 +172,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel GraphPanel;
+    public static javax.swing.JPanel HistoPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

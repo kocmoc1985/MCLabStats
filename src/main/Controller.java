@@ -21,6 +21,7 @@ public class Controller {
 
     private Sql_B sql = new Sql_B(false, true);
     private XyGraph graph = new XyGraph("Test", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private Histogram histogram = new Histogram("Histogram", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private String PATH;
     private ShowMessage OUT;
 
@@ -33,7 +34,7 @@ public class Controller {
     private void connect() {
         try {
             sql.connect_mdb("", "", PATH);
-            System.out.println("Connected");
+            OUT.showMessage("Connected");
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -47,10 +48,12 @@ public class Controller {
         //
         try {
             ResultSet rs = sql.execute(q,OUT);
-            graph.addData(rs, "value", "ModeColName");
+            graph.addData(rs, "value");
+            rs.first();
+            histogram.addData(rs,"value");
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
+    
 }
