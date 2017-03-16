@@ -4,6 +4,7 @@
  */
 package main;
 
+import other.HelpA;
 import sql.ShowMessage;
 
 
@@ -20,12 +21,13 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
      */
     public Gui() {
         initComponents();
-        this.controller = new Controller("c:/test/data.mdb");
+        this.controller = new Controller("c:/test/data.mdb",this);
     }
     
      @Override
     public void showMessage(String str) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("" + str);
+        jTextArea1.append(HelpA.get_proper_date_time_same_format_on_all_computers() + "  " + str + "\n");
     }
    
     /**

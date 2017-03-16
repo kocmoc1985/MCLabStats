@@ -5,12 +5,12 @@
 package main;
 
 import XYG_BASIC.MyGraphContainer;
-import XYG_MC.MCStatsCommonG;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sql.SQL_Q;
+import sql.ShowMessage;
 import sql.Sql_B;
 
 /**
@@ -22,9 +22,11 @@ public class Controller {
     private Sql_B sql = new Sql_B(false, true);
     private XyGraph graph = new XyGraph("Test", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private String PATH;
+    private ShowMessage OUT;
 
-    public Controller(String PATH) {
+    public Controller(String PATH,ShowMessage OUT) {
         this.PATH = PATH;
+        this.OUT = OUT;
         connect();
     }
 
@@ -44,7 +46,7 @@ public class Controller {
         String q = SQL_Q.test_a();
         //
         try {
-            ResultSet rs = sql.execute(q);
+            ResultSet rs = sql.execute(q,OUT);
             graph.addData(rs, "value", "ModeColName");
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
