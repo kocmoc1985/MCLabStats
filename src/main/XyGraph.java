@@ -21,14 +21,18 @@ import java.util.logging.Logger;
  */
 public class XyGraph extends MyXYGB {
 
+    private MySerie serieLimitL;
+    private MySerie serieLimitU;
 
     public XyGraph(String title, int displayMode) {
-        super(title,new MyGraphXY(), displayMode);
+        super(title, new MyGraphXY(), displayMode);
         Gui.GraphPanel.add(getGraph());
     }
 
     @Override
     public void initializeA() {
+
+        //
         this.setTitleSize(20, true);
         this.setTitleSize(20, true);
         this.setTitleColor(Color.black);
@@ -43,7 +47,8 @@ public class XyGraph extends MyXYGB {
         this.setScaleXYaxisLength(1.2);
         //
 //        this.setBackgroundColorOfGraph(Color.BLACK);
-        this.setDrawMarker(true);
+
+        this.setDrawMarker(false);
         this.setMarkerDotted(true);
         this.setMarkerInfo(1);
         this.setMarkerAutoReset(false);
@@ -51,6 +56,7 @@ public class XyGraph extends MyXYGB {
 
     @Override
     public void initializeB() {
+        //
         serie = new MySerie(getTitle());
         //
         serie.setDrawPoints(true);
@@ -67,20 +73,40 @@ public class XyGraph extends MyXYGB {
         this.addSerie(serie);
         //
         PointHighLighter.addSerie(serie);
+        //
+        serieLimitL = new MySerie("LSL", Color.red);
+        serieLimitU = new MySerie("USL", Color.red);
+        this.addSerie(serieLimitL);
+        this.addSerie(serieLimitU);
+        adjustLimitSeries();
     }
-    private boolean LIMITS_SET = false;
+
+    private void adjustLimitSeries() {
+        PointHighLighter.addSerie(serieLimitL);
+        PointHighLighter.addSerie(serieLimitU);
+
+        serieLimitL.setLineThickness(1);
+        serieLimitL.setPointThickness(0.5);
+        serieLimitL.setPointColor(Color.red);
+
+        serieLimitU.setLineThickness(1);
+        serieLimitU.setPointThickness(0.5);
+        serieLimitU.setPointColor(Color.red);
+
+//        serieLimitU.setDrawPoints(false);
+//        serieLimitU.setLineThickness(1);
+    }
 
     public void addData(ResultSet rs, String valueColName) {
-        LIMITS_SET = false;
+
         try {
             while (rs.next()) {
                 double val = rs.getDouble(valueColName);
-                if (LIMITS_SET == false) {
-                    LIMITS_SET = true;
-                    double minLim = rs.getDouble("LSL");
-                    double maxLim = rs.getDouble("USL");
-                    setLimits(minLim, maxLim);
-                }
+                double minLim = rs.getDouble("LSL");
+                double maxLim = rs.getDouble("USL");
+                addPointBySerie(minLim, "LSL");
+                addPointBySerie(maxLim, "USL");
+//                    setLimits(minLim, maxLim);
 
                 MyPoint p = new MyPoint(((int) val), val);
 

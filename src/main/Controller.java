@@ -22,7 +22,7 @@ import sql.Sql_B;
 public class Controller {
 
     private Sql_B sql = new Sql_B(false, true);
-    private XyGraph graph = new XyGraph("Test", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private XyGraph graph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private GistoGram histogram = new GistoGram("Histogram",new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private String PATH;
     private ShowMessage OUT;
