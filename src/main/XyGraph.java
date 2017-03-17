@@ -4,6 +4,7 @@
  */
 package main;
 
+import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import XYG_BASIC.MyXYGB;
@@ -22,7 +23,7 @@ public class XyGraph extends MyXYGB {
 
 
     public XyGraph(String title, int displayMode) {
-        super(title, displayMode);
+        super(title,new MyGraphXY(), displayMode);
         Gui.GraphPanel.add(getGraph());
     }
 
