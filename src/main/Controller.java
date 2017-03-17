@@ -5,6 +5,9 @@
 package main;
 
 import XYG_BASIC.MyGraphContainer;
+import XYG_BASIC.MyGraphXY;
+import XYG_HISTO.HistograM;
+import XYG_HISTO.MyGraphXY_H;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -20,8 +23,9 @@ import sql.Sql_B;
 public class Controller {
 
     private Sql_B sql = new Sql_B(false, true);
-    private XyGraph graph = new XyGraph("Test", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-    private Histogram histogram = new Histogram("Histogram", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private XyGraph graph = new XyGraph("Test",new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+//    private Histogram histogram = new Histogram("Histogram", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private HistoGram histogram = new HistoGram("Histogram",new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private String PATH;
     private ShowMessage OUT;
 
