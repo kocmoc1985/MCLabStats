@@ -4,7 +4,6 @@
  */
 package main;
 
-import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import XYG_BASIC.MyXYGB;
@@ -22,8 +21,8 @@ import java.util.logging.Logger;
 public class XyGraph extends MyXYGB {
 
 
-    public XyGraph(String title, MyGraphXY mgxy, int displayMode) {
-        super(title,mgxy, displayMode);
+    public XyGraph(String title, int displayMode) {
+        super(title, displayMode);
         Gui.GraphPanel.add(getGraph());
     }
 
