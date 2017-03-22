@@ -4,6 +4,7 @@
  */
 package main;
 
+import java.util.Properties;
 import other.HelpA;
 import sql.ShowMessage;
 
@@ -15,13 +16,14 @@ import sql.ShowMessage;
 public class Gui extends javax.swing.JFrame implements ShowMessage{
 
     private Controller controller;
-   
+    private Properties p = HelpA.properties_load_properties("main.properties", false);
+    
     /**
      * Creates new form Gui
      */
     public Gui() {
         initComponents();
-        this.controller = new Controller("c:/test/data.mdb",this);
+        this.controller = new Controller(p.getProperty("mdb_path", ""),this);
     }
     
      @Override
