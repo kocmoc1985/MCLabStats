@@ -52,7 +52,7 @@ public class Controller {
             ResultSet rs = sql.execute(q,OUT);
             graph.addData(rs, "value");
             rs.first();
-            histogram.addData(rs,"value");
+            histogram.addData(rs,"value","#.##");
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
