@@ -4,8 +4,8 @@
  */
 package main;
 
+import XYG_BASIC.DiffMarkerPoints;
 import XYG_BASIC.MySerie;
-import XYG_BASIC.PointHighLighter;
 import XYG_HISTO.HistograM;
 import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
@@ -19,8 +19,11 @@ public class GistoGram extends HistograM{
     public GistoGram(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
         Gui.HistoPanel.add(getGraph());
+
 //        mgxyh.setStepIdentifierX(10);
     }
+    
+   
 
     @Override
     public void initializeA() {
@@ -33,7 +36,7 @@ public class GistoGram extends HistograM{
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
         this.setAxisScaling(true, true);
 //        this.setDrawGrid(true);
-        this.setShowPopUp(false);
+        this.setShowPopUpLeftClick(true);
         this.setPointHighLighterEnabled(true);
         this.setDisableScalingWhenGrid();
         this.setGridColor(Color.black);

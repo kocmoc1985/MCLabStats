@@ -4,6 +4,7 @@
  */
 package main;
 
+import XYG_BASIC.DiffMarkerPoints;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
@@ -27,6 +28,12 @@ public class XyGraph extends MyXYGB {
     public XyGraph(String title, int displayMode) {
         super(title, new MyGraphXY(), displayMode);
         Gui.GraphPanel.add(getGraph());
+        init();
+    }
+    
+     private void init(){
+        addDiffMarkerOutPutComponent(DiffMarkerPoints.CALC_SUMM, Gui.jTextFieldSumm);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints.CALC_AVERAGE, Gui.jTextFieldAverage);
     }
 
     @Override

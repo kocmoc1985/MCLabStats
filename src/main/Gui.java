@@ -46,6 +46,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
         GraphPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         HistoPanel = new javax.swing.JPanel();
+        jTextFieldSumm = new javax.swing.JTextField();
+        jTextFieldAverage = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -74,6 +76,10 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(243, 243, 243)
                         .addComponent(jButton1)
+                        .addGap(70, 70, 70)
+                        .addComponent(jTextFieldSumm, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jTextFieldAverage, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
@@ -90,7 +96,10 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
                     .addComponent(HistoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jTextFieldSumm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
 
@@ -181,6 +190,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
+    public static javax.swing.JTextField jTextFieldAverage;
+    public static javax.swing.JTextField jTextFieldSumm;
     // End of variables declaration//GEN-END:variables
 
    
