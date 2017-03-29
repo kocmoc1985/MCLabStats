@@ -11,7 +11,7 @@ package sql;
 public class SQL_Q {
 
     public static String test_a() {
-        return "SELECT top 100 * FROM resultsN\n"
+        return "SELECT * FROM resultsN\n"
                 + "WHERE resultsN.Quality='0004720-D' AND resultsN.TestCode='10191' AND resultsN.Name='ML'\n"
                 + "ORDER BY resultsN.order, resultsN.BatchNo, resultsN.TestNo";
     }

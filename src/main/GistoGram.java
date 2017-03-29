@@ -62,6 +62,10 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
     }
 
     private void rebuildData(ResultSet rs, String valueColName, String round, int start, int end) {
+        //PAY ATTENTION HERE
+        mgxyh = new MyGraphXY_H();
+        mgxyh.addSerie(serie);
+        //
         clear();
         histoMap.clear();
         int x = 0;
