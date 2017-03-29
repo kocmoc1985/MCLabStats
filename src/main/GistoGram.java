@@ -9,6 +9,7 @@ import XYG_BASIC.MySerie;
 import XYG_HISTO.HistograM;
 import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
+import java.sql.ResultSet;
 
 /**
  *
@@ -23,6 +24,16 @@ public class GistoGram extends HistograM{
 //        mgxyh.setStepIdentifierX(10);
     }
     
+   private void clear(){
+       getSerie().deleteAllPoints();
+   }
+
+    @Override
+    public void addData(ResultSet rs, String valueColName, String round) {
+        clear();
+        super.addData(rs, valueColName, round); //To change body of generated methods, choose Tools | Templates.
+    }
+   
    
 
     @Override

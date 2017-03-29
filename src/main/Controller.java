@@ -5,7 +5,6 @@
 package main;
 
 import XYG_BASIC.MyGraphContainer;
-import XYG_BASIC.MyGraphXY;
 import XYG_HISTO.MyGraphXY_H;
 import java.sql.ResultSet;
 import java.sql.SQLException;
