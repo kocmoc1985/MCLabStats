@@ -165,8 +165,13 @@ public class HelpA {
         }
     }
 
+    public final static boolean TRACKING_TOOL_TIP = false;
+    
 //    public static final boolean TRACKING_ON = true;
     public static void setTrackingToolTip(JComponent jc, String text) {
+        if(TRACKING_TOOL_TIP == false){
+            return;
+        }
         //
         if (jc == null) {
             return;
@@ -1490,6 +1495,37 @@ public class HelpA {
         jbox.setModel(new DefaultComboBoxModel(arr));
         //
         return jbox;
+    }
+    
+    
+    /**
+     * IMPORTANT!
+     * @param box
+     * @param query
+     * @param sql 
+     */
+    public static synchronized long fillComboBox_with_wait(final JComboBox box,long flagWait, String query, SqlBasicLocal sql) {
+        
+        if (HelpA.fillAllowedComboBox(flagWait) == false) {
+            return flagWait;
+        } else {
+            flagWait = 0;
+        }
+        //
+        Object selection = box.getSelectedItem();
+        //
+        String q = query;
+        //
+        //
+        HelpA.fillComboBox(sql, box, q, null, false, false);
+        //
+        box.showPopup();
+        //
+        flagWait = System.currentTimeMillis();
+        //
+        box.setSelectedItem(selection);
+        //
+        return flagWait;
     }
 
     private static String getValueResultSet(ResultSet rs, int index) {

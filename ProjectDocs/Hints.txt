@@ -1,0 +1,3 @@
+Reminders for changing things:
+
+Adding point info => main -> XyGraph -> addData(......)

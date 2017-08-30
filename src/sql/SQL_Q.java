@@ -10,29 +10,35 @@ package sql;
  */
 public class SQL_Q {
 
-    public static String test_a() {
+     private static final String PRIM_TABLE = "REsultsN";
+    private static final String QUALITY = "Quality";
+    private static final String ORDER = "order";
+
+    public static String test_a(String quality) {
         return "SELECT  * FROM resultsN\n"
-                + "WHERE resultsN.Quality='0000483' AND resultsN.Name='ML'\n"
+                + "WHERE resultsN.Quality=" + quotes(quality, false)
+                + " AND resultsN.Name='ML'\n"
                 + "ORDER BY resultsN.order, resultsN.BatchNo, resultsN.TestNo";
     }
-    
+
 //    public static String test_a() {
 //        return "SELECT  * FROM resultsN\n"
 //                + "WHERE resultsN.Quality='0004720-D' AND resultsN.TestCode='10191' AND resultsN.Name='ML'\n"
 //                + "ORDER BY resultsN.order, resultsN.BatchNo, resultsN.TestNo";
 //    }
+    public static String fill_quality_combo_box() {
+        return "SELECT distinct " + QUALITY + "  from " + PRIM_TABLE;
+    }
 
-    
-    
-    public static String fill_quality_chk_box(){
-         return "SELECT distinct Quality from REsultsN";
+    public static String fill_order_combo_box(String quality) {
+        return "SELECT distinct " + ORDER + " from " + PRIM_TABLE 
+                + " WHERE " + QUALITY + "=" + quotes(quality, false);
     }
-    
+
     public static void main(String[] args) {
-        System.out.println(fill_quality_chk_box());
+        System.out.println(fill_quality_combo_box());
     }
-    
-    
+
     public static String quotes(String str, boolean number) {
         //
         if (str == null || str.equals("NULL")) {

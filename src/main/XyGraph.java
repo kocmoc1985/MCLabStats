@@ -4,7 +4,6 @@
  */
 package main;
 
-import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.DiffMarkerPoints;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
@@ -119,7 +118,11 @@ public class XyGraph extends MyXYGB {
 //                    setLimits(minLim, maxLim);
 
                 MyPoint p = new MyPoint(((int) val), val);
-
+                //
+                p.addPointInfo("Quality", rs.getString("Quality"));
+                p.addPointInfo("Order", rs.getString("order"));
+                p.addPointInfo("Batch", rs.getString("BatchNo"));
+                p.addPointInfo("Status", rs.getString("Status"));
 //                p.addPointInfo("mode", mode);
                 addPoint(p);
 

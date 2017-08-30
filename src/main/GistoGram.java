@@ -37,7 +37,7 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
         rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
     }
 
-    private void clear() {
+    public void clear() {
         getSerie().deleteAllPoints();
     }
 
@@ -46,7 +46,9 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
         this.resultSet = rs;
         this.valueColName = valueColName;
         this.round = round;
+        //
         clear();
+        //
         try {
             while (rs.next()) {
                 double val = rs.getDouble(valueColName);
@@ -67,7 +69,9 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
         mgxyh.addSerie(serie);
         //
         clear();
+        //
         histoMap.clear();
+        //
         int x = 0;
         try {
             rs.first();

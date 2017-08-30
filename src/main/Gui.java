@@ -4,36 +4,44 @@
  */
 package main;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Properties;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import other.HelpA;
 import other.HelpB;
 import sql.ShowMessage;
-
 
 /**
  *
  * @author KOCMOC
  */
-public class Gui extends javax.swing.JFrame implements ShowMessage{
+public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListener {
 
     private Controller controller;
     private Properties p = HelpB.properties_load_properties("main.properties", false);
-    
+
     /**
      * Creates new form Gui
      */
     public Gui() {
         initComponents();
-        this.controller = new Controller(p.getProperty("mdb_path", ""),this);
+        this.controller = new Controller(p.getProperty("mdb_path", ""), this);
+        addJComboListeners();
     }
-    
-    
-     @Override
+
+    private void addJComboListeners() {
+        HelpA.addMouseListenerJComboBox(jComboBoxQuality, this);
+        HelpA.addMouseListenerJComboBox(jComboBoxOrder, this);
+    }
+
+    @Override
     public void showMessage(String str) {
 //        System.out.println("" + str);
         jTextArea1.append(HelpB.get_proper_date_time_same_format_on_all_computers() + "  " + str + "\n");
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,6 +59,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
         jTextFieldSumm = new javax.swing.JTextField();
         jTextFieldAverage = new javax.swing.JTextField();
         jComboBoxQuality = new javax.swing.JComboBox();
+        jComboBoxOrder = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -70,7 +79,9 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
         HistoPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         HistoPanel.setLayout(new java.awt.GridLayout(1, 1));
 
-        jComboBoxQuality.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxQuality.setModel(new javax.swing.DefaultComboBoxModel());
+
+        jComboBoxOrder.setModel(new javax.swing.DefaultComboBoxModel());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -89,6 +100,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jComboBoxQuality, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
@@ -101,7 +114,9 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(138, Short.MAX_VALUE)
-                .addComponent(jComboBoxQuality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxQuality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(HistoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -154,7 +169,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       controller.testBuild();
+        controller.testBuild();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -196,6 +211,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
     public static javax.swing.JPanel GraphPanel;
     public static javax.swing.JPanel HistoPanel;
     private javax.swing.JButton jButton1;
+    public javax.swing.JComboBox jComboBoxOrder;
     public javax.swing.JComboBox jComboBoxQuality;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -206,5 +222,36 @@ public class Gui extends javax.swing.JFrame implements ShowMessage{
     public static javax.swing.JTextField jTextFieldSumm;
     // End of variables declaration//GEN-END:variables
 
-   
+    @Override
+    public void mouseClicked(MouseEvent me) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+
+        if (me.getSource() instanceof JButton) {
+            JButton button = (JButton) me.getSource();
+            if (button.getParent() instanceof JComboBox) {
+                JComboBox parent = (JComboBox) button.getParent();
+
+                if (parent.equals(jComboBoxQuality)) {
+                    controller.fillComboQuality();
+                }else if(parent.equals(jComboBoxOrder)){
+                     controller.fillComboOrder();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+    }
 }
