@@ -22,13 +22,13 @@ import sql.Sql_B;
 public class Controller {
 
     private Sql_B sql = new Sql_B(false, true);
-    private XyGraph graph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-    private GistoGram histogram = new GistoGram("Histogram",new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private GistoGram histogram = new GistoGram("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private XyGraph graph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN, histogram);
     private String PATH;
     private ShowMessage OUT;
     private Gui gui;
 
-    public Controller(String PATH,ShowMessage OUT) {
+    public Controller(String PATH, ShowMessage OUT) {
         this.PATH = PATH;
         this.OUT = OUT;
         this.gui = (Gui)OUT;
@@ -58,13 +58,13 @@ public class Controller {
         String q = SQL_Q.test_a();
         //
         try {
-            ResultSet rs = sql.execute(q,OUT);
+            ResultSet rs = sql.execute(q, OUT);
             graph.addData(rs, "value");
             rs.first();
-            histogram.addData(rs,"value","#.##");
+            histogram.addData(rs, "value", "#.##");
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

@@ -4,6 +4,7 @@
  */
 package main;
 
+import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.DiffMarkerPoints;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
@@ -24,16 +25,19 @@ public class XyGraph extends MyXYGB {
 
     private MySerie serieLimitL;
     private MySerie serieLimitU;
+    private final GistoGram gistoGram;
 
-    public XyGraph(String title, int displayMode) {
+    public XyGraph(String title, int displayMode, GistoGram gistoGram) {
         super(title, new MyGraphXY(), displayMode);
+        this.gistoGram = gistoGram;
         Gui.GraphPanel.add(getGraph());
         init();
     }
-    
-     private void init(){
+
+    private void init() {
         addDiffMarkerOutPutComponent(DiffMarkerPoints.CALC_SUMM, Gui.jTextFieldSumm);
         addDiffMarkerOutPutComponent(DiffMarkerPoints.CALC_AVERAGE, Gui.jTextFieldAverage);
+        addDiffMarkersSetListener(gistoGram);
     }
 
     @Override
@@ -117,12 +121,11 @@ public class XyGraph extends MyXYGB {
                 MyPoint p = new MyPoint(((int) val), val);
 
 //                p.addPointInfo("mode", mode);
-
                 addPoint(p);
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MyXYGB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XyGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
