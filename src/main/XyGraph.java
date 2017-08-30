@@ -38,7 +38,6 @@ public class XyGraph extends MyXYGB {
 
     @Override
     public void initializeA() {
-
         //
         this.setTitleSize(20, true);
         this.setTitleSize(20, true);

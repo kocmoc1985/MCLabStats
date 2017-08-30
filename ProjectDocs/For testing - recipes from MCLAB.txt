@@ -1,0 +1,5 @@
+Quality		Ammount
+
+0001219-ST60  = almost 500 ML
+
+0000108-ST50  = over 400 ML
