@@ -4,8 +4,6 @@
  */
 package other;
 
-import static XYG_BASIC.HelpA.create_dir_if_missing;
-import static XYG_BASIC.HelpA.get_date_time;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
