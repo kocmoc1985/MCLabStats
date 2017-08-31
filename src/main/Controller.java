@@ -76,13 +76,7 @@ public class Controller {
             //
             rs.first();
             //
-//            histogram = new GistoGram("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-            if (oneTime) {
-                histogram.clear();
-                histogram.getGraph().repaint();
-            } else {
-                histogram.addData(rs, "value", "#.##");
-            }
+            histogram.addData(rs, "value", "#.##");
             //
             oneTime = true;
             //

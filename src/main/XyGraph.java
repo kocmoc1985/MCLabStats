@@ -24,7 +24,7 @@ public class XyGraph extends MyXYGB {
 
     private MySerie serieLimitL;
     private MySerie serieLimitU;
-    private final GistoGram gistoGram;
+    private GistoGram gistoGram;
 
     public XyGraph(String title, int displayMode, GistoGram gistoGram) {
         super(title, new MyGraphXY(), displayMode);

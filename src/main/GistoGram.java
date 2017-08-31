@@ -5,7 +5,6 @@
 package main;
 
 import XYG_BASIC.DiffMarkerAction;
-import XYG_BASIC.DiffMarkerPoints;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import XYG_HISTO.HistograM;
@@ -13,6 +12,7 @@ import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,17 +37,14 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
         rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
     }
 
-    public void clear() {
-        getSerie().deleteAllPoints();
-    }
-
     @Override
     public void addData(ResultSet rs, String valueColName, String round) {
         this.resultSet = rs;
         this.valueColName = valueColName;
         this.round = round;
         //
-        clear();
+        reset();
+        refresh();
         //
         try {
             while (rs.next()) {
@@ -68,13 +65,16 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
         mgxyh = new MyGraphXY_H();
         mgxyh.addSerie(serie);
         //
-        clear();
+//        reset(); // Dont use reset!
         //
+        getSerie().deleteAllPoints();
         histoMap.clear();
         //
         int x = 0;
         try {
+            //
             rs.first();
+            //
             while (rs.next()) {
                 if (x >= start && x <= end) {
                     double val = rs.getDouble(valueColName);
@@ -82,11 +82,15 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
                 }
                 x++;
             }
+            //
             addPoints();
+            //
         } catch (SQLException ex) {
             Logger.getLogger(GistoGram.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
     @Override
     public void initializeA() {
@@ -131,5 +135,4 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
         //
 //        PointHighLighter.addSerie(serie);
     }
-
 }
