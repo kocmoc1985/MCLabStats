@@ -10,9 +10,9 @@ package sql;
  */
 public class SQL_Q {
 
-     private static final String PRIM_TABLE = "REsultsN";
-    private static final String QUALITY = "Quality";
-    private static final String ORDER = "order";
+    public static final String PRIM_TABLE = "REsultsN";
+    public static final String QUALITY = "Quality";
+    public static final String ORDER = "order";
 
     public static String test_a(String quality) {
         return "SELECT  * FROM resultsN\n"
@@ -31,8 +31,21 @@ public class SQL_Q {
     }
 
     public static String fill_order_combo_box(String quality) {
-        return "SELECT distinct " + ORDER + " from " + PRIM_TABLE 
+        return "SELECT distinct " + ORDER + " from " + PRIM_TABLE
                 + " WHERE " + QUALITY + "=" + quotes(quality, false);
+    }
+
+    public static String fillUniversal(String actualComboParam, String quality, String order) {
+        String query = "SELECT distinct " + actualComboParam + " from " + PRIM_TABLE;
+        //
+        if (quality != null && quality.isEmpty() == false && actualComboParam.equals(QUALITY) == false) {
+            query += " WHERE " + QUALITY + "=" + quotes(quality, false);
+        } else if (order != null && order.isEmpty() == false && actualComboParam.equals(ORDER) == false) {
+            query += "AND " + ORDER + "=" + quotes(order, false);
+        }
+        //
+        System.out.println("query: " + query);
+        return query;
     }
 
     public static void main(String[] args) {

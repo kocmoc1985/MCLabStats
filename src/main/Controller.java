@@ -50,8 +50,13 @@ public class Controller {
 
     public void fillComboOrder() {
         String q = SQL_Q.fill_order_combo_box(HelpA.getComboBoxSelectedValue(gui.jComboBoxQuality));
+        //
+        String qq = SQL_Q.fillUniversal(SQL_Q.ORDER, 
+                HelpA.getComboBoxSelectedValue(gui.jComboBoxQuality),
+                HelpA.getComboBoxSelectedValue(gui.jComboBoxOrder));
+        //
         OUT.showMessage(q);
-        flagWaitOrderCombo = HelpA.fillComboBox_with_wait(gui.jComboBoxOrder, flagWaitOrderCombo, q, sql);
+        flagWaitOrderCombo = HelpA.fillComboBox_with_wait(gui.jComboBoxOrder, flagWaitOrderCombo, qq, sql);
     }
 
     private void connect() {
