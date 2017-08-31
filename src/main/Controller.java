@@ -22,19 +22,22 @@ import sql.Sql_B;
 public class Controller {
 
     private Sql_B sql = new Sql_B(false, true);
-    private GistoGram histogram = new GistoGram("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-    private XyGraph graph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN, histogram);
-    private String PATH;
+    private GistoGraph histogram = new GistoGraph("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private XyGraph xygraph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN, histogram);
     private ShowMessage OUT;
     private Gui gui;
 
-    public Controller(String PATH, ShowMessage OUT) {
-        this.PATH = PATH;
+    public Controller(ShowMessage OUT) {
         this.OUT = OUT;
         this.gui = (Gui) OUT;
+        //
+        Gui.GraphPanel.add(xygraph.getGraph());
+        Gui.HistoPanel.add(histogram.getGraph());
+        //
         connect();
         //
     }
+    
     private static long flagWaitQualityCombo;
 
     public void fillComboQuality() {
@@ -71,8 +74,8 @@ public class Controller {
         try {
             //
             ResultSet rs = sql.execute(q, OUT);
-            graph.deleteAllPointsFromAllSeries();
-            graph.addData(rs, "value");
+            xygraph.deleteAllPointsFromAllSeries();
+            xygraph.addData(rs, "value");
             //
             rs.first();
             //

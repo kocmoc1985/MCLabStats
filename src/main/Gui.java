@@ -27,7 +27,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
      */
     public Gui() {
         initComponents();
-        this.controller = new Controller(p.getProperty("mdb_path", ""), this);
+        this.controller = new Controller(this);
         addJComboListeners();
     }
 

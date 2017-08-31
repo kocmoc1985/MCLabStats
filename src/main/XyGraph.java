@@ -24,19 +24,16 @@ public class XyGraph extends MyXYGB {
 
     private MySerie serieLimitL;
     private MySerie serieLimitU;
-    private GistoGram gistoGram;
 
-    public XyGraph(String title, int displayMode, GistoGram gistoGram) {
+    public XyGraph(String title, int displayMode, GistoGraph gistoGram) {
         super(title, new MyGraphXY(), displayMode);
-        this.gistoGram = gistoGram;
-        Gui.GraphPanel.add(getGraph());
+        addDiffMarkersSetListener(gistoGram);
         init();
     }
 
     private void init() {
         addDiffMarkerOutPutComponent(DiffMarkerPoints.CALC_SUMM, Gui.jTextFieldSumm);
         addDiffMarkerOutPutComponent(DiffMarkerPoints.CALC_AVERAGE, Gui.jTextFieldAverage);
-        addDiffMarkersSetListener(gistoGram);
     }
 
     @Override
