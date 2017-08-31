@@ -12,7 +12,6 @@ import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +28,6 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
     public GistoGram(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
         Gui.HistoPanel.add(getGraph());
-//        mgxyh.setStepIdentifierX(2);
     }
 
     @Override
@@ -61,11 +59,6 @@ public class GistoGram extends HistograM implements DiffMarkerAction {
     }
 
     private void rebuildData(ResultSet rs, String valueColName, String round, int start, int end) {
-        //PAY ATTENTION HERE
-        mgxyh = new MyGraphXY_H();
-        mgxyh.addSerie(serie);
-        //
-//        reset(); // Dont use reset!
         //
         getSerie().deleteAllPoints();
         histoMap.clear();
