@@ -42,9 +42,9 @@ public class Controller {
 
     private void connect() {
         try {
-//            sql.connect_mdb("", "", PATH);
+            sql.connect_mdb("", "", "c:/test/data.mdb");
 //            sql.connect_odbc("", "", "MC_LAB");
-            sql.connect_jdbc("10.87.0.2", "1433", "MCLAB_COMPOUND", "sa", "");
+//            sql.connect_jdbc("10.87.0.2", "1433", "MCLAB_COMPOUND", "sa", "");
             OUT.showMessage("Connected");
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -116,6 +116,7 @@ public class Controller {
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
+        //
     }
     private static long flagWaitOrderCombo;
 
@@ -133,6 +134,7 @@ public class Controller {
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
+        //
     }
     private static long flagWaitBatchCombo;
 

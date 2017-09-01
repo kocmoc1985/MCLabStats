@@ -77,7 +77,7 @@ public class SQL_Q {
 
     public static String fillAuto(String actualComboParam) {
         //
-        String query = "SELECT [" + actualComboParam + "] from " + PRIM_TABLE;
+        String query = "SELECT DISTINCT [" + actualComboParam + "] from " + PRIM_TABLE;
         //
         String quality = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxQuality);
         String order = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxOrder);
@@ -92,7 +92,7 @@ public class SQL_Q {
         }  if (order != null && order.isEmpty() == false && actualComboParam.equals(ORDER) == false) {
             query += " AND [" + ORDER + "]=" + quotes(order, false);
         }  if (batch != null && batch.isEmpty() == false && actualComboParam.equals(BATCH) == false) {
-            query += " AND [" + BATCH + "]=" + quotes(batch, false);
+            query += " AND [" + BATCH + "]=" + quotes(batch, false); // OBS! Is Integer
         }  if (testCode != null && testCode.isEmpty() == false && actualComboParam.equals(TEST_CODE) == false) {
             query += " AND [" + TEST_CODE + "]=" + quotes(testCode, false);
         }  if (testName != null && testName.isEmpty() == false && actualComboParam.equals(TEST_NAME) == false) {
@@ -107,7 +107,7 @@ public class SQL_Q {
             query = query.replaceFirst("AND", "WHERE");
         }
         //
-        query += " GROUP BY [" + actualComboParam + "]";
+//        query += " GROUP BY [" + actualComboParam + "]";
         query += " ORDER BY [" + actualComboParam + "] DESC";
         //
         System.out.println("query: " + query);
