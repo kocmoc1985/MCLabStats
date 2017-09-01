@@ -107,7 +107,7 @@ public class XyGraph extends MyXYGB {
 
         try {
             while (rs.next()) {
-                double val = rs.getDouble(valueColName);
+                double val = processValue(rs.getString(valueColName));
                 double minLim = rs.getDouble("LSL");
                 double maxLim = rs.getDouble("USL");
                 addPointBySerie(minLim, "LSL");
@@ -128,5 +128,14 @@ public class XyGraph extends MyXYGB {
             Logger.getLogger(XyGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private double processValue(String value) {
+        try {
+            double x = Double.parseDouble(value);
+            return x;
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 }

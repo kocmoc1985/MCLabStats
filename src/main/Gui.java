@@ -34,6 +34,11 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private void addJComboListeners() {
         HelpA.addMouseListenerJComboBox(jComboBoxQuality, this);
         HelpA.addMouseListenerJComboBox(jComboBoxOrder, this);
+        HelpA.addMouseListenerJComboBox(jComboBoxBatch, this);
+        HelpA.addMouseListenerJComboBox(jComboBoxTestCode, this);
+        HelpA.addMouseListenerJComboBox(jComboBoxTestName, this);
+        HelpA.addMouseListenerJComboBox(jComboBoxLSL, this);
+        HelpA.addMouseListenerJComboBox(jComboBoxUSL, this);
     }
 
     @Override
@@ -54,13 +59,19 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         GraphPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButtonFind = new javax.swing.JButton();
         HistoPanel = new javax.swing.JPanel();
         jComboBoxQuality = new javax.swing.JComboBox();
         jComboBoxOrder = new javax.swing.JComboBox();
         jPanelOutputContainer = new javax.swing.JPanel();
         jTextFieldSumm = new javax.swing.JTextField();
         jTextFieldAverage = new javax.swing.JTextField();
+        jComboBoxBatch = new javax.swing.JComboBox();
+        jComboBoxTestCode = new javax.swing.JComboBox();
+        jComboBoxLSL = new javax.swing.JComboBox();
+        jComboBoxUSL = new javax.swing.JComboBox();
+        jComboBoxTestName = new javax.swing.JComboBox();
+        jButtonClear = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -70,10 +81,10 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         GraphPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         GraphPanel.setLayout(new java.awt.GridLayout(1, 1));
 
-        jButton1.setText("Test");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFind.setText("Find");
+        jButtonFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonFindActionPerformed(evt);
             }
         });
 
@@ -89,41 +100,76 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanelOutputContainer.add(jTextFieldSumm);
         jPanelOutputContainer.add(jTextFieldAverage);
 
+        jComboBoxBatch.setModel(new javax.swing.DefaultComboBoxModel());
+
+        jComboBoxTestCode.setModel(new javax.swing.DefaultComboBoxModel());
+
+        jComboBoxLSL.setModel(new javax.swing.DefaultComboBoxModel());
+
+        jComboBoxUSL.setModel(new javax.swing.DefaultComboBoxModel());
+
+        jComboBoxTestName.setModel(new javax.swing.DefaultComboBoxModel());
+
+        jButtonClear.setText("Clear");
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(HistoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(jComboBoxQuality, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(jButton1))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 801, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBoxLSL, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxBatch, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxQuality, 0, 153, Short.MAX_VALUE)
+                    .addComponent(jComboBoxTestCode, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBoxUSL, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxOrder, 0, 148, Short.MAX_VALUE)
+                    .addComponent(jComboBoxTestName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(jButtonFind)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonClear)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(138, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxQuality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(49, 49, 49)
+                    .addComponent(jComboBoxOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxBatch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxTestCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTestName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxLSL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxUSL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonFind)
+                    .addComponent(jButtonClear))
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(HistoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE))
@@ -152,7 +198,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(360, Short.MAX_VALUE))
+                .addContainerGap(373, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Log", jPanel3);
@@ -171,9 +217,14 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindActionPerformed
         controller.testBuild();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonFindActionPerformed
+
+    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+        controller.clearBoxes();
+        controller.resetFlagWaits();
+    }//GEN-LAST:event_jButtonClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,9 +264,15 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel GraphPanel;
     public static javax.swing.JPanel HistoPanel;
-    private javax.swing.JButton jButton1;
-    public javax.swing.JComboBox jComboBoxOrder;
-    public javax.swing.JComboBox jComboBoxQuality;
+    private javax.swing.JButton jButtonClear;
+    private javax.swing.JButton jButtonFind;
+    public static javax.swing.JComboBox jComboBoxBatch;
+    public static javax.swing.JComboBox jComboBoxLSL;
+    public static javax.swing.JComboBox jComboBoxOrder;
+    public static javax.swing.JComboBox jComboBoxQuality;
+    public static javax.swing.JComboBox jComboBoxTestCode;
+    public static javax.swing.JComboBox jComboBoxTestName;
+    public static javax.swing.JComboBox jComboBoxUSL;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelOutputContainer;
@@ -227,32 +284,58 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void mouseClicked(MouseEvent me) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent me) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent me) {
-    }
-
-    @Override
     public void mouseEntered(MouseEvent me) {
+    }
 
+    @Override
+    public void mouseClicked(MouseEvent me) {
         if (me.getSource() instanceof JButton) {
             JButton button = (JButton) me.getSource();
             if (button.getParent() instanceof JComboBox) {
                 JComboBox parent = (JComboBox) button.getParent();
-
+                //
+                
+                //
                 if (parent.equals(jComboBoxQuality)) {
                     controller.fillComboQuality();
-                }else if(parent.equals(jComboBoxOrder)){
-                     controller.fillComboOrder();
+                } else if (parent.equals(jComboBoxOrder)) {
+                    controller.fillComboOrder();
+                } else if (parent.equals(jComboBoxBatch)) {
+                    controller.fillComboBatch();
+                } else if (parent.equals(jComboBoxTestCode)) {
+                    controller.fillComboTestCode();
+                } else if (parent.equals(jComboBoxTestName)) {
+                    controller.fillComboTestName();
+                } else if (parent.equals(jComboBoxLSL)) {
+                    controller.fillComboLSL();
+                } else if (parent.equals(jComboBoxUSL)) {
+                    controller.fillComboUSL();
                 }
+                //
+                parent.setEditable(true);
+                
             }
         }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        if (me.getSource() instanceof JButton) {
+            JButton button = (JButton) me.getSource();
+            if (button.getParent() instanceof JComboBox) {
+                //
+                JComboBox parent = (JComboBox) button.getParent();
+                //
+//                parent.setBackground(Color.lightGray);
+                //
+                parent.hidePopup(); // OBS! IMPORTANT
+                //
+            }
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
     }
 
     @Override

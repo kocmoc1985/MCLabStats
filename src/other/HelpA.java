@@ -4,7 +4,6 @@
  */
 package other;
 
-
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import images.IconUrls;
@@ -13,6 +12,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Robot;
@@ -56,6 +56,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -127,7 +128,6 @@ public class HelpA {
 //            Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-
     /**
      * Used to know if you are running from NetBeans, this to know if to use
      * err_output_to_file()
@@ -164,12 +164,11 @@ public class HelpA {
             f.mkdir();
         }
     }
-
     public final static boolean TRACKING_TOOL_TIP = false;
-    
+
 //    public static final boolean TRACKING_ON = true;
     public static void setTrackingToolTip(JComponent jc, String text) {
-        if(TRACKING_TOOL_TIP == false){
+        if (TRACKING_TOOL_TIP == false) {
             return;
         }
         //
@@ -177,7 +176,7 @@ public class HelpA {
             return;
         }
         //
-        if (runningInNetBeans("MCRecipe.jar") ) {
+        if (runningInNetBeans("MCRecipe.jar")) {
             if (jc instanceof JComboBox) {//Combo from InvertTable
                 JComboBox box = (JComboBox) jc;
                 box.setRenderer(new MyComboBoxRenderer(text));
@@ -214,8 +213,6 @@ public class HelpA {
         }
     }
 
-    
-
     private static boolean a01(String[] columnsToRemove, String currColName) {
         for (String colName : columnsToRemove) {
             if (currColName.equals(colName)) {
@@ -245,7 +242,7 @@ public class HelpA {
     public static boolean getSelectedCheckBox(JCheckBox box) {
         return box.isSelected();
     }
-    
+
     public static void main(String[] args) {
         columnExistsSqlTable(null, "UpdatedOn", "Ingredient_Code");
     }
@@ -263,8 +260,6 @@ public class HelpA {
         //
     }
 
-    
-
     public static boolean entryExistsSql(SqlBasicLocal sql, String q) {
         try {
             ResultSet rs = sql.execute(q);
@@ -278,7 +273,7 @@ public class HelpA {
         //
         return false;
     }
-    
+
     private static String quotes(String str, boolean number) {
         //
         if (str == null || str.equals("NULL")) {
@@ -380,8 +375,6 @@ public class HelpA {
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
-
-  
 
     public static String define_date_format(String date) {
         if (date != null) {
@@ -1220,9 +1213,9 @@ public class HelpA {
             return false;
         }
     }
-    
-    public static boolean checkIfDate(String value_yyyy_MM_dd){
-        if(value_yyyy_MM_dd.matches("\\d{4}-\\d{2}-\\d{2}")){
+
+    public static boolean checkIfDate(String value_yyyy_MM_dd) {
+        if (value_yyyy_MM_dd.matches("\\d{4}-\\d{2}-\\d{2}")) {
             return true;
         }
         return false;
@@ -1292,26 +1285,8 @@ public class HelpA {
             }
         }
     }
-    
     private static HashMap<JComboBox, AutoCompleteSupport> autoSupportList = new HashMap<JComboBox, AutoCompleteSupport>();
     public static Border initialComboBoxBorder;
-
-    /**
-     * Very effective way of handling cases when it takes plenty of time to load
-     * data to a combo box, and each time when you point on the combo box it
-     * starts to load the data from the beginning
-     *
-     * @param flagWait
-     * @return
-     */
-    public static boolean fillAllowedComboBox(long flagWait) {
-        //
-        if (System.currentTimeMillis() - flagWait < 10000 && flagWait > 0) {
-            return false;
-        }
-        //
-        return true;
-    }
     private static final HashMap<String, String> fakeValuesMap = new HashMap<String, String>();
 
     static {
@@ -1359,12 +1334,12 @@ public class HelpA {
                 //
                 String val = null;
                 //
-                try{
+                try {
                     val = rs.getString(1);
-                }catch(Exception ex){
+                } catch (Exception ex) {
                     break;
                 }
-                
+
                 if (val != null && val.isEmpty() == false) {
                     if (showMultipleValues) {
                         //
@@ -1496,36 +1471,58 @@ public class HelpA {
         //
         return jbox;
     }
-    
-    
+
     /**
      * IMPORTANT!
+     *
      * @param box
      * @param query
-     * @param sql 
+     * @param sql
      */
-    public static synchronized long fillComboBox_with_wait(final JComboBox box,long flagWait, String query, SqlBasicLocal sql) {
-        
+    public static synchronized long fillComboBox_with_wait(final JComboBox box, long flagWait, String query, SqlBasicLocal sql) {
+        //
         if (HelpA.fillAllowedComboBox(flagWait) == false) {
+            flagWait = System.currentTimeMillis();
             return flagWait;
-        } else {
-            flagWait = 0;
-        }
+        } 
         //
         Object selection = box.getSelectedItem();
         //
         String q = query;
         //
-        //
         HelpA.fillComboBox(sql, box, q, null, false, false);
-        //
-        box.showPopup();
+//        HelpA.fillComboBox_no_autofill(sql, box, query, null);
         //
         flagWait = System.currentTimeMillis();
         //
-        box.setSelectedItem(selection);
+        if(selection == null && box.getItemCount() > 0){
+            box.setSelectedIndex(0);
+        }else{
+            box.setSelectedItem(selection);
+        }
+        
+//        box.setSelectedIndex(0);
+        //
         //
         return flagWait;
+    }
+    
+
+    /**
+     * Very effective way of handling cases when it takes plenty of time to load
+     * data to a combo box, and each time when you point on the combo box it
+     * starts to load the data from the beginning
+     *
+     * @param flagWait
+     * @return
+     */
+    public static boolean fillAllowedComboBox(long flagWait) {
+        //
+        if ((System.currentTimeMillis() - flagWait) < 15000 && flagWait > 0) {
+            return false;
+        }
+        //
+        return true;
     }
 
     private static String getValueResultSet(ResultSet rs, int index) {
@@ -1554,6 +1551,34 @@ public class HelpA {
         //
         if (val instanceof ComboBoxTitle) {
             return "NULL";
+        }
+        //
+        if (val instanceof HelpA.ComboBoxObject) {
+            HelpA.ComboBoxObject cbo = (HelpA.ComboBoxObject) val;
+            return cbo.getParam_1(); // The "'" shall be remowed in feature!!!!!
+        }
+        //
+        return null;
+    }
+
+    public static String getComboBoxSelectedValue_b(JComboBox box) {
+        Object val = box.getSelectedItem();
+        //
+        if (val == null) {
+            return null;
+        }
+        //
+        if (val instanceof String) {
+            String v = (String) val;
+            if (v.isEmpty()) {
+                return null;
+            } else {
+                return v.toString();
+            }
+        }
+        //
+        if (val instanceof ComboBoxTitle) {
+            return null;
         }
         //
         if (val instanceof HelpA.ComboBoxObject) {
@@ -1921,8 +1946,8 @@ public class HelpA {
         //
         return list;
     }
-    
-     public static void open_dir(String path) {
+
+    public static void open_dir(String path) {
         try {
             Desktop.getDesktop().open(new File(path));
         } catch (IOException ex) {
@@ -1938,8 +1963,8 @@ public class HelpA {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         return new Point((d.width - window.getSize().width) / 2, (d.height - window.getSize().height) / 2);
     }
-    
-      public static void goToEndPosition(JTextArea txtArea) {
+
+    public static void goToEndPosition(JTextArea txtArea) {
         txtArea.setCaretPosition(txtArea.getDocument().getLength());
     }
 
@@ -1984,8 +2009,8 @@ public class HelpA {
             }
         }
     }
-    
-    public static void nimbusLookAndFeel(){
+
+    public static void nimbusLookAndFeel() {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
