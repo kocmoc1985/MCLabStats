@@ -4,9 +4,11 @@
  */
 package main;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Properties;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import other.HelpA;
@@ -21,7 +23,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
     private Controller controller;
     private Properties p = HelpB.properties_load_properties("main.properties", false);
-
+    private static Color INITIAL_BG_COLOR_COMBO;
     /**
      * Creates new form Gui
      */
@@ -32,6 +34,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     }
 
     private void addJComboListeners() {
+        INITIAL_BG_COLOR_COMBO = jComboBoxQuality.getBackground();
+        //
         HelpA.addMouseListenerJComboBox(jComboBoxQuality, this);
         HelpA.addMouseListenerJComboBox(jComboBoxOrder, this);
         HelpA.addMouseListenerJComboBox(jComboBoxBatch, this);
@@ -313,7 +317,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                 }
                 //
                 parent.setEditable(true);
-                
+                parent.setBackground(INITIAL_BG_COLOR_COMBO);
             }
         }
     }
@@ -326,10 +330,11 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                 //
                 JComboBox parent = (JComboBox) button.getParent();
                 //
-//                parent.setBackground(Color.lightGray);
+                parent.setBackground(Color.orange);
                 //
                 parent.hidePopup(); // OBS! IMPORTANT
                 //
+                System.out.println("" + parent.getParent());
             }
         }
     }

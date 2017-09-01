@@ -108,6 +108,7 @@ public class SQL_Q {
         }
         //
         query += " GROUP BY [" + actualComboParam + "]";
+        query += " ORDER BY [" + actualComboParam + "] DESC";
         //
         System.out.println("query: " + query);
         return query;

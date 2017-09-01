@@ -1490,6 +1490,7 @@ public class HelpA {
         //
         String q = query;
         //
+        //
         HelpA.fillComboBox(sql, box, q, null, false, false);
 //        HelpA.fillComboBox_no_autofill(sql, box, query, null);
         //
@@ -1500,9 +1501,6 @@ public class HelpA {
         }else{
             box.setSelectedItem(selection);
         }
-        
-//        box.setSelectedIndex(0);
-        //
         //
         return flagWait;
     }
