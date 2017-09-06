@@ -24,6 +24,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private Controller controller;
     private Properties p = HelpB.properties_load_properties("main.properties", false);
     private static Color INITIAL_BG_COLOR_COMBO;
+
     /**
      * Creates new form Gui
      */
@@ -298,7 +299,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             if (button.getParent() instanceof JComboBox) {
                 JComboBox parent = (JComboBox) button.getParent();
                 //
-                
+
                 //
                 if (parent.equals(jComboBoxQuality)) {
                     controller.fillComboQuality();
@@ -334,7 +335,9 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                 //
                 parent.hidePopup(); // OBS! IMPORTANT
                 //
-                System.out.println("" + parent.getParent());
+//                parent.invalidate();
+//                parent.repaint();
+//                parent.updateUI();
             }
         }
     }
