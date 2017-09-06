@@ -1491,7 +1491,7 @@ public class HelpA {
         String q = query;
         //
         //
-        HelpA.fillComboBox(sql, box, q, null, false, false);
+        HelpA.fillComboBox(sql, box, q, null, true, false);
 //        HelpA.fillComboBox_no_autofill(sql, box, query, null);
         //
         flagWait = System.currentTimeMillis();

@@ -77,7 +77,8 @@ public class SQL_Q {
 
     public static String fillAuto(String actualComboParam) {
         //
-        String query = "SELECT DISTINCT [" + actualComboParam + "] from " + PRIM_TABLE;
+        String query = "SELECT DISTINCT [" + actualComboParam + "], COUNT(" + actualComboParam + ") as 'ammount'"
+                + " from " + PRIM_TABLE;
         //
         String quality = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxQuality);
         String order = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxOrder);
@@ -108,7 +109,8 @@ public class SQL_Q {
         }
         //
 //        query += " GROUP BY [" + actualComboParam + "]";
-        query += " ORDER BY [" + actualComboParam + "] DESC";
+        query += " GROUP BY [" + actualComboParam + "]";
+//        query += " ORDER BY [" + actualComboParam + "] DESC";
         //
         System.out.println("query: " + query);
         return query;
