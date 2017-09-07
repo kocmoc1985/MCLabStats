@@ -126,6 +126,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jComboBoxDateA.setModel(new javax.swing.DefaultComboBoxModel());
 
+        jComboBoxDateB.setEditable(true);
         jComboBoxDateB.setModel(new javax.swing.DefaultComboBoxModel());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

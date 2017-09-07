@@ -8,6 +8,8 @@ import XYG_BASIC.MyGraphContainer;
 import XYG_HISTO.MyGraphXY_H;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import other.HelpA;
@@ -77,7 +79,7 @@ public class Controller {
     //==========================================================================
 
     public void clearBoxes() {
-             
+
         Gui.jComboBoxQuality.setSelectedItem(null);
         Gui.jComboBoxOrder.setSelectedItem(null);
         Gui.jComboBoxBatch.setSelectedItem(null);
@@ -95,7 +97,7 @@ public class Controller {
         Gui.jComboBoxLSL.setEditable(false);
         Gui.jComboBoxUSL.setEditable(false);
         Gui.jComboBoxDateA.setEditable(false);
-        
+
         gui.repaint();
     }
     //==========================================================================
@@ -228,8 +230,8 @@ public class Controller {
         flagWaitLSLCombo = 0;
         flagWaitDateACombo = 0;
     }
-    
-     private static long flagWaitDateACombo;
+    private static long flagWaitDateACombo;
+
     public void fillComboDateA() {
         //
         String q = SQL_Q.fillAuto(SQL_Q.TEST_DATE);
@@ -245,7 +247,6 @@ public class Controller {
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
     }
-    
 
     public void resetFlagWaits() {
         flagWaitQualityCombo = 0;
@@ -256,6 +257,12 @@ public class Controller {
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
         flagWaitDateACombo = 0;
+    }
+
+    private void mapFalgs() {
+        HashMap<String, Long> flag_wait_map = new HashMap<>();
+        //
+        flag_wait_map.put(SQL_Q.QUALITY, flagWaitQualityCombo);
     }
     //==========================================================================
 }
