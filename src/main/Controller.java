@@ -85,6 +85,7 @@ public class Controller {
         Gui.jComboBoxTestName.setSelectedItem(null);
         Gui.jComboBoxLSL.setSelectedItem(null);
         Gui.jComboBoxUSL.setSelectedItem(null);
+        Gui.jComboBoxDateA.setSelectedItem(null);
 
         Gui.jComboBoxQuality.setEditable(false);
         Gui.jComboBoxOrder.setEditable(false);
@@ -93,6 +94,7 @@ public class Controller {
         Gui.jComboBoxTestName.setEditable(false);
         Gui.jComboBoxLSL.setEditable(false);
         Gui.jComboBoxUSL.setEditable(false);
+        Gui.jComboBoxDateA.setEditable(false);
         
         gui.repaint();
     }
@@ -114,6 +116,7 @@ public class Controller {
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
+        flagWaitDateACombo = 0;
         //
     }
     private static long flagWaitOrderCombo;
@@ -132,6 +135,7 @@ public class Controller {
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
+        flagWaitDateACombo = 0;
         //
     }
     private static long flagWaitBatchCombo;
@@ -150,6 +154,7 @@ public class Controller {
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
+        flagWaitDateACombo = 0;
     }
     private static long flagWaitTestCodeCombo;
 
@@ -167,6 +172,7 @@ public class Controller {
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
+        flagWaitDateACombo = 0;
     }
     private static long flagWaitTestNameCombo;
 
@@ -184,6 +190,7 @@ public class Controller {
         flagWaitTestCodeCombo = 0;
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
+        flagWaitDateACombo = 0;
     }
     private static long flagWaitLSLCombo;
 
@@ -201,6 +208,7 @@ public class Controller {
         flagWaitTestCodeCombo = 0;
         flagWaitTestNameCombo = 0;
         flagWaitUSLCombo = 0;
+        flagWaitDateACombo = 0;
     }
     private static long flagWaitUSLCombo;
 
@@ -218,7 +226,26 @@ public class Controller {
         flagWaitTestCodeCombo = 0;
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
+        flagWaitDateACombo = 0;
     }
+    
+     private static long flagWaitDateACombo;
+    public void fillComboDateA() {
+        //
+        String q = SQL_Q.fillAuto(SQL_Q.TEST_DATE);
+        //
+        OUT.showMessage(q);
+        //
+        flagWaitDateACombo = HelpA.fillComboBox_with_wait(Gui.jComboBoxDateA, flagWaitDateACombo, q, sql);
+        //
+        flagWaitQualityCombo = 0;
+        flagWaitOrderCombo = 0;
+        flagWaitBatchCombo = 0;
+        flagWaitTestCodeCombo = 0;
+        flagWaitTestNameCombo = 0;
+        flagWaitLSLCombo = 0;
+    }
+    
 
     public void resetFlagWaits() {
         flagWaitQualityCombo = 0;
@@ -228,6 +255,7 @@ public class Controller {
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
+        flagWaitDateACombo = 0;
     }
     //==========================================================================
 }

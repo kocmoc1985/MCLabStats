@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Properties;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import other.HelpA;
@@ -44,6 +43,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         HelpA.addMouseListenerJComboBox(jComboBoxTestName, this);
         HelpA.addMouseListenerJComboBox(jComboBoxLSL, this);
         HelpA.addMouseListenerJComboBox(jComboBoxUSL, this);
+        HelpA.addMouseListenerJComboBox(jComboBoxDateA, this);
     }
 
     @Override
@@ -77,6 +77,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jComboBoxUSL = new javax.swing.JComboBox();
         jComboBoxTestName = new javax.swing.JComboBox();
         jButtonClear = new javax.swing.JButton();
+        jComboBoxDateA = new javax.swing.JComboBox();
+        jComboBoxDateB = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -122,6 +124,10 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             }
         });
 
+        jComboBoxDateA.setModel(new javax.swing.DefaultComboBoxModel());
+
+        jComboBoxDateB.setModel(new javax.swing.DefaultComboBoxModel());
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -149,10 +155,17 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                     .addComponent(jComboBoxUSL, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxOrder, 0, 148, Short.MAX_VALUE)
                     .addComponent(jComboBoxTestName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(45, 45, 45)
-                .addComponent(jButtonFind)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonClear)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jButtonFind)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonClear))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jComboBoxDateA, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxDateB, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -161,7 +174,9 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                 .addGap(53, 53, 53)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxQuality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDateA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDateB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jComboBoxBatch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -272,6 +287,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonFind;
     public static javax.swing.JComboBox jComboBoxBatch;
+    public static javax.swing.JComboBox jComboBoxDateA;
+    public static javax.swing.JComboBox jComboBoxDateB;
     public static javax.swing.JComboBox jComboBoxLSL;
     public static javax.swing.JComboBox jComboBoxOrder;
     public static javax.swing.JComboBox jComboBoxQuality;
@@ -315,6 +332,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                     controller.fillComboLSL();
                 } else if (parent.equals(jComboBoxUSL)) {
                     controller.fillComboUSL();
+                } else if (parent.equals(jComboBoxDateA)) {
+                    controller.fillComboDateA();
                 }
                 //
                 parent.setEditable(true);
