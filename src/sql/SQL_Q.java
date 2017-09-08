@@ -4,9 +4,11 @@
  */
 package sql;
 
+import com.michaelbaranov.microba.calendar.DatePicker;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import main.Gui;
+import static main.Gui.DATE_FORMAT;
 import other.HelpA;
 import other.JComboBoxM;
 
@@ -81,7 +83,7 @@ public class SQL_Q {
         }
         //
         String dateA = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateA);
-        String dateB = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateB);
+        String dateB = datePickerGetDate(gui.datePicker1);
         //
         if ((dateB != null && dateB.isEmpty() == false) && (dateA != null && dateA.isEmpty() == false)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
@@ -121,7 +123,7 @@ public class SQL_Q {
         //
         //
         String dateA = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateA);
-        String dateB = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateB);
+        String dateB = datePickerGetDate(gui.datePicker1);
         //
         if ((dateB != null && dateB.isEmpty() == false) && (dateA != null && dateA.isEmpty() == false)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
@@ -140,6 +142,14 @@ public class SQL_Q {
         //
         System.out.println("query: " + query);
         return query;
+    }
+    
+    private static String datePickerGetDate(DatePicker dp){
+        if(dp.getDate() == null){
+            return "";
+        }
+        
+        return HelpA.millisToDateConverter("" + dp.getDate().getTime(), DATE_FORMAT);
     }
 
     public static String quotes(String str, boolean number) {

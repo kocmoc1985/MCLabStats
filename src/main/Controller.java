@@ -6,6 +6,7 @@ package main;
 
 import XYG_BASIC.MyGraphContainer;
 import XYG_HISTO.MyGraphXY_H;
+import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -77,15 +78,21 @@ public class Controller {
     //==========================================================================
     //==========================================================================
 
-    public void clearBoxes() {
-
+    public void clearComponents() {
+        //
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
         //
         for (JComboBox jComboBox : list) {
             jComboBox.setSelectedItem(null);
             jComboBox.setEditable(false);
         }
-
+        //
+        try {
+            gui.datePicker1.setDate(null);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
         gui.repaint();
     }
     //==========================================================================

@@ -7,6 +7,7 @@ package main;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 import javax.swing.JButton;
@@ -22,11 +23,12 @@ import sql.ShowMessage;
  * @author KOCMOC
  */
 public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListener {
-
+    
     private Controller controller;
     private Properties p = HelpB.properties_load_properties("main.properties", false);
     private static Color INITIAL_BG_COLOR_COMBO;
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
+    public final static String DATE_FORMAT = "yy/MM/dd";
 
     /**
      * Creates new form Gui
@@ -34,10 +36,15 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     public Gui() {
         initComponents();
         this.controller = new Controller(this);
+        initOther();
         buildComboList();
         addJComboListeners();
     }
-
+    
+    private void initOther() {
+        datePicker1.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
+    }
+    
     public ArrayList<JComboBox> getJCOMBO_LIST() {
         return JCOMBO_LIST;
     }
@@ -52,7 +59,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         JCOMBO_LIST.add(jComboBoxUSL);
         JCOMBO_LIST.add(jComboBoxDateA);
     }
-
+    
     private void addJComboListeners() {
         INITIAL_BG_COLOR_COMBO = jComboBoxQuality.getBackground();
         //
@@ -60,7 +67,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             HelpA.addMouseListenerJComboBox(jComboBox, this);
         }
     }
-
+    
     @Override
     public void showMessage(String str) {
 //        System.out.println("" + str);
@@ -93,7 +100,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jComboBoxTestName = new JComboBoxM(SQL_Q.TEST_NAME,false);
         jButtonClear = new javax.swing.JButton();
         jComboBoxDateA = new JComboBoxM(SQL_Q.TEST_DATE,false);
-        jComboBoxDateB = new JComboBoxM(SQL_Q.TEST_DATE,false);
+        datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -141,8 +148,12 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jComboBoxDateA.setModel(new javax.swing.DefaultComboBoxModel());
 
-        jComboBoxDateB.setEditable(true);
-        jComboBoxDateB.setModel(new javax.swing.DefaultComboBoxModel());
+        try {
+            datePicker1.setDate(null);
+        } catch (java.beans.PropertyVetoException e1) {
+            e1.printStackTrace();
+        }
+        datePicker1.setShowNoneButton(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -151,48 +162,51 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxLSL, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxBatch, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxQuality, 0, 153, Short.MAX_VALUE)
+                            .addComponent(jComboBoxTestCode, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(HistoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxUSL, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxOrder, 0, 148, Short.MAX_VALUE)
+                            .addComponent(jComboBoxTestName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(jButtonFind)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonClear))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jComboBoxDateA, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 801, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxLSL, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxBatch, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxQuality, 0, 153, Short.MAX_VALUE)
-                    .addComponent(jComboBoxTestCode, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxUSL, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxOrder, 0, 148, Short.MAX_VALUE)
-                    .addComponent(jComboBoxTestName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jButtonFind)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonClear))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jComboBoxDateA, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jComboBoxDateB, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 801, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(HistoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxQuality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxDateA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxDateB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxQuality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxDateA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jComboBoxBatch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -256,12 +270,12 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindActionPerformed
         controller.testBuild();
     }//GEN-LAST:event_jButtonFindActionPerformed
-
+    
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        controller.clearBoxes();
+        controller.clearComponents();
         controller.resetFlagWaits();
     }//GEN-LAST:event_jButtonClearActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -300,11 +314,11 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel GraphPanel;
     public static javax.swing.JPanel HistoPanel;
+    public com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonFind;
     public javax.swing.JComboBox jComboBoxBatch;
     public javax.swing.JComboBox jComboBoxDateA;
-    public javax.swing.JComboBox jComboBoxDateB;
     public javax.swing.JComboBox jComboBoxLSL;
     public javax.swing.JComboBox jComboBoxOrder;
     public javax.swing.JComboBox jComboBoxQuality;
@@ -324,7 +338,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     @Override
     public void mouseEntered(MouseEvent me) {
     }
-
+    
     @Override
     public void mouseClicked(MouseEvent me) {
         if (me.getSource() instanceof JButton) {
@@ -332,14 +346,14 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             if (button.getParent() instanceof JComboBox) {
                 JComboBox parent = (JComboBox) button.getParent();
                 //
-                controller.fillComboStandard((JComboBoxM)parent);
+                controller.fillComboStandard((JComboBoxM) parent);
                 //
                 parent.setEditable(true);
                 parent.setBackground(INITIAL_BG_COLOR_COMBO);
             }
         }
     }
-
+    
     @Override
     public void mousePressed(MouseEvent me) {
         if (me.getSource() instanceof JButton) {
@@ -358,11 +372,11 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             }
         }
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent me) {
     }
-
+    
     @Override
     public void mouseExited(MouseEvent me) {
     }

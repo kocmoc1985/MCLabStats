@@ -12,7 +12,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Robot;
@@ -56,7 +55,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -71,7 +69,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -1882,6 +1879,16 @@ public class HelpA {
         byteArrayToFile(duplicate_file_name, b_arr);
         System.out.println("copy files done");
     }
+    public static String millisToDateConverter(String millis,String dateFormat) {
+//        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS"); //this works!
+        //note if to write hh instead of HH it will show like 03:15:16 and not 15:15:16
+        DateFormat formatter = new SimpleDateFormat(dateFormat); // this works to!
+        long now = Long.parseLong(millis);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(now);
+        return formatter.format(calendar.getTime());
+    }
+    
 
     public static String get_proper_date_time_same_format_on_all_computers() {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

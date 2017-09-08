@@ -6,7 +6,6 @@
 [2017-08-29 15:36:23]   jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=c:/test/data.mdb
 [2017-08-29 15:36:55]   jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=c:/test/data.mdb
 [2017-08-29 15:38:06]   jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=c:/test/data.mdb
-[2017-08-29 15:38:44]   jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=c:/test/data.mdb
 [2017-08-29 15:39:33]   jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=c:/test/data.mdb
 [2017-08-29 16:22:55]   jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=c:/test/data.mdb
 [2017-08-29 16:23:52]   jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=c:/test/data.mdb
