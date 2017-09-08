@@ -1,3 +1,16 @@
 Reminders for changing things:
 
 Adding point info => main -> XyGraph -> addData(......)
+
+********************************************************
+
+Adding additional "Calculations" / "Calc fields":
+
+XyGraph -> init()
+
+DiffMarkerPointsM -> go(..)
+
+DiffMarkerPointsM -> calcAndShow(.....)
+
+
+

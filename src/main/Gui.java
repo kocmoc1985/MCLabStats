@@ -93,6 +93,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanelOutputContainer = new javax.swing.JPanel();
         jTextFieldSumm = new javax.swing.JTextField();
         jTextFieldAverage = new javax.swing.JTextField();
+        jTextFieldMedian = new javax.swing.JTextField();
         jComboBoxBatch = new JComboBoxM(SQL_Q.BATCH,true);
         jComboBoxTestCode = new JComboBoxM(SQL_Q.TEST_CODE,false);
         jComboBoxLSL = new JComboBoxM(SQL_Q.LSL,true);
@@ -128,6 +129,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanelOutputContainer.setLayout(new java.awt.GridLayout(1, 3, 5, 0));
         jPanelOutputContainer.add(jTextFieldSumm);
         jPanelOutputContainer.add(jTextFieldAverage);
+        jPanelOutputContainer.add(jTextFieldMedian);
 
         jComboBoxBatch.setModel(new javax.swing.DefaultComboBoxModel());
 
@@ -332,6 +334,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     public static javax.swing.JTextField jTextFieldAverage;
+    public static javax.swing.JTextField jTextFieldMedian;
     public static javax.swing.JTextField jTextFieldSumm;
     // End of variables declaration//GEN-END:variables
 

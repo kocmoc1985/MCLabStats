@@ -4,7 +4,6 @@
  */
 package main;
 
-import XYG_BASIC.DiffMarkerPoints;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
@@ -13,7 +12,6 @@ import XYG_BASIC.PointHighLighter;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,8 +31,9 @@ public class XyGraph extends MyXYGB {
     }
 
     private void init() {
-        addDiffMarkerOutPutComponent(DiffMarkerPoints.CALC_SUMM, Gui.jTextFieldSumm);
-        addDiffMarkerOutPutComponent(DiffMarkerPoints.CALC_AVERAGE, Gui.jTextFieldAverage);
+        addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_SUMM, Gui.jTextFieldSumm);
+        addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_AVERAGE, Gui.jTextFieldAverage);
+        addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_MEDIAN, Gui.jTextFieldMedian);
     }
 
     @Override
