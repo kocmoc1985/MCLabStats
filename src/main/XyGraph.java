@@ -63,7 +63,7 @@ public class XyGraph extends MyXYGB {
     @Override
     public void initializeB() {
         //
-        serie = new MySerie(getTitle());
+        serie = new MySerieM(getTitle());
         //
         serie.setDrawPoints(true);
         serie.setPointThickness(1);

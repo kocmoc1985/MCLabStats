@@ -1,4 +1,7 @@
+
 Reminders for changing things:
+
+********************************************************
 
 Adding point info => main -> XyGraph -> addData(......)
 
@@ -11,6 +14,10 @@ XyGraph -> init()
 DiffMarkerPointsM -> go(..)
 
 DiffMarkerPointsM -> calcAndShow(.....)
+
+Possibility to use "DiffMarkerPointsM" is made in -> MySerieM
+
+*************************************************************
 
 
 
