@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import other.HelpA;
 import other.HelpB;
+import other.JComboBoxM;
 import sql.ShowMessage;
 
 /**
@@ -77,7 +78,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jComboBoxUSL = new javax.swing.JComboBox();
         jComboBoxTestName = new javax.swing.JComboBox();
         jButtonClear = new javax.swing.JButton();
-        jComboBoxDateA = new javax.swing.JComboBox();
+        jComboBoxDateA = new JComboBoxM();
         jComboBoxDateB = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -288,7 +289,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonFind;
     public static javax.swing.JComboBox jComboBoxBatch;
-    public static javax.swing.JComboBox jComboBoxDateA;
+    public javax.swing.JComboBox jComboBoxDateA;
     public static javax.swing.JComboBox jComboBoxDateB;
     public static javax.swing.JComboBox jComboBoxLSL;
     public static javax.swing.JComboBox jComboBoxOrder;

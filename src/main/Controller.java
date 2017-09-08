@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import other.HelpA;
+import other.JComboBoxM;
 import sql.SQL_Q;
 import sql.ShowMessage;
 import sql.Sql_B;
@@ -57,7 +59,7 @@ public class Controller {
     public void testBuild() {
         //
 //        String q = SQL_Q.test_a(HelpA.getComboBoxSelectedValue(Gui.jComboBoxQuality));
-        String q = SQL_Q.showResult();
+        String q = SQL_Q.showResult(gui);
         //
         try {
             //
@@ -87,7 +89,7 @@ public class Controller {
         Gui.jComboBoxTestName.setSelectedItem(null);
         Gui.jComboBoxLSL.setSelectedItem(null);
         Gui.jComboBoxUSL.setSelectedItem(null);
-        Gui.jComboBoxDateA.setSelectedItem(null);
+        gui.jComboBoxDateA.setSelectedItem(null);
 
         Gui.jComboBoxQuality.setEditable(false);
         Gui.jComboBoxOrder.setEditable(false);
@@ -96,7 +98,7 @@ public class Controller {
         Gui.jComboBoxTestName.setEditable(false);
         Gui.jComboBoxLSL.setEditable(false);
         Gui.jComboBoxUSL.setEditable(false);
-        Gui.jComboBoxDateA.setEditable(false);
+        gui.jComboBoxDateA.setEditable(false);
 
         gui.repaint();
     }
@@ -106,7 +108,7 @@ public class Controller {
 
     public void fillComboQuality() {
         //
-        String q = SQL_Q.fillAuto(SQL_Q.QUALITY);
+        String q = SQL_Q.fillAuto(SQL_Q.QUALITY,gui);
         //
         OUT.showMessage(q);
         //
@@ -125,7 +127,7 @@ public class Controller {
 
     public void fillComboOrder() {
         //
-        String q = SQL_Q.fillAuto(SQL_Q.ORDER);
+        String q = SQL_Q.fillAuto(SQL_Q.ORDER,gui);
         //
         OUT.showMessage(q);
         //
@@ -144,7 +146,7 @@ public class Controller {
 
     public void fillComboBatch() {
         //
-        String q = SQL_Q.fillAuto(SQL_Q.BATCH);
+        String q = SQL_Q.fillAuto(SQL_Q.BATCH,gui);
         //
         OUT.showMessage(q);
         //
@@ -162,7 +164,7 @@ public class Controller {
 
     public void fillComboTestCode() {
         //
-        String q = SQL_Q.fillAuto(SQL_Q.TEST_CODE);
+        String q = SQL_Q.fillAuto(SQL_Q.TEST_CODE,gui);
         //
         OUT.showMessage(q);
         //
@@ -180,7 +182,7 @@ public class Controller {
 
     public void fillComboTestName() {
         //
-        String q = SQL_Q.fillAuto(SQL_Q.TEST_NAME);
+        String q = SQL_Q.fillAuto(SQL_Q.TEST_NAME,gui);
         //
         OUT.showMessage(q);
         //
@@ -198,7 +200,7 @@ public class Controller {
 
     public void fillComboLSL() {
         //
-        String q = SQL_Q.fillAuto(SQL_Q.LSL);
+        String q = SQL_Q.fillAuto(SQL_Q.LSL,gui);
         //
         OUT.showMessage(q);
         //
@@ -216,7 +218,7 @@ public class Controller {
 
     public void fillComboUSL() {
         //
-        String q = SQL_Q.fillAuto(SQL_Q.USL);
+        String q = SQL_Q.fillAuto(SQL_Q.USL,gui);
         //
         OUT.showMessage(q);
         //
@@ -234,11 +236,13 @@ public class Controller {
 
     public void fillComboDateA() {
         //
-        String q = SQL_Q.fillAuto(SQL_Q.TEST_DATE);
+        String q = SQL_Q.fillAuto(SQL_Q.TEST_DATE,gui);
         //
         OUT.showMessage(q);
         //
-        flagWaitDateACombo = HelpA.fillComboBox_with_wait(Gui.jComboBoxDateA, flagWaitDateACombo, q, sql);
+        JComboBoxM jcbm = (JComboBoxM)gui.jComboBoxDateA;
+        jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql));
+        System.out.println("FW_A: " + jcbm.getFLAG_WAIT());
         //
         flagWaitQualityCombo = 0;
         flagWaitOrderCombo = 0;
@@ -256,7 +260,10 @@ public class Controller {
         flagWaitTestNameCombo = 0;
         flagWaitLSLCombo = 0;
         flagWaitUSLCombo = 0;
-        flagWaitDateACombo = 0;
+//        flagWaitDateACombo = 0;
+        JComboBoxM jcbm = (JComboBoxM)gui.jComboBoxDateA;
+        jcbm.setFLAG_WAIT(0);
+        System.out.println("FW: " + jcbm.getFLAG_WAIT());
     }
 
     private void mapFalgs() {
