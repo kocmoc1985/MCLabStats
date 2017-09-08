@@ -54,7 +54,6 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private boolean oneTime = false;
 
     public void testBuild() {
         //
@@ -71,8 +70,6 @@ public class Controller {
             //
             histogram.addData(rs, "value", "#.##");
             //
-            oneTime = true;
-            //
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,194 +79,52 @@ public class Controller {
 
     public void clearBoxes() {
 
-        Gui.jComboBoxQuality.setSelectedItem(null);
-        Gui.jComboBoxOrder.setSelectedItem(null);
-        Gui.jComboBoxBatch.setSelectedItem(null);
-        Gui.jComboBoxTestCode.setSelectedItem(null);
-        Gui.jComboBoxTestName.setSelectedItem(null);
-        Gui.jComboBoxLSL.setSelectedItem(null);
-        Gui.jComboBoxUSL.setSelectedItem(null);
-        gui.jComboBoxDateA.setSelectedItem(null);
-
-        Gui.jComboBoxQuality.setEditable(false);
-        Gui.jComboBoxOrder.setEditable(false);
-        Gui.jComboBoxBatch.setEditable(false);
-        Gui.jComboBoxTestCode.setEditable(false);
-        Gui.jComboBoxTestName.setEditable(false);
-        Gui.jComboBoxLSL.setEditable(false);
-        Gui.jComboBoxUSL.setEditable(false);
-        gui.jComboBoxDateA.setEditable(false);
+        ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
+        //
+        for (JComboBox jComboBox : list) {
+            jComboBox.setSelectedItem(null);
+            jComboBox.setEditable(false);
+        }
 
         gui.repaint();
     }
     //==========================================================================
     //==========================================================================
-    private static long flagWaitQualityCombo;
 
-    public void fillComboQuality() {
+    public void fillComboStandard(JComboBoxM jcbm) {
         //
-        String q = SQL_Q.fillAuto(SQL_Q.QUALITY,gui);
+        String q = SQL_Q.fillAuto(jcbm.getPARAMETER(), gui);
         //
         OUT.showMessage(q);
         //
-        flagWaitQualityCombo = HelpA.fillComboBox_with_wait(Gui.jComboBoxQuality, flagWaitQualityCombo, q, sql);
-        //
-        flagWaitOrderCombo = 0;
-        flagWaitBatchCombo = 0;
-        flagWaitTestCodeCombo = 0;
-        flagWaitTestNameCombo = 0;
-        flagWaitLSLCombo = 0;
-        flagWaitUSLCombo = 0;
-        flagWaitDateACombo = 0;
-        //
-    }
-    private static long flagWaitOrderCombo;
-
-    public void fillComboOrder() {
-        //
-        String q = SQL_Q.fillAuto(SQL_Q.ORDER,gui);
-        //
-        OUT.showMessage(q);
-        //
-        flagWaitOrderCombo = HelpA.fillComboBox_with_wait(Gui.jComboBoxOrder, flagWaitOrderCombo, q, sql);
-        //
-        flagWaitQualityCombo = 0;
-        flagWaitBatchCombo = 0;
-        flagWaitTestCodeCombo = 0;
-        flagWaitTestNameCombo = 0;
-        flagWaitLSLCombo = 0;
-        flagWaitUSLCombo = 0;
-        flagWaitDateACombo = 0;
-        //
-    }
-    private static long flagWaitBatchCombo;
-
-    public void fillComboBatch() {
-        //
-        String q = SQL_Q.fillAuto(SQL_Q.BATCH,gui);
-        //
-        OUT.showMessage(q);
-        //
-        flagWaitBatchCombo = HelpA.fillComboBox_with_wait(Gui.jComboBoxBatch, flagWaitBatchCombo, q, sql);
-        //
-        flagWaitQualityCombo = 0;
-        flagWaitOrderCombo = 0;
-        flagWaitTestCodeCombo = 0;
-        flagWaitTestNameCombo = 0;
-        flagWaitLSLCombo = 0;
-        flagWaitUSLCombo = 0;
-        flagWaitDateACombo = 0;
-    }
-    private static long flagWaitTestCodeCombo;
-
-    public void fillComboTestCode() {
-        //
-        String q = SQL_Q.fillAuto(SQL_Q.TEST_CODE,gui);
-        //
-        OUT.showMessage(q);
-        //
-        flagWaitTestCodeCombo = HelpA.fillComboBox_with_wait(Gui.jComboBoxTestCode, flagWaitTestCodeCombo, q, sql);
-        //
-        flagWaitQualityCombo = 0;
-        flagWaitOrderCombo = 0;
-        flagWaitBatchCombo = 0;
-        flagWaitTestNameCombo = 0;
-        flagWaitLSLCombo = 0;
-        flagWaitUSLCombo = 0;
-        flagWaitDateACombo = 0;
-    }
-    private static long flagWaitTestNameCombo;
-
-    public void fillComboTestName() {
-        //
-        String q = SQL_Q.fillAuto(SQL_Q.TEST_NAME,gui);
-        //
-        OUT.showMessage(q);
-        //
-        flagWaitTestNameCombo = HelpA.fillComboBox_with_wait(Gui.jComboBoxTestName, flagWaitTestNameCombo, q, sql);
-        //
-        flagWaitQualityCombo = 0;
-        flagWaitOrderCombo = 0;
-        flagWaitBatchCombo = 0;
-        flagWaitTestCodeCombo = 0;
-        flagWaitLSLCombo = 0;
-        flagWaitUSLCombo = 0;
-        flagWaitDateACombo = 0;
-    }
-    private static long flagWaitLSLCombo;
-
-    public void fillComboLSL() {
-        //
-        String q = SQL_Q.fillAuto(SQL_Q.LSL,gui);
-        //
-        OUT.showMessage(q);
-        //
-        flagWaitLSLCombo = HelpA.fillComboBox_with_wait(Gui.jComboBoxLSL, flagWaitLSLCombo, q, sql);
-        //
-        flagWaitQualityCombo = 0;
-        flagWaitOrderCombo = 0;
-        flagWaitBatchCombo = 0;
-        flagWaitTestCodeCombo = 0;
-        flagWaitTestNameCombo = 0;
-        flagWaitUSLCombo = 0;
-        flagWaitDateACombo = 0;
-    }
-    private static long flagWaitUSLCombo;
-
-    public void fillComboUSL() {
-        //
-        String q = SQL_Q.fillAuto(SQL_Q.USL,gui);
-        //
-        OUT.showMessage(q);
-        //
-        flagWaitUSLCombo = HelpA.fillComboBox_with_wait(Gui.jComboBoxUSL, flagWaitUSLCombo, q, sql);
-        //
-        flagWaitQualityCombo = 0;
-        flagWaitOrderCombo = 0;
-        flagWaitBatchCombo = 0;
-        flagWaitTestCodeCombo = 0;
-        flagWaitTestNameCombo = 0;
-        flagWaitLSLCombo = 0;
-        flagWaitDateACombo = 0;
-    }
-    private static long flagWaitDateACombo;
-
-    public void fillComboDateA() {
-        //
-        String q = SQL_Q.fillAuto(SQL_Q.TEST_DATE,gui);
-        //
-        OUT.showMessage(q);
-        //
-        JComboBoxM jcbm = (JComboBoxM)gui.jComboBoxDateA;
         jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql));
-        System.out.println("FW_A: " + jcbm.getFLAG_WAIT());
         //
-        flagWaitQualityCombo = 0;
-        flagWaitOrderCombo = 0;
-        flagWaitBatchCombo = 0;
-        flagWaitTestCodeCombo = 0;
-        flagWaitTestNameCombo = 0;
-        flagWaitLSLCombo = 0;
+        resetFlagsWaitSelective(jcbm);
+    }
+
+    public void resetFlagsWaitSelective(JComboBoxM jcbm) {
+        ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
+        //
+        for (JComboBox jComboBox : list) {
+            //
+            JComboBoxM boxM = (JComboBoxM) jComboBox;
+            //
+            if (boxM.getPARAMETER().equals(jcbm.getPARAMETER()) == false) {
+                boxM.setFLAG_WAIT(0);
+            }
+            //
+        }
     }
 
     public void resetFlagWaits() {
-        flagWaitQualityCombo = 0;
-        flagWaitOrderCombo = 0;
-        flagWaitBatchCombo = 0;
-        flagWaitTestCodeCombo = 0;
-        flagWaitTestNameCombo = 0;
-        flagWaitLSLCombo = 0;
-        flagWaitUSLCombo = 0;
-//        flagWaitDateACombo = 0;
-        JComboBoxM jcbm = (JComboBoxM)gui.jComboBoxDateA;
-        jcbm.setFLAG_WAIT(0);
-        System.out.println("FW: " + jcbm.getFLAG_WAIT());
-    }
-
-    private void mapFalgs() {
-        HashMap<String, Long> flag_wait_map = new HashMap<>();
+        ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
         //
-        flag_wait_map.put(SQL_Q.QUALITY, flagWaitQualityCombo);
+        for (JComboBox jComboBox : list) {
+            //
+            JComboBoxM boxM = (JComboBoxM) jComboBox;
+            //
+            boxM.setFLAG_WAIT(0);
+        }
     }
     //==========================================================================
 }

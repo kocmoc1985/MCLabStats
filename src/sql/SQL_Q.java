@@ -5,8 +5,10 @@
 package sql;
 
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import main.Gui;
 import other.HelpA;
+import other.JComboBoxM;
 
 /**
  *
@@ -30,17 +32,33 @@ public class SQL_Q {
                 + " AND resultsN.Name='ML'\n"
                 + "ORDER BY resultsN.order, resultsN.BatchNo, resultsN.TestNo";
     }
-
-    private static ArrayList<FillAutoEntry> buildList() {
+    
+     private static ArrayList<FillAutoEntry> buildList(Gui gui) {
         ArrayList<FillAutoEntry> list = new ArrayList<>();
         //
-        list.add(new FillAutoEntry(QUALITY, HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxQuality), false));
-        list.add(new FillAutoEntry(ORDER, HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxOrder), false));
-        list.add(new FillAutoEntry(BATCH, HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxBatch), true));
-        list.add(new FillAutoEntry(TEST_CODE, HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxTestCode), false));
-        list.add(new FillAutoEntry(TEST_NAME, HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxTestName), false));
-        list.add(new FillAutoEntry(LSL, HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxLSL), true));
-        list.add(new FillAutoEntry(USL, HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxUSL), true));
+        
+        for(JComboBox box: gui.getJCOMBO_LIST()){
+            JComboBoxM boxM = (JComboBoxM)box;
+            //
+            if(boxM.getPARAMETER().equals(TEST_DATE) == false){
+                list.add(new FillAutoEntry(boxM.getPARAMETER(), HelpA.getComboBoxSelectedValue_b(boxM), boxM.isNUMBER()));
+            }
+            
+        }
+        //
+        return list;
+    }
+
+    private static ArrayList<FillAutoEntry> buildListB(Gui gui) {
+        ArrayList<FillAutoEntry> list = new ArrayList<>();
+        //
+        list.add(new FillAutoEntry(QUALITY, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxQuality), false));
+        list.add(new FillAutoEntry(ORDER, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxOrder), false));
+        list.add(new FillAutoEntry(BATCH, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxBatch), true));
+        list.add(new FillAutoEntry(TEST_CODE, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxTestCode), false));
+        list.add(new FillAutoEntry(TEST_NAME, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxTestName), false));
+        list.add(new FillAutoEntry(LSL, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxLSL), true));
+        list.add(new FillAutoEntry(USL, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxUSL), true));
         //
         return list;
     }
@@ -49,7 +67,7 @@ public class SQL_Q {
         //
         String query = "SELECT * from " + PRIM_TABLE;
         //
-        ArrayList<FillAutoEntry> list = buildList();
+        ArrayList<FillAutoEntry> list = buildList(gui);
         //
         for (FillAutoEntry entry : list) {
             //
@@ -63,7 +81,7 @@ public class SQL_Q {
         }
         //
         String dateA = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateA);
-        String dateB = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxDateB);
+        String dateB = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateB);
         //
         if ((dateB != null && dateB.isEmpty() == false) && (dateA != null && dateA.isEmpty() == false)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
@@ -88,7 +106,7 @@ public class SQL_Q {
         String query = "SELECT DISTINCT [" + actualComboParam + "], COUNT(" + actualComboParam + ") as 'ammount'"
                 + " from " + PRIM_TABLE;
         //
-        ArrayList<FillAutoEntry> list = buildList();
+        ArrayList<FillAutoEntry> list = buildList(gui);
         //
         for (FillAutoEntry entry : list) {
             //
@@ -103,7 +121,7 @@ public class SQL_Q {
         //
         //
         String dateA = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateA);
-        String dateB = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxDateB);
+        String dateB = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateB);
         //
         if ((dateB != null && dateB.isEmpty() == false) && (dateA != null && dateA.isEmpty() == false)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);

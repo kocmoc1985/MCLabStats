@@ -7,12 +7,14 @@ package main;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import other.HelpA;
 import other.HelpB;
 import other.JComboBoxM;
+import sql.SQL_Q;
 import sql.ShowMessage;
 
 /**
@@ -24,6 +26,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private Controller controller;
     private Properties p = HelpB.properties_load_properties("main.properties", false);
     private static Color INITIAL_BG_COLOR_COMBO;
+    private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
 
     /**
      * Creates new form Gui
@@ -31,20 +34,31 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     public Gui() {
         initComponents();
         this.controller = new Controller(this);
+        buildComboList();
         addJComboListeners();
+    }
+
+    public ArrayList<JComboBox> getJCOMBO_LIST() {
+        return JCOMBO_LIST;
+    }
+    
+    private void buildComboList() {
+        JCOMBO_LIST.add(jComboBoxQuality);
+        JCOMBO_LIST.add(jComboBoxOrder);
+        JCOMBO_LIST.add(jComboBoxBatch);
+        JCOMBO_LIST.add(jComboBoxTestCode);
+        JCOMBO_LIST.add(jComboBoxTestName);
+        JCOMBO_LIST.add(jComboBoxLSL);
+        JCOMBO_LIST.add(jComboBoxUSL);
+        JCOMBO_LIST.add(jComboBoxDateA);
     }
 
     private void addJComboListeners() {
         INITIAL_BG_COLOR_COMBO = jComboBoxQuality.getBackground();
         //
-        HelpA.addMouseListenerJComboBox(jComboBoxQuality, this);
-        HelpA.addMouseListenerJComboBox(jComboBoxOrder, this);
-        HelpA.addMouseListenerJComboBox(jComboBoxBatch, this);
-        HelpA.addMouseListenerJComboBox(jComboBoxTestCode, this);
-        HelpA.addMouseListenerJComboBox(jComboBoxTestName, this);
-        HelpA.addMouseListenerJComboBox(jComboBoxLSL, this);
-        HelpA.addMouseListenerJComboBox(jComboBoxUSL, this);
-        HelpA.addMouseListenerJComboBox(jComboBoxDateA, this);
+        for (JComboBox jComboBox : JCOMBO_LIST) {
+            HelpA.addMouseListenerJComboBox(jComboBox, this);
+        }
     }
 
     @Override
@@ -67,19 +81,19 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         GraphPanel = new javax.swing.JPanel();
         jButtonFind = new javax.swing.JButton();
         HistoPanel = new javax.swing.JPanel();
-        jComboBoxQuality = new javax.swing.JComboBox();
-        jComboBoxOrder = new javax.swing.JComboBox();
+        jComboBoxQuality = new JComboBoxM(SQL_Q.QUALITY,false);
+        jComboBoxOrder = new JComboBoxM(SQL_Q.ORDER,false);
         jPanelOutputContainer = new javax.swing.JPanel();
         jTextFieldSumm = new javax.swing.JTextField();
         jTextFieldAverage = new javax.swing.JTextField();
-        jComboBoxBatch = new javax.swing.JComboBox();
-        jComboBoxTestCode = new javax.swing.JComboBox();
-        jComboBoxLSL = new javax.swing.JComboBox();
-        jComboBoxUSL = new javax.swing.JComboBox();
-        jComboBoxTestName = new javax.swing.JComboBox();
+        jComboBoxBatch = new JComboBoxM(SQL_Q.BATCH,true);
+        jComboBoxTestCode = new JComboBoxM(SQL_Q.TEST_CODE,false);
+        jComboBoxLSL = new JComboBoxM(SQL_Q.LSL,true);
+        jComboBoxUSL = new JComboBoxM(SQL_Q.USL,true);
+        jComboBoxTestName = new JComboBoxM(SQL_Q.TEST_NAME,false);
         jButtonClear = new javax.swing.JButton();
-        jComboBoxDateA = new JComboBoxM();
-        jComboBoxDateB = new javax.swing.JComboBox();
+        jComboBoxDateA = new JComboBoxM(SQL_Q.TEST_DATE,false);
+        jComboBoxDateB = new JComboBoxM(SQL_Q.TEST_DATE,false);
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -288,15 +302,15 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     public static javax.swing.JPanel HistoPanel;
     private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonFind;
-    public static javax.swing.JComboBox jComboBoxBatch;
+    public javax.swing.JComboBox jComboBoxBatch;
     public javax.swing.JComboBox jComboBoxDateA;
-    public static javax.swing.JComboBox jComboBoxDateB;
-    public static javax.swing.JComboBox jComboBoxLSL;
-    public static javax.swing.JComboBox jComboBoxOrder;
-    public static javax.swing.JComboBox jComboBoxQuality;
-    public static javax.swing.JComboBox jComboBoxTestCode;
-    public static javax.swing.JComboBox jComboBoxTestName;
-    public static javax.swing.JComboBox jComboBoxUSL;
+    public javax.swing.JComboBox jComboBoxDateB;
+    public javax.swing.JComboBox jComboBoxLSL;
+    public javax.swing.JComboBox jComboBoxOrder;
+    public javax.swing.JComboBox jComboBoxQuality;
+    public javax.swing.JComboBox jComboBoxTestCode;
+    public javax.swing.JComboBox jComboBoxTestName;
+    public javax.swing.JComboBox jComboBoxUSL;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelOutputContainer;
@@ -318,25 +332,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             if (button.getParent() instanceof JComboBox) {
                 JComboBox parent = (JComboBox) button.getParent();
                 //
-
-                //
-                if (parent.equals(jComboBoxQuality)) {
-                    controller.fillComboQuality();
-                } else if (parent.equals(jComboBoxOrder)) {
-                    controller.fillComboOrder();
-                } else if (parent.equals(jComboBoxBatch)) {
-                    controller.fillComboBatch();
-                } else if (parent.equals(jComboBoxTestCode)) {
-                    controller.fillComboTestCode();
-                } else if (parent.equals(jComboBoxTestName)) {
-                    controller.fillComboTestName();
-                } else if (parent.equals(jComboBoxLSL)) {
-                    controller.fillComboLSL();
-                } else if (parent.equals(jComboBoxUSL)) {
-                    controller.fillComboUSL();
-                } else if (parent.equals(jComboBoxDateA)) {
-                    controller.fillComboDateA();
-                }
+                controller.fillComboStandard((JComboBoxM)parent);
                 //
                 parent.setEditable(true);
                 parent.setBackground(INITIAL_BG_COLOR_COMBO);
