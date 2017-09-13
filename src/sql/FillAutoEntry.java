@@ -16,6 +16,7 @@ public class FillAutoEntry {
     public FillAutoEntry(String tableName, String value,boolean number) {
         this.colName = tableName;
         this.value = value;
+        this.number = number;
     }
 
     public String getColName() {

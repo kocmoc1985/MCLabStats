@@ -34,18 +34,18 @@ public class SQL_Q {
                 + " AND resultsN.Name='ML'\n"
                 + "ORDER BY resultsN.order, resultsN.BatchNo, resultsN.TestNo";
     }
-    
-     private static ArrayList<FillAutoEntry> buildList(Gui gui) {
+
+    private static ArrayList<FillAutoEntry> buildList(Gui gui) {
         ArrayList<FillAutoEntry> list = new ArrayList<>();
         //
-        
-        for(JComboBox box: gui.getJCOMBO_LIST()){
-            JComboBoxM boxM = (JComboBoxM)box;
+
+        for (JComboBox box : gui.getJCOMBO_LIST()) {
+            JComboBoxM boxM = (JComboBoxM) box;
             //
-            if(boxM.getPARAMETER().equals(TEST_DATE) == false){
+            if (boxM.getPARAMETER().equals(TEST_DATE) == false) {
                 list.add(new FillAutoEntry(boxM.getPARAMETER(), HelpA.getComboBoxSelectedValue_b(boxM), boxM.isNUMBER()));
             }
-            
+
         }
         //
         return list;
@@ -65,7 +65,9 @@ public class SQL_Q {
         return list;
     }
 
-    public static String showResult(Gui gui) {
+    public static String showResult(Gui gui, String orderBy, String ascOrDesc) {
+        //
+        int nullCounter = 0;
         //
         String query = "SELECT * from " + PRIM_TABLE;
         //
@@ -79,7 +81,13 @@ public class SQL_Q {
             //
             if (value != null && value.isEmpty() == false) {
                 query += " AND [" + ACT_COMBO_PARAM + "]=" + quotes(value, isNum);
+            } else {
+                nullCounter++;
             }
+        }
+        //
+        if(nullCounter == list.size()){
+            return null;
         }
         //
         String dateA = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateA);
@@ -98,12 +106,19 @@ public class SQL_Q {
             query = query.replaceFirst("AND", "WHERE");
         }
         //
+        if ((orderBy != null && orderBy.isEmpty() == false) && (ascOrDesc != null && ascOrDesc.isEmpty() == false)) {
+            if (ascOrDesc.toLowerCase().equals("asc")) {
+                query += " ORDER BY [" + orderBy + "] ASC";
+            } else if (ascOrDesc.toLowerCase().equals("desc")) {
+                query += " ORDER BY [" + orderBy + "] DESC";
+            }
+        }
+        //
         System.out.println("query: " + query);
         return query;
     }
 
-
-    public static String fillAuto(String actualComboParam,Gui gui) {
+    public static String fillAuto(String actualComboParam, Gui gui) {
         //
         String query = "SELECT DISTINCT [" + actualComboParam + "], COUNT(" + actualComboParam + ") as 'ammount'"
                 + " from " + PRIM_TABLE;
@@ -143,12 +158,12 @@ public class SQL_Q {
         System.out.println("query: " + query);
         return query;
     }
-    
-    private static String datePickerGetDate(DatePicker dp){
-        if(dp.getDate() == null){
+
+    private static String datePickerGetDate(DatePicker dp) {
+        if (dp.getDate() == null) {
             return "";
         }
-        
+
         return HelpA.millisToDateConverter("" + dp.getDate().getTime(), DATE_FORMAT);
     }
 
@@ -177,10 +192,9 @@ public class SQL_Q {
             return false;
         }
     }
-    
+
     /**
-     * @deprecated 
-     * @return 
+     * @deprecated @return
      */
 //    public static String showResultB() {
 //        //
@@ -234,7 +248,6 @@ public class SQL_Q {
 //        System.out.println("query: " + query);
 //        return query;
 //    }
-
     /**
      * @deprecated @param actualComboParam
      * @return
@@ -301,7 +314,6 @@ public class SQL_Q {
 //        System.out.println("query: " + query);
 //        return query;
 //    }
-
     private static String fill_quality_combo_box() {
         return "SELECT distinct " + QUALITY + "  from " + PRIM_TABLE;
     }

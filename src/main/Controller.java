@@ -58,8 +58,11 @@ public class Controller {
 
     public void buildGraph() {
         //
-//        String q = SQL_Q.test_a(HelpA.getComboBoxSelectedValue(Gui.jComboBoxQuality));
-        String q = SQL_Q.showResult(gui);
+        String q = SQL_Q.showResult(gui,null,null);
+        //
+        if(q == null){
+            return;
+        }
         //
         try {
             //
@@ -77,7 +80,13 @@ public class Controller {
     }
     
     public void buildTable(){
-        String q = SQL_Q.showResult(gui);
+        //
+        String q = SQL_Q.showResult(gui,SQL_Q.ORDER,"ASC");
+        //
+        if(q == null){
+            return;
+        }
+        //
         try {
             ResultSet rs = sql.execute(q,OUT);
             //
@@ -98,6 +107,7 @@ public class Controller {
         for (JComboBox jComboBox : list) {
             jComboBox.setSelectedItem(null);
             jComboBox.setEditable(false);
+            jComboBox.setBackground(Gui.INITIAL_BG_COLOR_COMBO);
         }
         //
         try {
