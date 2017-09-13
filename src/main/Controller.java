@@ -56,7 +56,7 @@ public class Controller {
         }
     }
 
-    public void testBuild() {
+    public void buildGraph() {
         //
 //        String q = SQL_Q.test_a(HelpA.getComboBoxSelectedValue(Gui.jComboBoxQuality));
         String q = SQL_Q.showResult(gui);
@@ -74,6 +74,19 @@ public class Controller {
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void buildTable(){
+        String q = SQL_Q.showResult(gui);
+        try {
+            ResultSet rs = sql.execute(q,OUT);
+            //
+            HelpA.build_table_common(rs, gui.jTableMain, q);
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
     //==========================================================================
     //==========================================================================
