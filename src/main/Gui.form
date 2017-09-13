@@ -64,30 +64,35 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton1" min="-2" pref="82" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jComboBoxLSL" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jComboBoxBatch" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jComboBoxQuality" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jComboBoxTestCode" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jComboBoxOrder" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="datePicker1" max="32767" attributes="0"/>
-                                      <Component id="jComboBoxDateA" pref="139" max="32767" attributes="0"/>
-                                      <Component id="jComboBoxTestName" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jComboBoxUSL" max="32767" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="datePicker1" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxDateA" pref="139" max="32767" attributes="0"/>
                                   <Component id="jButtonClear" min="-2" pref="78" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jPanelTableContainer" min="-2" pref="659" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jComboBoxTestName" min="-2" pref="139" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxLSL" min="-2" pref="139" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jComboBoxOrder" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxUSL" pref="139" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jComboBoxTestCode" min="-2" pref="156" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="GraphPanel" pref="592" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="HistoPanel" min="-2" pref="486" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jPanelTableContainer" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   </Group>
@@ -96,48 +101,38 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jComboBoxQuality" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxDateA" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jComboBoxBatch" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="datePicker1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBoxTestCode" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxQuality" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxDateA" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBoxTestName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBoxLSL" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBoxUSL" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxTestCode" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jComboBoxOrder" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButtonFind" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonClear" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jComboBoxBatch" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="jComboBoxOrder" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jComboBoxLSL" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace pref="68" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanelTableContainer" pref="0" max="32767" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="datePicker1" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonFind" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanelTableContainer" pref="234" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="HistoPanel" pref="436" max="32767" attributes="0"/>
+                          <Component id="HistoPanel" pref="382" max="32767" attributes="0"/>
                           <Component id="GraphPanel" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
