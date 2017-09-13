@@ -104,6 +104,8 @@ public class XyGraph extends MyXYGB {
     }
 
     public void addData(ResultSet rs, String valueColName) {
+        
+        boolean diffMarkerPointsDeleteFlag = true;
 
         try {
             double sum_all_values = 0;
@@ -147,7 +149,7 @@ public class XyGraph extends MyXYGB {
 //                    p.setPointColor(Color.red);
 //                    p.setPointDimenssion(16);
 //                } else {
-                    p = new MyPoint(((int) val), val);
+                p = new MyPoint(((int) val), val);
 //                }
                 //
                 //
@@ -158,8 +160,10 @@ public class XyGraph extends MyXYGB {
                 p.addPointInfo("Status", rs.getString("Status"));
                 //
                 if (val < (average * 2)) {
-                    addPoint(p);
-                }else{
+//                    addPoint(p);
+                    addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
+                    diffMarkerPointsDeleteFlag = false;
+                } else {
                     filtered++;
                 }
                 //
@@ -172,8 +176,6 @@ public class XyGraph extends MyXYGB {
         }
 
     }
-
-    
 
     private double processValue(String value) {
         try {
