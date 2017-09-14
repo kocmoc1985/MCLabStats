@@ -5,6 +5,7 @@
 package main;
 
 import XYG_BASIC.MySerie;
+import XYG_BASIC.PointHighLighter;
 import XYG_HISTO.HistograMM;
 import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
@@ -71,6 +72,6 @@ public class GistoGraph extends HistograMM {
         //
         this.addSerie(serie);
         //
-//        PointHighLighter.addSerie(serie);
+        PointHighLighter.addSerieSingle(serie);
     }
 }
