@@ -72,6 +72,7 @@ public class Controller {
             //
             rs.first();
             //
+//            histogram.addLimits(rs);
             histogram.addData(rs, "value", "#.##");
             //
         } catch (SQLException ex) {

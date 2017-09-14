@@ -8,6 +8,7 @@ import XYG_BASIC.MySerie;
 import XYG_HISTO.HistograMM;
 import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
+import java.sql.ResultSet;
 
 /**
  *
@@ -18,6 +19,16 @@ public class GistoGraph extends HistograMM {
     public GistoGraph(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
     }
+
+    /**
+     * @deprecated 
+     * @param rs 
+     */
+    @Override
+    public void addLimits(ResultSet rs) {
+        super.addLimits(rs); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     @Override
     public void initializeA() {

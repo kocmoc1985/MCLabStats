@@ -134,6 +134,7 @@ public class XyGraph extends MyXYGB {
             int filtered = 0;
             //
             while (rs.next()) {
+                //
                 double val = processValue(rs.getString(valueColName));
                 //
                 double minLim = rs.getDouble("LSL");
