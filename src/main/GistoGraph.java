@@ -4,6 +4,7 @@
  */
 package main;
 
+import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.PointHighLighter;
 import XYG_HISTO.HistograMM;
@@ -21,21 +22,23 @@ public class GistoGraph extends HistograMM {
         super(title, xY_H, displayMode);
         addDiffMarkersSetListener(this);
     }
-    
+
     @Override
-    public void markersSet(MyPoint markerA, MyPoint markerB) {
-        rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
+    public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
+        if (trigerInstance instanceof MyGraphXY_H) {
+            System.out.println("YESS");
+        } else {
+            rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
+        }
     }
 
     /**
-     * @deprecated 
-     * @param rs 
+     * @deprecated @param rs
      */
     @Override
     public void addLimits(ResultSet rs) {
         super.addLimits(rs); //To change body of generated methods, choose Tools | Templates.
     }
-
 
     @Override
     public void initializeA() {
