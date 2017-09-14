@@ -26,7 +26,8 @@ public class GistoGraph extends HistograMM {
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
         if (trigerInstance instanceof MyGraphXY_H) {
-            System.out.println("YESS");
+            System.out.println("Marker A: " + markerA.x_Display);
+            System.out.println("Marker A: " + markerB.x_Display);
         } else {
             rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
         }
