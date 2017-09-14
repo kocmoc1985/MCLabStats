@@ -109,10 +109,8 @@ public class XyGraph extends MyXYGB {
 
         try {
             double sum_all_values = 0;
-            double average = 0;
+            double average;
             int devide_with = 0;
-            //
-//            int max_coeff = findMaxCoeff(rs, valueColName);
             //
             rs.first();
             //
@@ -137,10 +135,9 @@ public class XyGraph extends MyXYGB {
                 //
                 double val = processValue(rs.getString(valueColName));
                 //
-                double minLim = rs.getDouble("LSL");
-                double maxLim = rs.getDouble("USL");
-                addPointBySerie(minLim, "LSL");
-                addPointBySerie(maxLim, "USL");
+                addPointBySerie(rs.getDouble("LSL"), "LSL");
+                addPointBySerie(rs.getDouble("USL"), "USL");
+                //
 //                    setLimits(minLim, maxLim);
                 //
                 MyPoint p;
@@ -152,7 +149,6 @@ public class XyGraph extends MyXYGB {
 //                } else {
                 p = new MyPoint(((int) val), val);
 //                }
-                //
                 //
                 p.addPointInfo("Serie", rs.getString("Name"));
                 p.addPointInfo("Quality", rs.getString("Quality"));
