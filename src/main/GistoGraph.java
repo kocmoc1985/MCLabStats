@@ -20,15 +20,11 @@ public class GistoGraph extends HistograMM {
 
     public GistoGraph(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
-        addDiffMarkersSetListener(this);
     }
 
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
-        if (trigerInstance instanceof MyGraphXY_H) {
-            System.out.println("Marker A: " + markerA.x_Display);
-            System.out.println("Marker A: " + markerB.x_Display);
-        } else {
+        if (trigerInstance instanceof MyGraphXY_H == false) {
             rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
         }
     }

@@ -4,8 +4,13 @@
  */
 package main;
 
+import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.MyGraphContainer;
+import XYG_BASIC.MyGraphXY;
+import XYG_BASIC.MyPoint;
+import XYG_BASIC.MySerie;
 import XYG_HISTO.MyGraphXY_H;
+import java.awt.Color;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +29,7 @@ import sql.Sql_B;
  *
  * @author KOCMOC
  */
-public class Controller {
+public class Controller implements DiffMarkerAction {
 
     private Sql_B sql = new Sql_B(false, true);
     private GistoGraph histogram = new GistoGraph("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
@@ -33,14 +38,43 @@ public class Controller {
     private Gui gui;
 
     public Controller(ShowMessage OUT) {
+        //
         this.OUT = OUT;
         this.gui = (Gui) OUT;
         //
         Gui.GraphPanel.add(xygraph.getGraph());
         Gui.HistoPanel.add(histogram.getGraph());
         //
+        histogram.addDiffMarkersSetListener(this);
+        //
         connect();
         //
+    }
+
+    @Override
+    public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
+        if (trigerInstance instanceof MyGraphXY_H) {
+            System.out.println("Marker A: " + markerA.x_Display);
+            System.out.println("Marker A: " + markerB.x_Display);
+            highLightPoints(markerA.x_Display, markerB.x_Display);
+        }
+    }
+
+    private void highLightPoints(double min, double max) {
+        //
+        MySerie serie = xygraph.getSerie();
+        //
+        serie.resetPointsColorAndForm();
+        //
+        for (MyPoint point : serie.getPoints()) {
+            if (point.y_Display >= min && point.y_Display <= max) {
+                point.setPointColor(Color.MAGENTA);
+                point.setPointDrawRect(true);
+            }
+            //
+        }
+        //
+        xygraph.getGraph().repaint();
     }
 
     private void connect() {
@@ -58,9 +92,9 @@ public class Controller {
 
     public void buildGraph() {
         //
-        String q = SQL_Q.showResult(gui,null,null);
+        String q = SQL_Q.showResult(gui, null, null);
         //
-        if(q == null){
+        if (q == null) {
             return;
         }
         //
@@ -79,24 +113,23 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void buildTable(){
+
+    public void buildTable() {
         //
-        String q = SQL_Q.showResult(gui,SQL_Q.ORDER,"ASC");
+        String q = SQL_Q.showResult(gui, SQL_Q.ORDER, "ASC");
         //
-        if(q == null){
+        if (q == null) {
             return;
         }
         //
         try {
-            ResultSet rs = sql.execute(q,OUT);
+            ResultSet rs = sql.execute(q, OUT);
             //
             HelpA.build_table_common(rs, gui.jTableMain, q);
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
     //==========================================================================
     //==========================================================================
@@ -158,4 +191,5 @@ public class Controller {
         }
     }
     //==========================================================================
+
 }
