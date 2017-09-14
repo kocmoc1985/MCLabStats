@@ -4,7 +4,7 @@
  */
 package main;
 
-import XYG_BASIC.MySerie;
+import XYG_BASIC.MyPoint;
 import XYG_BASIC.PointHighLighter;
 import XYG_HISTO.HistograMM;
 import XYG_HISTO.MyGraphXY_H;
@@ -19,6 +19,12 @@ public class GistoGraph extends HistograMM {
 
     public GistoGraph(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
+        addDiffMarkersSetListener(this);
+    }
+    
+    @Override
+    public void markersSet(MyPoint markerA, MyPoint markerB) {
+        rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
     }
 
     /**
@@ -57,7 +63,7 @@ public class GistoGraph extends HistograMM {
 
     @Override
     public void initializeB() {
-        serie = new MySerie(getTitle());
+        serie = new MySerieM(getTitle());
         //
         serie.setDrawPoints(true);
         serie.setPointThickness(1);

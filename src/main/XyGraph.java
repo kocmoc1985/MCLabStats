@@ -26,11 +26,11 @@ public class XyGraph extends MyXYGB {
 
     public XyGraph(String title, int displayMode, GistoGraph gistoGram) {
         super(title, new MyGraphXY(), displayMode);
-        addDiffMarkersSetListener(gistoGram);
-        init();
+        init(gistoGram);
     }
 
-    private void init() {
+    private void init(GistoGraph gistoGram) {
+        addDiffMarkersSetListener(gistoGram);
         addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_SUMM, Gui.jTextFieldSumm);
         addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_AVERAGE, Gui.jTextFieldAverage);
         addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_MEDIAN, Gui.jTextFieldMedian);

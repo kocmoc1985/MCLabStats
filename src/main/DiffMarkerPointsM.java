@@ -35,6 +35,7 @@ public class DiffMarkerPointsM extends DiffMarkerPoints {
 
         for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
             diffMarkerAction.markersSet(MARKER_POINT_A, MARKER_POINT_B);
+            System.out.println("Markers set");
         }
     }
 
