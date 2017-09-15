@@ -125,7 +125,6 @@ public class XyGraph extends MyXYGB {
             }
             //
             average = sum_all_values / devide_with;
-            System.out.println("AV: " + average);
             //
             rs.first();
             //
@@ -135,19 +134,25 @@ public class XyGraph extends MyXYGB {
                 //
                 double val = processValue(rs.getString(valueColName));
                 //
-                addPointBySerie(rs.getDouble("LSL"), "LSL");
-                addPointBySerie(rs.getDouble("USL"), "USL");
+                double lsl = rs.getDouble("LSL");
+                MyPoint LSL = new MyPoint((int)lsl,lsl);
+                //
+                double usl = rs.getDouble("USL");
+                MyPoint USL = new MyPoint((int)usl,usl);
+                //
+                addPointBySerie(LSL, "LSL");
+                addPointBySerie(USL, "USL");
                 //
 //                    setLimits(minLim, maxLim);
                 //
-                MyPoint p;
+                MyPointM p;
                 //
 //                if (val > (average * 3)) {
 //                    p = new MyPoint(((int) (average)), (average));
 //                    p.setPointColor(Color.red);
 //                    p.setPointDimenssion(16);
 //                } else {
-                p = new MyPoint(((int) val), val);
+                p = new MyPointM(((int) val), val,LSL,USL);
 //                }
                 //
                 p.addPointInfo("Serie", rs.getString("Name"));
