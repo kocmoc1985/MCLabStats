@@ -8,6 +8,7 @@ import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import XYG_BASIC.MyXYGB;
+import XYG_BASIC.PointDeletedAction;
 import XYG_BASIC.PointHighLighter;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -19,17 +20,25 @@ import java.util.logging.Logger;
  *
  * @author KOCMOC
  */
-public class XyGraph extends MyXYGB {
+public class XyGraph extends MyXYGB implements PointDeletedAction{
 
     private MySerie serieLimitL;
     private MySerie serieLimitU;
+    private GistoGraph gistoGraph;
 
     public XyGraph(String title, int displayMode, GistoGraph gistoGram) {
         super(title, new MyGraphXY(), displayMode);
+        this.gistoGraph = gistoGram;
         init(gistoGram);
+    }
+    
+    @Override
+    public void pointDeleted(MyPoint mp) {
+        gistoGraph.rebuildData(serie.getPoints(), gistoGraph.round);
     }
 
     private void init(GistoGraph gistoGram) {
+        serie.addPointDeletedActionListener(this);
         addDiffMarkersSetListener(gistoGram);
         addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_SUMM, Gui.jTextFieldSumm);
         addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_AVERAGE, Gui.jTextFieldAverage);
@@ -200,4 +209,6 @@ public class XyGraph extends MyXYGB {
             return 0;
         }
     }
+
+   
 }

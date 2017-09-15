@@ -6,6 +6,7 @@ package main;
 
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
+import XYG_BASIC.PointDeletedAction;
 import XYG_BASIC.PointHighLighter;
 import XYG_HISTO.HistograMM;
 import XYG_HISTO.MyGraphXY_H;
@@ -20,6 +21,7 @@ public class GistoGraph extends HistograMM {
 
     public GistoGraph(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
+        
     }
 
     @Override
