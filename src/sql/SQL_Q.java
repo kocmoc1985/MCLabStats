@@ -27,6 +27,7 @@ public class SQL_Q {
     public static final String LSL = "LSL";
     public static final String USL = "USL";
     public static final String TEST_DATE = "testdate";
+    public static final String TEST_VALUE = "value";
 
     public static String test_a(String quality) {
         return "SELECT  * FROM resultsN\n"
@@ -64,8 +65,13 @@ public class SQL_Q {
         //
         return list;
     }
+    
+    public static String buildAdditionalWhereGistoGram(String lowerValue,String higherValue){
+        return " AND [" + TEST_VALUE + "]>=" + quotes(lowerValue, true) + ""
+                + " AND [" + TEST_VALUE + "] <=" + quotes(higherValue, true);
+    }
 
-    public static String showResult(Gui gui, String orderBy, String ascOrDesc) {
+    public static String showResult(Gui gui, String orderBy, String ascOrDesc,String additionalWhere) {
         //
         int nullCounter = 0;
         //
@@ -101,6 +107,12 @@ public class SQL_Q {
                 query += " AND [" + TEST_DATE + "]=" + quotes(dateA, false);
             }
         }
+        //
+        //
+        if(additionalWhere != null && additionalWhere.isEmpty() == false){
+            query += additionalWhere;
+        }
+        //
         //
         if (query.contains("WHERE") == false) {
             query = query.replaceFirst("AND", "WHERE");

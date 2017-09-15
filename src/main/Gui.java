@@ -357,7 +357,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     }//GEN-LAST:event_jButtonClearActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controller.buildTable();
+        controller.buildTable(null);
     }//GEN-LAST:event_jButton1ActionPerformed
     
     /**
