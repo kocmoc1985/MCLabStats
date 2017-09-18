@@ -769,8 +769,8 @@ public class HelpA {
      * @param format - is passed like "#.###"
      * @return
      */
-    private static synchronized String roundDouble(double number, String format) {
-        return String.format(format, number).replace(",", ".");
+    public static synchronized double roundDouble_(double number, String format) {
+        return Double.parseDouble(String.format(format, number).replace(",", "."));
     }
 
     private static synchronized boolean isDouble(Object obj) {
