@@ -10,6 +10,7 @@ import XYG_BASIC.MySerie;
 import XYG_BASIC.MyXYGB;
 import XYG_BASIC.PointDeletedAction;
 import XYG_BASIC.PointHighLighter;
+import XYG_HISTO.MyPointH;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
