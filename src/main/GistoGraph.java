@@ -16,13 +16,19 @@ import java.sql.ResultSet;
  *
  * @author KOCMOC
  */
-public class GistoGraph extends HistograM {
+public class GistoGraph extends HistograM implements GG{
 
     
     public GistoGraph(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
 
     }
+
+    @Override
+    public String getRound() {
+        return this.round;
+    }
+    
 
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {

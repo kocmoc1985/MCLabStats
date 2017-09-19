@@ -18,7 +18,7 @@ import other.HelpA;
  *
  * @author KOCMOC
  */
-public class GistoGraphM extends GistoGraph {
+public class GistoGraphM extends GistoGraph implements GG{
 
     ArrayList<Step> stepList = new ArrayList<>();
 

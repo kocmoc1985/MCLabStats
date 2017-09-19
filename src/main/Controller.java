@@ -31,7 +31,7 @@ import sql.Sql_B;
 public class Controller implements DiffMarkerAction {
     
     private Sql_B sql = new Sql_B(false, true);
-    private GistoGraph histogram = new GistoGraph("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private GG histogram = new GistoGraph("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private XyGraph xygraph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN, histogram);
     private ShowMessage OUT;
     private Gui gui;

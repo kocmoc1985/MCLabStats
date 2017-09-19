@@ -24,9 +24,9 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
 
     private MySerie serieLimitL;
     private MySerie serieLimitU;
-    private GistoGraph gistoGraph;
+    private GG gistoGraph;
 
-    public XyGraph(String title, int displayMode, GistoGraph gistoGram) {
+    public XyGraph(String title, int displayMode, GG gistoGram) {
         super(title, new MyGraphXY(), displayMode);
         this.gistoGraph = gistoGram;
         init(gistoGram);
@@ -34,10 +34,10 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
     
     @Override
     public void pointDeleted(MyPoint mp) {
-        gistoGraph.rebuildData(serie.getPoints(), gistoGraph.round);
+        gistoGraph.rebuildData(serie.getPoints(), gistoGraph.getRound());
     }
 
-    private void init(GistoGraph gistoGram) {
+    private void init(GG gistoGram) {
         serie.addPointDeletedActionListener(this);
         addDiffMarkersSetListener(gistoGram);
         addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_SUMM, Gui.jTextFieldSumm);
