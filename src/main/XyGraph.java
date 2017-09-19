@@ -26,10 +26,14 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
     private MySerie serieLimitU;
     private GG gistoGraph;
 
-    public XyGraph(String title, int displayMode, GG gistoGram) {
+    public XyGraph(String title, int displayMode) {
         super(title, new MyGraphXY(), displayMode);
-        this.gistoGraph = gistoGram;
-        init(gistoGram);
+        init();
+    }
+    
+    public void setGistoGraph(GG gg){
+        this.gistoGraph = gg;
+        addDiffMarkersSetListener(gg);
     }
     
     @Override
@@ -37,12 +41,11 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
         gistoGraph.rebuildData(serie.getPoints(), gistoGraph.getRound());
     }
 
-    private void init(GG gistoGram) {
+    private void init() {
         serie.addPointDeletedActionListener(this);
-        addDiffMarkersSetListener(gistoGram);
-        addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_SUMM, Gui.jTextFieldSumm);
-        addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_AVERAGE, Gui.jTextFieldAverage);
-        addDiffMarkerOutPutComponent(DiffMarkerPointsM.CALC_MEDIAN, Gui.jTextFieldMedian);
+        addDiffMarkerOutPutComponent(DiffMarkerPointsH.CALC_SUMM, Gui.jTextFieldSumm);
+        addDiffMarkerOutPutComponent(DiffMarkerPointsH.CALC_AVERAGE, Gui.jTextFieldAverage);
+        addDiffMarkerOutPutComponent(DiffMarkerPointsH.CALC_MEDIAN, Gui.jTextFieldMedian);
     }
 
     @Override
@@ -72,7 +75,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
     @Override
     public void initializeB() {
         //
-        serie = new MySerieM(getTitle());
+        serie = new MySerieH(getTitle());
         //
         serie.setDrawPoints(true);
         serie.setPointThickness(1);
@@ -154,14 +157,14 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
                 //
 //                    setLimits(minLim, maxLim);
                 //
-                MyPointM p;
+                MyPointH p;
                 //
 //                if (val > (average * 3)) {
 //                    p = new MyPoint(((int) (average)), (average));
 //                    p.setPointColor(Color.red);
 //                    p.setPointDimenssion(16);
 //                } else {
-                p = new MyPointM(((int) val), val,LSL,USL);
+                p = new MyPointH(((int) val), val,LSL,USL);
 //                }
                 //
                 p.addPointInfo("Serie", rs.getString("Name"));

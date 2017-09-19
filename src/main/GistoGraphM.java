@@ -22,8 +22,8 @@ public class GistoGraphM extends GistoGraph implements GG{
 
     ArrayList<Step> stepList = new ArrayList<>();
 
-    public GistoGraphM(String title, MyGraphXY_H xY_H, int displayMode) {
-        super(title, xY_H, displayMode);
+    public GistoGraphM(String title,MyGraphXY_H mgxyh, int displayMode) {
+        super(title,mgxyh, displayMode);
     }
 
     @Override

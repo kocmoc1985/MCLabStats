@@ -10,12 +10,12 @@ import XYG_BASIC.MyPoint;
  *
  * @author KOCMOC
  */
-public class MyPointM extends MyPoint {
+public class MyPointH extends MyPoint {
 
     private MyPoint LSL;
     private MyPoint USL;
 
-    public MyPointM(int y, double y_,MyPoint LSL,MyPoint USL) {
+    public MyPointH(int y, double y_,MyPoint LSL,MyPoint USL) {
         super(y, y_);
         this.LSL = LSL;
         this.USL = USL;

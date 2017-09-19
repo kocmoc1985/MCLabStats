@@ -16,11 +16,11 @@ import java.util.ArrayList;
  *
  * @author KOCMOC
  */
-public class DiffMarkerPointsM extends DiffMarkerPoints {
+public class DiffMarkerPointsH extends DiffMarkerPoints {
 
     public static final String CALC_MEDIAN = "MEDIAN";
 
-    public DiffMarkerPointsM(MySerie serie, MyGraphXY graphXY) {
+    public DiffMarkerPointsH(MySerie serie, MyGraphXY graphXY) {
         super(serie, graphXY);
     }
 

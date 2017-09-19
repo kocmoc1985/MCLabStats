@@ -11,9 +11,9 @@ import XYG_BASIC.MySerie;
  *
  * @author KOCMOC
  */
-public class MySerieM extends MySerie {
+public class MySerieH extends MySerie {
 
-    public MySerieM(String name) {
+    public MySerieH(String name) {
         super(name);
     }
 
@@ -21,7 +21,7 @@ public class MySerieM extends MySerie {
     public void setMyGraphXY(MyGraphXY myGraph) {
         this.myGraphXY = myGraph;
         if (this.DIFF_MARKER_POINTS == null) {
-            this.DIFF_MARKER_POINTS = new DiffMarkerPointsM(this, myGraphXY);
+            this.DIFF_MARKER_POINTS = new DiffMarkerPointsH(this, myGraphXY);
         }
     }
 }

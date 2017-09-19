@@ -29,27 +29,34 @@ import sql.Sql_B;
  * @author KOCMOC
  */
 public class Controller implements DiffMarkerAction {
-    
+
     private Sql_B sql = new Sql_B(false, true);
-    private GG histogram = new GistoGraph("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-    private XyGraph xygraph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN, histogram);
+    private GG gg;
+    private XyGraph xygraph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private ShowMessage OUT;
     private Gui gui;
-    
+
     public Controller(ShowMessage OUT) {
         //
         this.OUT = OUT;
         this.gui = (Gui) OUT;
         //
         Gui.GraphPanel.add(xygraph.getGraph());
-        Gui.HistoPanel.add(histogram.getGraph());
         //
-        histogram.addDiffMarkersSetListener(this);
+        defineGistoGraph();
         //
         connect();
         //
     }
-    
+
+    private void defineGistoGraph() {
+//        gg = new GistoGraph("Histogram",new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        gg = new GistoGraphM("Histogram",new MyGraphXY_H_M(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        xygraph.setGistoGraph(gg);
+        Gui.HistoPanel.add(gg.getGraph());
+        gg.addDiffMarkersSetListener(this);
+    }
+
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
         if (trigerInstance instanceof MyGraphXY_H) {
@@ -66,7 +73,7 @@ public class Controller implements DiffMarkerAction {
             x.start();
         }
     }
-    
+
     private void highLightPoints(double min, double max) {
         //
         MySerie serie = xygraph.getSerie();
@@ -83,7 +90,7 @@ public class Controller implements DiffMarkerAction {
         //
         xygraph.getGraph().repaint();
     }
-    
+
     private void connect() {
         try {
             sql.connect_mdb("", "", "c:/test/data.mdb");
@@ -96,8 +103,10 @@ public class Controller implements DiffMarkerAction {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void buildGraph() {
+        //
+
         //
         String q = SQL_Q.showResult(gui, null, null, null);
         //
@@ -113,14 +122,15 @@ public class Controller implements DiffMarkerAction {
             //
             rs.first();
             //
-//            histogram.addLimits(rs);
-            histogram.addData(rs, "value", "#.##");
+//            gg.addLimits(rs);
+
+            gg.addData(rs, "value", "#.##");
             //
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void buildTable(String addditionalWhere) {
         //
         String q = SQL_Q.showResult(gui, SQL_Q.ORDER, "ASC", addditionalWhere);
@@ -136,17 +146,17 @@ public class Controller implements DiffMarkerAction {
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     class BuildTableThread implements Runnable {
-        
+
         private final String additionalWhere;
-        
+
         public BuildTableThread(String additionalWhere) {
             this.additionalWhere = additionalWhere;
         }
-        
+
         @Override
         public void run() {
             buildTable(additionalWhere);
@@ -186,7 +196,7 @@ public class Controller implements DiffMarkerAction {
         //
         resetFlagsWaitSelective(jcbm);
     }
-    
+
     public void resetFlagsWaitSelective(JComboBoxM jcbm) {
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
         //
@@ -200,7 +210,7 @@ public class Controller implements DiffMarkerAction {
             //
         }
     }
-    
+
     public void resetFlagWaits() {
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
         //

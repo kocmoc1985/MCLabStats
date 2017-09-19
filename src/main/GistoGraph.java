@@ -19,9 +19,8 @@ import java.sql.ResultSet;
 public class GistoGraph extends HistograM implements GG{
 
     
-    public GistoGraph(String title, MyGraphXY_H xY_H, int displayMode) {
-        super(title, xY_H, displayMode);
-
+    public GistoGraph(String title,MyGraphXY_H mgxyh, int displayMode) {
+        super(title,mgxyh, displayMode);
     }
 
     @Override
@@ -73,7 +72,7 @@ public class GistoGraph extends HistograM implements GG{
 
     @Override
     public void initializeB() {
-        serie = new MySerieM(getTitle());
+        serie = new MySerieH(getTitle());
         //
         serie.setDrawPoints(true);
         serie.setPointThickness(1);
