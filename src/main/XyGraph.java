@@ -24,9 +24,9 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
 
     private MySerie serieLimitL;
     private MySerie serieLimitU;
-    private GistoGraphM gistoGraph;
+    private GistoGraph gistoGraph;
 
-    public XyGraph(String title, int displayMode, GistoGraphM gistoGram) {
+    public XyGraph(String title, int displayMode, GistoGraph gistoGram) {
         super(title, new MyGraphXY(), displayMode);
         this.gistoGraph = gistoGram;
         init(gistoGram);

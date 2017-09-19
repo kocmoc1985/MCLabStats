@@ -15,15 +15,12 @@ import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import other.HelpA;
 import other.JComboBoxM;
 import sql.SQL_Q;
-import static sql.SQL_Q.TEST_DATE;
-import static sql.SQL_Q.quotes;
 import sql.ShowMessage;
 import sql.Sql_B;
 
@@ -34,7 +31,7 @@ import sql.Sql_B;
 public class Controller implements DiffMarkerAction {
     
     private Sql_B sql = new Sql_B(false, true);
-    private GistoGraphM histogram = new GistoGraphM("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private GistoGraph histogram = new GistoGraph("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private XyGraph xygraph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN, histogram);
     private ShowMessage OUT;
     private Gui gui;
