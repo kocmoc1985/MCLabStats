@@ -32,7 +32,7 @@ public class GistoGraphM extends GistoGraph implements GG{
     public void addData(ResultSet rs, String valueColName, String round) {
         ArrayList<Double> list = new ArrayList<>();
         //
-        int steps = 6;
+        int steps = Integer.parseInt(Gui.jTextFieldTest.getText());
         //
         try {
             while (rs.next()) {
