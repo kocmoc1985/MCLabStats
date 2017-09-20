@@ -94,10 +94,28 @@ public class MyGraphXY_H_M extends MyGraphXY_H {
     @Override
     public void mouseMoved(MouseEvent e) {
         super.mouseMoved(e); //To change body of generated methods, choose Tools | Templates.
-        callEventWatchers(e);
+        //
+        
+        //
+        if(e.getSource() instanceof MyPoint){
+            System.out.println("mouse moved: A");
+            callEventWatchersHover(e);
+        }else{
+            System.out.println("mouse moved: B");
+            callEventWatchersHoverOut(e);
+        }
+        
+    }
+
+    
+    private void callEventWatchersHoverOut(MouseEvent e){
+        for (BarGraphListener bgl : bg_listener_list) {
+            bgl.barGraphHoverOutEvent(e);
+        }
     }
     
-    private void callEventWatchers(MouseEvent e){
+    
+    private void callEventWatchersHover(MouseEvent e){
         for (BarGraphListener bgl : bg_listener_list) {
             bgl.barGraphHoverEvent(e, (MyPoint_H_M)MARKER_POINT);
         }

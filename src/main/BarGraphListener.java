@@ -15,4 +15,6 @@ public interface BarGraphListener {
 
     public void barGraphHoverEvent(MouseEvent e, MyPoint_H_M point);
 
+    public void barGraphHoverOutEvent(MouseEvent e);
+
 }

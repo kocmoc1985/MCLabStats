@@ -68,11 +68,16 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
     }
 
     @Override
+    public void barGraphHoverOutEvent(MouseEvent e) {
+        xygraph.getSerie().resetPointsColorAndForm();
+    }
+    
+    
+
+    @Override
     public void barGraphHoverEvent(MouseEvent e, MyPoint_H_M point) {
         if (e.getSource() instanceof MyPoint_H_M) {
             highLightPoints(point.getRangeStart(), point.getRangeEnd());
-        }else{
-            xygraph.getSerie().resetPointsColorAndForm();
         }
     }
 
@@ -108,6 +113,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         }
         //
         xygraph.getGraph().repaint();
+        xygraph.getGraph().updateUI();
     }
 
     private void connect() {
