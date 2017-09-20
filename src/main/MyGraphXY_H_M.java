@@ -4,8 +4,12 @@
  */
 package main;
 
+import XYG_BASIC.MyPoint;
+import XYG_BASIC.MySerie;
 import XYG_HISTO.MyGraphXY_H;
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -81,6 +85,36 @@ public class MyGraphXY_H_M extends MyGraphXY_H {
             }
         }
     }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        super.mouseMoved(e); //To change body of generated methods, choose Tools | Templates.
+        highLightPoints(e);
+    }
+    
+    
+    private void highLightPoints(MouseEvent e) {
+        //
+        if (e.getSource() instanceof MyPoint == false) {
+            return;
+        }
+        //
+        MySerie serie = SERIES.get(0);
+        serie.resetPointsColorAndForm();
+        //
+        MyPoint_H_M mp = (MyPoint_H_M)MARKER_POINT;
+        
+        for (MyPoint point : serie.getPoints()) {
+            if (point.y_Display >= mp.getRangeStart() && point.y_Display <=  mp.getRangeEnd()) {
+                point.setPointColor(Color.MAGENTA);
+                point.setPointDrawRect(true);
+            }
+            //
+        }
+        //
+        repaint();
+    }
+    
 
     
 }

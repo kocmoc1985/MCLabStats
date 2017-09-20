@@ -4,7 +4,6 @@
  */
 package main;
 
-import XYG_BASIC.MyPoint;
 import XYG_BASIC.PointHighLighter;
 import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
