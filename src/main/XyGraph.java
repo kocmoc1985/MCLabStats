@@ -87,7 +87,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
         serie.setDrawLines(true);
         serie.setLineThickness(1);
         serie.setLineDotted();
-        serie.setCurveColor(Color.red);
+        serie.setCurveColor(Color.BLUE);
         serie.setOverallScale(true);
         //
         this.addSerie(serie);

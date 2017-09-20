@@ -142,8 +142,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     public void buildGraph() {
         //
-//        String q = SQL_Q.showResult(gui, null, null, null);
-        String q = SQL_Q.forTest();
+        String q = SQL_Q.showResult(gui, null, null, null);
+//        String q = SQL_Q.forTest();
         //
         if (q == null) {
             return;

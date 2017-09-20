@@ -33,6 +33,8 @@ public class GistoGraphM extends GistoGraph implements GG {
         //
         int steps = Integer.parseInt(Gui.jTextFieldTest.getText());
         //
+        stepList = new ArrayList<>();
+        //
         try {
             while (rs.next()) {
                 double val = rs.getDouble(valueColName);
@@ -57,6 +59,8 @@ public class GistoGraphM extends GistoGraph implements GG {
         boolean diffMarkerPointsDeleteFlag = true;
         //
         xValuesList = new ArrayList<>();
+        //
+//        serie = new MySerieH(round); //HERE..............................................
         //
         for (Step step : stepList) {
             //
