@@ -77,7 +77,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
     @Override
     public void barGraphHoverEvent(MouseEvent e, MyPoint_H_M point) {
         if (e.getSource() instanceof MyPoint_H_M) {
-            highLightPoints(point.getRangeStart(), point.getRangeEnd());
+            highLightPoints(point.getRangeStart(), point.getRangeEnd(),true);
         }
     }
 
@@ -88,7 +88,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             double min = markerA.x_Display;
             double max = markerB.x_Display;
             //
-            highLightPoints(min, max);
+            highLightPoints(min, max,false);
             //
             //
             String where = SQL_Q.buildAdditionalWhereGistoGram("" + min, "" + max);
@@ -105,18 +105,22 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
     
     
 
-    private void highLightPoints(double min, double max) {
+    private void highLightPoints(double min, double max,boolean barGraph) {
         //
         MySerie serie = xygraph.getSerie();
         //
         serie.resetPointsColorAndForm();
         //
         for (MyPoint point : serie.getPoints()) {
-            if (point.y_Display >= min && point.y_Display <= max) {
+            if (point.y_Display >= min && point.y_Display <= max && barGraph == false) {
                 point.setPointColor(Color.MAGENTA);
                 point.setPointDrawRect(true);
             }
             //
+            if (point.y_Display >= min && point.y_Display < max && barGraph) {
+                point.setPointColor(Color.MAGENTA);
+                point.setPointDrawRect(true);
+            }
         }
         //
         xygraph.getGraph().repaint();
