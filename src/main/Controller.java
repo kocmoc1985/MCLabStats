@@ -11,6 +11,7 @@ import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +29,7 @@ import sql.Sql_B;
  *
  * @author KOCMOC
  */
-public class Controller implements DiffMarkerAction {
+public class Controller implements DiffMarkerAction, BarGraphListener {
 
     private Sql_B sql = new Sql_B(false, true);
     private GG gg;
@@ -50,11 +51,29 @@ public class Controller implements DiffMarkerAction {
     }
 
     private void defineGistoGraph() {
+        //===
 //        gg = new GistoGraph("Histogram",new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-        gg = new GistoGraphM("Histogram",new MyGraphXY_H_M(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        //====
+        MyGraphXY_H_M mgxyhm = new MyGraphXY_H_M();
+        mgxyhm.addBarGraphListener(this);
+        gg = new GistoGraphM("Histogram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        //====
         xygraph.setGistoGraph(gg);
         Gui.HistoPanel.add(gg.getGraph());
-        gg.addDiffMarkersSetListener(this);
+        //
+        if (gg instanceof GistoGraphM == false) {
+            gg.addDiffMarkersSetListener(this);
+        }
+
+    }
+
+    @Override
+    public void barGraphHoverEvent(MouseEvent e, MyPoint_H_M point) {
+        if (e.getSource() instanceof MyPoint_H_M) {
+            highLightPoints(point.getRangeStart(), point.getRangeEnd());
+        }else{
+            xygraph.getSerie().resetPointsColorAndForm();
+        }
     }
 
     @Override
