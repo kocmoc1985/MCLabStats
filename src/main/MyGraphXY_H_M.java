@@ -11,9 +11,8 @@ import java.awt.Graphics2D;
  *
  * @author KOCMOC
  */
-public class MyGraphXY_H_M extends MyGraphXY_H{
-    
-    
+public class MyGraphXY_H_M extends MyGraphXY_H {
+
     @Override
     public void scaleX(Graphics2D g2) {
         if (SCALE_X_AXIS) {
@@ -74,5 +73,6 @@ public class MyGraphXY_H_M extends MyGraphXY_H{
             }
         }
     }
+
     
 }

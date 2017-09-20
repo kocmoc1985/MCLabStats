@@ -6,6 +6,7 @@ package main;
 
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MySerie;
+import java.awt.Color;
 
 /**
  *
@@ -15,6 +16,7 @@ public class MySerieH extends MySerie {
 
     public MySerieH(String name) {
         super(name);
+        pointsHighlightColor = Color.ORANGE;
     }
 
     @Override
@@ -24,4 +26,6 @@ public class MySerieH extends MySerie {
             this.DIFF_MARKER_POINTS = new DiffMarkerPointsH(this, myGraphXY);
         }
     }
+    
+    
 }

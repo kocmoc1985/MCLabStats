@@ -20,7 +20,10 @@ public class MyPoint_H_M extends MyPoint {
 
     public MyPoint_H_M(int y, double y_) {
         super(y, y_);
+        //
     }
+
+    
 
     @Override
     protected void drawPoint(Graphics g, Color pointColor) {
@@ -39,14 +42,24 @@ public class MyPoint_H_M extends MyPoint {
             step_x = x;
             once = false;
         }
-
-//        g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
-        g2d.fill3DRect(x - step_x, y, step_x - 2, getSerie().myGraphXY.getHeight() - y, true);
+        //
+        int x_ = (x - step_x);
+        int y_ = y;
+        int width = step_x - 2;
+        int height = getSerie().myGraphXY.getHeight() - y;
+        g2d.fill3DRect(x_, y_, width, height, true);
         //==================================IMPORTNAT=============================
         //Sets the size of the component which reffers to this point
-//        this.setLocation((x - POINT_D / 2), (int) (y - POINT_D / 2));
-//        this.setSize(POINT_D, POINT_D);
+        
+        this.setLocation(x_, y_);
+        this.setSize(width, height);
     }
+    
+    
+    
+    
+    
+    
 //    @Override
 //    protected void drawPoint(Graphics g, Color pointColor) {
 //        Graphics2D g2d = (Graphics2D) g;

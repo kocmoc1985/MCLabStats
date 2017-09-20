@@ -106,9 +106,8 @@ public class Controller implements DiffMarkerAction {
 
     public void buildGraph() {
         //
-
-        //
-        String q = SQL_Q.showResult(gui, null, null, null);
+//        String q = SQL_Q.showResult(gui, null, null, null);
+        String q = SQL_Q.forTest();
         //
         if (q == null) {
             return;
@@ -123,7 +122,7 @@ public class Controller implements DiffMarkerAction {
             rs.first();
             //
 //            gg.addLimits(rs);
-
+            //
             gg.addData(rs, "value", "#.##");
             //
         } catch (SQLException ex) {

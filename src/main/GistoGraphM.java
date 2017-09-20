@@ -31,7 +31,9 @@ public class GistoGraphM extends GistoGraph implements GG{
     @Override
     public void addData(ResultSet rs, String valueColName, String round) {
         ArrayList<Double> list = new ArrayList<>();
-        int steps = 4;
+        //
+        int steps = 6;
+        //
         try {
             while (rs.next()) {
                 double val = rs.getDouble(valueColName);

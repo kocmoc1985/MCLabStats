@@ -70,6 +70,10 @@ public class SQL_Q {
         return " AND [" + TEST_VALUE + "]>=" + quotes(lowerValue, true) + ""
                 + " AND [" + TEST_VALUE + "] <=" + quotes(higherValue, true);
     }
+    
+    public static String forTest(){
+        return "SELECT * from REsultsN WHERE [TestCode]='10171' AND [Name]='ML' AND [testdate]='09/12/14'";
+    }
 
     public static String showResult(Gui gui, String orderBy, String ascOrDesc,String additionalWhere) {
         //
