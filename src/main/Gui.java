@@ -229,7 +229,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             }
         });
 
-        jTextFieldTest.setText("6");
+        jTextFieldTest.setText("3");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

@@ -95,13 +95,9 @@ public class MyGraphXY_H_M extends MyGraphXY_H {
     public void mouseMoved(MouseEvent e) {
         super.mouseMoved(e); //To change body of generated methods, choose Tools | Templates.
         //
-        
-        //
         if(e.getSource() instanceof MyPoint){
-            System.out.println("mouse moved: A");
             callEventWatchersHover(e);
         }else{
-            System.out.println("mouse moved: B");
             callEventWatchersHoverOut(e);
         }
         

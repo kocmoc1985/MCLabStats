@@ -16,7 +16,6 @@ public class MySerieH extends MySerie {
 
     public MySerieH(String name) {
         super(name);
-        pointsHighlightColor = Color.ORANGE;
     }
 
     @Override
@@ -25,7 +24,10 @@ public class MySerieH extends MySerie {
         if (this.DIFF_MARKER_POINTS == null) {
             this.DIFF_MARKER_POINTS = new DiffMarkerPointsH(this, myGraphXY);
         }
+        //
+        if (myGraphXY instanceof MyGraphXY_H_M) {
+            pointsHighlightColor = Color.MAGENTA;
+        }
     }
-    
-    
+
 }

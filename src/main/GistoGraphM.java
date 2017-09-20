@@ -19,12 +19,12 @@ import other.HelpA;
  *
  * @author KOCMOC
  */
-public class GistoGraphM extends GistoGraph implements GG{
+public class GistoGraphM extends GistoGraph implements GG {
 
     ArrayList<Step> stepList = new ArrayList<>();
 
-    public GistoGraphM(String title,MyGraphXY_H mgxyh, int displayMode) {
-        super(title,mgxyh, displayMode);
+    public GistoGraphM(String title, MyGraphXY_H mgxyh, int displayMode) {
+        super(title, mgxyh, displayMode);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class GistoGraphM extends GistoGraph implements GG{
             //
             xValuesList.add("" + step.limLow + " -> " + step.limHigh);
             //
-            MyPoint_H_M p = new MyPoint_H_M((int) step.ammount, step.ammount,step.limLow,step.limHigh);
+            MyPoint_H_M p = new MyPoint_H_M((int) step.ammount, step.ammount, step.limLow, step.limHigh);
             p.setDisplayValueX(step.limLow);
             this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
             //
@@ -93,15 +93,17 @@ public class GistoGraphM extends GistoGraph implements GG{
         ArrayList<Step> lst = new ArrayList<>();
         Step step_;
         double min_ = 0;
+        boolean isFirst = true;
         for (int i = 0; i < steps; i++) {
             if (i == 0) {
                 min_ = HelpA.roundDouble_(min + step, "%2.2f");
-                step_ = new Step(min, min_, list);
+                step_ = new Step(min, min_, list, isFirst);
             } else {
                 double lh = HelpA.roundDouble_(min_ + step, "%2.2f");
-                step_ = new Step(min_, lh, list);
+                step_ = new Step(min_, lh, list, isFirst);
                 min_ = HelpA.roundDouble_(min_ + step, "%2.2f");
             }
+            isFirst = false;
             lst.add(step_);
         }
         return lst;
@@ -113,24 +115,39 @@ public class GistoGraphM extends GistoGraph implements GG{
         double limLow;
         double limHigh;
         double ammount;
+        boolean isFirst;
 
-        public Step(double limLow, double limHigh, ArrayList<Double> list) {
+        public Step(double limLow, double limHigh, ArrayList<Double> list, boolean first) {
             this.limLow = limLow;
             this.limHigh = HelpA.roundDouble_(limHigh, "%2.2f");
             this.list = list;
+            this.isFirst = first;
+            System.out.println("first: " + first);
             count();
         }
 
         private void count() {
             for (Double val : list) {
                 //
-                if (val >= limLow && val <= limHigh) {
+                if (val >= limLow && val < limHigh) {
                     ammount++;
                 }
+
+                //
+//                if (isFirst) {
+//                    if (val >= limLow && val < limHigh) {
+//                        ammount++;
+//                    }
+//                } else {
+//                    if (val > limLow && val < limHigh) {
+//                        ammount++;
+//                    }
+//                }
+
             }
         }
     }
-    
+
     @Override
     public void initializeB() {
         serie = new MySerieH(getTitle());
@@ -150,5 +167,5 @@ public class GistoGraphM extends GistoGraph implements GG{
         //
         PointHighLighter.addSerieSingle(serie);
     }
-    
+
 }
