@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class MyGraphXY_H_M extends MyGraphXY_H {
 
-    private ArrayList<BarGraphListener> bg_listener_list = new ArrayList<>();
+    private final ArrayList<BarGraphListener> bg_listener_list = new ArrayList<>();
 
     @Override
     public void addPointInfo() {

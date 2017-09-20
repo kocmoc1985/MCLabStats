@@ -34,7 +34,8 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
     
     public void setGistoGraph(GG gg){
         this.gistoGraph = gg;
-        addDiffMarkersSetListener(gg);
+        // THIS triggers event which is processed in gg class
+        this.addDiffMarkersSetListener(gg);
     }
     
     @Override

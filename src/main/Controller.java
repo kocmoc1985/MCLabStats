@@ -55,14 +55,14 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 //        gg = new GistoGraph("Histogram",new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //====
         MyGraphXY_H_M mgxyhm = new MyGraphXY_H_M();
-        mgxyhm.addBarGraphListener(this);
+        mgxyhm.addBarGraphListener(this);//        mgxyhm triggers event which is processed in this class
         gg = new GistoGraphM("Histogram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //====
         xygraph.setGistoGraph(gg);
         Gui.HistoPanel.add(gg.getGraph());
         //
         if (gg instanceof GistoGraphM == false) {
-            gg.addDiffMarkersSetListener(this);
+            gg.addDiffMarkersSetListener(this);// GG triggers event which is processed in this class
         }
 
     }
@@ -97,6 +97,13 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             x.start();
         }
     }
+
+    @Override
+    public void markersUnset(MyGraphXY mgxy) {
+        xygraph.getSerie().resetPointsColorAndForm();
+    }
+    
+    
 
     private void highLightPoints(double min, double max) {
         //

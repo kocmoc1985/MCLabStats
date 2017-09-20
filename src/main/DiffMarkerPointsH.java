@@ -34,7 +34,7 @@ public class DiffMarkerPointsH extends DiffMarkerPoints {
         }
 
         for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
-            diffMarkerAction.markersSet(myGraphXY,MARKER_POINT_A, MARKER_POINT_B);
+            diffMarkerAction.markersSet(myGraphXY, MARKER_POINT_A, MARKER_POINT_B);
         }
     }
 
@@ -44,13 +44,12 @@ public class DiffMarkerPointsH extends DiffMarkerPoints {
             showOutPut(name, calcSum());
         } else if (name.equals(CALC_AVERAGE)) {
             showOutPut(name, calcAv());
-        }  else if (name.equals(CALC_MEDIAN)) {
+        } else if (name.equals(CALC_MEDIAN)) {
             showOutPut(name, calcMedian());
-        }else {
+        } else {
             System.out.println("NO SUCH CALC EXIST: " + name);
         }
     }
-
 
     public double calcMedian() {
         ArrayList<Double> list = new ArrayList<>();
