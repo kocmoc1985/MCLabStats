@@ -12,7 +12,15 @@ import java.awt.Graphics2D;
  * @author KOCMOC
  */
 public class MyGraphXY_H_M extends MyGraphXY_H {
-
+    
+      @Override
+    public void addPointInfo() {
+        MyPoint_H_M m = (MyPoint_H_M)MARKER_POINT;
+        MARKER_POINT.addPointInfo("serie", m.getSerieName());
+        MARKER_POINT.addPointInfo("y", "" + (m.y_Display));
+        MARKER_POINT.addPointInfo("x", "" + m.getRangeStart() + " -> " + m.getRangeEnd());
+    }
+    
     @Override
     public void scaleX(Graphics2D g2) {
         if (SCALE_X_AXIS) {

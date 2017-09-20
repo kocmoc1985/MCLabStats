@@ -63,7 +63,7 @@ public class GistoGraphM extends GistoGraph implements GG{
             //
             xValuesList.add("" + step.limLow + " -> " + step.limHigh);
             //
-            MyPoint_H_M p = new MyPoint_H_M((int) step.ammount, step.ammount);
+            MyPoint_H_M p = new MyPoint_H_M((int) step.ammount, step.ammount,step.limLow,step.limHigh);
             p.setDisplayValueX(step.limLow);
             this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
             //

@@ -15,12 +15,23 @@ import java.awt.Graphics2D;
  */
 public class MyPoint_H_M extends MyPoint {
 
+    private double rangeStart;
+    private double rangeEnd;
     private static boolean once = true;
     private static int step_x;
 
-    public MyPoint_H_M(int y, double y_) {
+    public MyPoint_H_M(int y, double y_,double rangeStart, double rangeEnd) {
         super(y, y_);
-        //
+        this.rangeStart = rangeStart;
+        this.rangeEnd = rangeEnd;
+    }
+
+    public double getRangeStart() {
+        return rangeStart;
+    }
+
+    public double getRangeEnd() {
+        return rangeEnd;
     }
 
     
@@ -35,9 +46,9 @@ public class MyPoint_H_M extends MyPoint {
         if (POINT_COLOR_B != null) {
             POINT_COLOR = POINT_COLOR_B;
         }
-
+        //
         g2d.setColor(POINT_COLOR);
-
+        //
         if (once && x > 0) {
             step_x = x;
             once = false;
