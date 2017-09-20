@@ -5,7 +5,9 @@
 package main;
 
 import XYG_BASIC.MyPoint;
+import XYG_BASIC.PointHighLighter;
 import XYG_HISTO.MyGraphXY_H;
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ public class GistoGraphM extends GistoGraph implements GG{
             //
             xValuesList.add("" + step.limLow + " -> " + step.limHigh);
             //
-            MyPoint p = new MyPoint((int) step.ammount, step.ammount);
+            MyPoint_H_M p = new MyPoint_H_M((int) step.ammount, step.ammount);
             p.setDisplayValueX(step.limLow);
             this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
             //
@@ -127,4 +129,25 @@ public class GistoGraphM extends GistoGraph implements GG{
             }
         }
     }
+    
+    @Override
+    public void initializeB() {
+        serie = new MySerieH(getTitle());
+        //
+        serie.setDrawPoints(true);
+        serie.setPointThickness(1);
+//        serie.setPointHighLightColor(Color.red);
+//        serie.setPointColor(Color.red);
+
+        serie.setDrawLines(false);
+        serie.setLineThickness(1);
+        serie.setLineDotted();
+        serie.setCurveColor(Color.red);
+        serie.setOverallScale(true);
+        //
+        this.addSerie(serie);
+        //
+        PointHighLighter.addSerieSingle(serie);
+    }
+    
 }
