@@ -32,6 +32,8 @@ public class MyGraphXY_H_M extends MyGraphXY_H {
         bg_listener_list.add(bgl);
     }
 
+    
+
     @Override
     public void scaleX(Graphics2D g2) {
 //        if (SCALE_X_AXIS) {
@@ -95,28 +97,23 @@ public class MyGraphXY_H_M extends MyGraphXY_H {
     public void mouseMoved(MouseEvent e) {
         super.mouseMoved(e); //To change body of generated methods, choose Tools | Templates.
         //
-        if(e.getSource() instanceof MyPoint){
+        if (e.getSource() instanceof MyPoint) {
             callEventWatchersHover(e);
-        }else{
+        } else {
             callEventWatchersHoverOut(e);
         }
-        
+
     }
 
-    
-    private void callEventWatchersHoverOut(MouseEvent e){
+    private void callEventWatchersHoverOut(MouseEvent e) {
         for (BarGraphListener bgl : bg_listener_list) {
             bgl.barGraphHoverOutEvent(e);
         }
     }
-    
-    
-    private void callEventWatchersHover(MouseEvent e){
+
+    private void callEventWatchersHover(MouseEvent e) {
         for (BarGraphListener bgl : bg_listener_list) {
-            bgl.barGraphHoverEvent(e, (MyPoint_H_M)MARKER_POINT);
+            bgl.barGraphHoverEvent(e, (MyPoint_H_M) MARKER_POINT);
         }
     }
-    
-    
-
 }

@@ -60,7 +60,7 @@ public class GistoGraphM extends GistoGraph implements GG {
         //
         xValuesList = new ArrayList<>();
         //
-//        serie = new MySerieH(round); //HERE..............................................
+        myGraphXY.deleteAllPointsFromSerie(serie);
         //
         for (Step step : stepList) {
             //
@@ -74,7 +74,7 @@ public class GistoGraphM extends GistoGraph implements GG {
             //
         }
         //
-        MyGraphXY_H h = (MyGraphXY_H) my_xy_graph;
+        MyGraphXY_H h = (MyGraphXY_H) myGraphXY;
         h.setXValues(xValuesList);
         //
     }
