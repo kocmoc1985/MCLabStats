@@ -115,7 +115,6 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
 
     public void rebuildData(ResultSet rs, String valueColName, String round, int start, int end) {
         //
-        System.out.println("rebuildData(...)");
         deleteAllPointsFromSerie(serie);
         histoMap.clear();
         //
