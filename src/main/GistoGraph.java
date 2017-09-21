@@ -4,10 +4,10 @@
  */
 package main;
 
+import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.PointHighLighter;
-import XYG_HISTO.HistograM;
 import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -18,7 +18,6 @@ import java.sql.ResultSet;
  */
 public class GistoGraph extends HistograM implements GG{
 
-    
     public GistoGraph(String title,MyGraphXY_H mgxyh, int displayMode) {
         super(title,mgxyh, displayMode);
     }
@@ -26,6 +25,11 @@ public class GistoGraph extends HistograM implements GG{
     @Override
     public String getRound() {
         return this.round;
+    }
+
+    @Override
+    public void addDiffMarkersSetListener(DiffMarkerAction dma) {
+        super.addDiffMarkersSetListener(dma); //To change body of generated methods, choose Tools | Templates.
     }
     
 
@@ -85,7 +89,7 @@ public class GistoGraph extends HistograM implements GG{
         serie.setCurveColor(Color.red);
         serie.setOverallScale(true);
         //
-        this.addSerie(serie);
+        this.addSerie(serie,true,this);
         //
         PointHighLighter.addSerieSingle(serie);
     }

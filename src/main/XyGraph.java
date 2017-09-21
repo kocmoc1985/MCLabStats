@@ -92,14 +92,14 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
         serie.setCurveColor(Color.BLUE);
         serie.setOverallScale(true);
         //
-        this.addSerie(serie);
+        this.addSerie(serie,true,this);
         //
         PointHighLighter.addSerie(serie);
         //
         serieLimitL = new MySerie("LSL", Color.red);
         serieLimitU = new MySerie("USL", Color.red);
-        this.addSerie(serieLimitL);
-        this.addSerie(serieLimitU);
+        this.addSerie(serieLimitL,false,this);
+        this.addSerie(serieLimitU,false,this);
         adjustLimitSeries();
     }
 

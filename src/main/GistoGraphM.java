@@ -152,7 +152,7 @@ public class GistoGraphM extends GistoGraph implements GG {
         serie.setCurveColor(Color.red);
         serie.setOverallScale(true);
         //
-        this.addSerie(serie);
+        this.addSerie(serie,false,this);
         //
         PointHighLighter.addSerieSingle(serie);
     }

@@ -9,9 +9,7 @@ import XYG_BASIC.DiffMarkerPoints;
 import static XYG_BASIC.DiffMarkerPoints.CALC_AVERAGE;
 import static XYG_BASIC.DiffMarkerPoints.CALC_SUMM;
 import XYG_BASIC.MyGraphXY;
-import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**

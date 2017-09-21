@@ -62,7 +62,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         Gui.HistoPanel.add(gg.getGraph());
         //
         if (gg instanceof GistoGraphM == false) {
-//            gg.addDiffMarkersSetListener(this);// GG triggers event which is processed in this class
+            gg.addDiffMarkersSetListener(this);// GG triggers event which is processed in this class
         }
 
     }

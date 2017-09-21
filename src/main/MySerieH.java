@@ -19,7 +19,7 @@ public class MySerieH extends MySerie {
     }
 
     @Override
-    public void setMyGraphXY(MyGraphXY myGraph) {
+    public void setMyGraphXY(MyGraphXY myGraph, boolean createDiffMarkers) {
         this.myGraphXY = myGraph;
         if (this.DIFF_MARKER_POINTS == null) {
             this.DIFF_MARKER_POINTS = new DiffMarkerPointsH(this, myGraphXY);
