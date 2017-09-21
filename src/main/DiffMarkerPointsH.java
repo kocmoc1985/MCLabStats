@@ -39,44 +39,6 @@ public class DiffMarkerPointsH extends DiffMarkerPoints {
         }
     }
 
-    @Override
-    public void add(MyPoint point) {
-        System.out.println("ADD:----");
-         if (MARKER_POINT_A == null && MARKER_POINT_B == null) {
-            MARKER_POINT_A = point;
-            reset();
-            markersUnset();
-        } else if (MARKER_POINT_A == null && MARKER_POINT_B != null) {
-            MARKER_POINT_A = point;
-            go();
-        } else if (MARKER_POINT_A != null && MARKER_POINT_B == null) {
-            //
-            if (MARKER_POINT_A.getPointIndex() > point.getPointIndex()) {
-                MARKER_POINT_B = MARKER_POINT_A;
-                MARKER_POINT_A = point;
-            } else {
-                MARKER_POINT_B = point;
-            }
-            //
-            go();
-            //
-        } else if (MARKER_POINT_A != null && MARKER_POINT_B != null) {
-            MARKER_POINT_A = point;
-            MARKER_POINT_B = null;
-            reset();
-            markersUnset();
-        }
-
-        CURSOR_A.setPoint(MARKER_POINT_A);
-        CURSOR_B.setPoint(MARKER_POINT_B);
-
-        CURSOR_A.drawCursor(myGraphXY.getGraphics());
-        CURSOR_B.drawCursor(myGraphXY.getGraphics());
-
-        myGraphXY.repaint();
-    }
-    
-    
 
     @Override
     public void calcAndShow(String name) {
