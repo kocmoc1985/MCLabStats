@@ -179,7 +179,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
                 //
                 if (val < (average * 2)) {
 //                    addPoint(p);
-                    addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag,"XyGraph -> addData()");
+                    addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
                     diffMarkerPointsDeleteFlag = false;
                 } else {
                     filtered++;
@@ -214,7 +214,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
             MyPointH phm = (MyPointH) p;
             addPointBySerie(phm.getLSL(), serieLimitL);
             addPointBySerie(phm.getUSL(), serieLimitU);
-            addPointWithDiffMarkerPointsDelete(phm, diffMarkerPointsDeleteFlag,"xyGraph -> rebuildData()");
+            addPointWithDiffMarkerPointsDelete(phm, diffMarkerPointsDeleteFlag);
             diffMarkerPointsDeleteFlag = false;
         }
     }
