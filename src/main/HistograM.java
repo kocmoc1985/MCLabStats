@@ -119,6 +119,7 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
         histoMap.clear();
         //
         int x = 0;
+        //
         try {
             //
             rs.first();

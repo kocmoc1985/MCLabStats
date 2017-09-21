@@ -4,6 +4,8 @@
  */
 package main;
 
+import XYG_BASIC.MyGraphXY;
+import XYG_BASIC.MyPoint;
 import XYG_BASIC.PointHighLighter;
 import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
@@ -28,29 +30,76 @@ public class GistoGraphM extends GistoGraph implements GG {
     }
 
     @Override
-    public void addData(ResultSet rs, String valueColName, String round) {
+    public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
+        if (trigerInstance instanceof MyGraphXY_H == false) {
+            rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
+        }
+    }
+
+    @Override
+    public void rebuildData(ResultSet rs, String valueColName, String round, int start, int end) {
+        //
+        deleteAllPointsFromSerie(serie);
+        //
+        //
         ArrayList<Double> list = new ArrayList<>();
         //
-        int steps = Integer.parseInt(Gui.jTextFieldTest.getText());
+        int x = 0;
         //
-        stepList = new ArrayList<>();
+        try {
+            //
+            rs.first();
+            //
+            while (rs.next()) {
+                if (x >= start && x <= end) {
+                    double val = rs.getDouble(valueColName);
+                    list.add(val);
+                }
+                x++;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GistoGraph.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        addDataH(list);
+        //
+    }
+
+    @Override
+    public void addData(ResultSet rs, String valueColName, String round) {
+        //
+        this.resultSet = rs;
+        this.valueColName = valueColName;
+        this.round = round;
+        //
+        ArrayList<Double> list = new ArrayList<>();
         //
         try {
             while (rs.next()) {
                 double val = rs.getDouble(valueColName);
                 list.add(val);
             }
-            //
-            Collections.sort(list);
-            double min = list.get(0);
-            double step = calcStep(list, min, steps);
-            stepList = defineSteps(min, step, steps, list);
-            //
-            addPoints();
-            //
+
         } catch (SQLException ex) {
             Logger.getLogger(GistoGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //
+        addDataH(list);
+        //
+    }
+
+    private void addDataH(ArrayList<Double> list) {
+        int steps = Integer.parseInt(Gui.jTextFieldTest.getText());
+        stepList = new ArrayList<>();
+        //
+        Collections.sort(list);
+        double min = list.get(0);
+        double step = calcStep(list, min, steps);
+        stepList = defineSteps(min, step, steps, list);
+        //
+        addPoints();
+        //
     }
 
     @Override
@@ -152,9 +201,8 @@ public class GistoGraphM extends GistoGraph implements GG {
         serie.setCurveColor(Color.red);
         serie.setOverallScale(true);
         //
-        this.addSerie(serie,false,this);
+        this.addSerie(serie, false, this);
         //
         PointHighLighter.addSerieSingle(serie);
     }
-
 }
