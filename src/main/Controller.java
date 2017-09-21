@@ -52,11 +52,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     private void defineGistoGraph() {
         //===
-//        gg = new GistoGraph("Histogram",new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        gg = new GistoGraph("Histogram",new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //====
-        MyGraphXY_H_M mgxyhm = new MyGraphXY_H_M();
-        mgxyhm.addBarGraphListener(this);//        mgxyhm triggers event which is processed in this class
-        gg = new GistoGraphM("Histogram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+//        MyGraphXY_H_M mgxyhm = new MyGraphXY_H_M();
+//        mgxyhm.addBarGraphListener(this);//        mgxyhm triggers event which is processed in this class
+//        gg = new GistoGraphM("Histogram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //====
         xygraph.setGistoGraph(gg);
         Gui.HistoPanel.add(gg.getGraph());

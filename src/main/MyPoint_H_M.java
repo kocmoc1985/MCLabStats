@@ -71,4 +71,10 @@ public class MyPoint_H_M extends MyPoint {
         this.setSize(width, height);
     }
 
+    
+    
+
+    
+    
+
 }

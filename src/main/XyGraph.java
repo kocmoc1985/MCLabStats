@@ -14,6 +14,7 @@ import XYG_HISTO.MyPointH;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author KOCMOC
  */
-public class XyGraph extends MyXYGB implements PointDeletedAction{
+public class XyGraph extends MyXYGB implements PointDeletedAction {
 
     private MySerie serieLimitL;
     private MySerie serieLimitU;
@@ -31,16 +32,17 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
         super(title, new MyGraphXY(), displayMode);
         init();
     }
-    
-    public void setGistoGraph(GG gg){
+
+    public void setGistoGraph(GG gg) {
         this.gistoGraph = gg;
         // THIS triggers event which is processed in gg class
         this.addDiffMarkersSetListener(gg);
     }
-    
+
     @Override
     public void pointDeleted(MyPoint mp) {
         gistoGraph.rebuildData(serie.getPoints(), gistoGraph.getRound());
+        this.rebuildData();
     }
 
     private void init() {
@@ -118,7 +120,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
     }
 
     public void addData(ResultSet rs, String valueColName) {
-        
+
         boolean diffMarkerPointsDeleteFlag = true;
 
         try {
@@ -149,13 +151,13 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
                 double val = processValue(rs.getString(valueColName));
                 //
                 double lsl = rs.getDouble("LSL");
-                MyPoint LSL = new MyPoint((int)lsl,lsl);
+                MyPoint LSL = new MyPoint((int) lsl, lsl);
                 //
                 double usl = rs.getDouble("USL");
-                MyPoint USL = new MyPoint((int)usl,usl);
+                MyPoint USL = new MyPoint((int) usl, usl);
                 //
-                addPointBySerie(LSL, "LSL");
-                addPointBySerie(USL, "USL");
+                addPointBySerie(LSL, serieLimitL);
+                addPointBySerie(USL, serieLimitU);
                 //
 //                    setLimits(minLim, maxLim);
                 //
@@ -166,7 +168,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
 //                    p.setPointColor(Color.red);
 //                    p.setPointDimenssion(16);
 //                } else {
-                p = new MyPointH(((int) val), val,LSL,USL);
+                p = new MyPointH(((int) val), val, LSL, USL);
 //                }
                 //
                 p.addPointInfo("Serie", rs.getString("Name"));
@@ -177,7 +179,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
                 //
                 if (val < (average * 2)) {
 //                    addPoint(p);
-                    addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
+                    addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag,"XyGraph -> addData()");
                     diffMarkerPointsDeleteFlag = false;
                 } else {
                     filtered++;
@@ -191,6 +193,30 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
             Logger.getLogger(XyGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public void rebuildData() {
+        //
+        ArrayList<MyPointH> newList = new ArrayList<>();
+        //
+        for (MyPoint p : serie.getPoints()) {
+            MyPointH pp = (MyPointH) p;
+            MyPointH mph = new MyPointH(pp.y_Real, pp.y_Scaled, pp.getLSL(), pp.getUSL());
+            
+            newList.add(mph);
+        }
+        //
+        deleteAllPointsFromAllSeries();
+        //
+        boolean diffMarkerPointsDeleteFlag = true;
+        //
+        for (MyPoint p : newList) {
+            MyPointH phm = (MyPointH) p;
+            addPointBySerie(phm.getLSL(), serieLimitL);
+            addPointBySerie(phm.getUSL(), serieLimitU);
+            addPointWithDiffMarkerPointsDelete(phm, diffMarkerPointsDeleteFlag,"xyGraph -> rebuildData()");
+            diffMarkerPointsDeleteFlag = false;
+        }
     }
 
     private double processValue(String value) {
@@ -214,6 +240,4 @@ public class XyGraph extends MyXYGB implements PointDeletedAction{
             return 0;
         }
     }
-
-   
 }

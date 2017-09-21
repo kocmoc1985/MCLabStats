@@ -68,7 +68,7 @@ public class GistoGraphM extends GistoGraph implements GG {
             //
             MyPoint_H_M p = new MyPoint_H_M((int) step.ammount, step.ammount, step.limLow, step.limHigh);
             p.setDisplayValueX(step.limLow);
-            this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
+            this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag,"GistoGrapM -> addPoints()");
             //
             diffMarkerPointsDeleteFlag = false;
             //
@@ -90,7 +90,9 @@ public class GistoGraphM extends GistoGraph implements GG {
         //
         double step = (av - min) / steps;
         //
-        return step;
+        System.out.println("step: " + step);
+        //
+        return step + 0.01;
     }
 
     private ArrayList<Step> defineSteps(double min, double step, int steps, ArrayList<Double> list) {

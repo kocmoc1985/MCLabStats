@@ -28,6 +28,6 @@ public class MySerieH extends MySerie {
         if (myGraphXY instanceof MyGraphXY_H_M) {
             pointsHighlightColor = Color.MAGENTA;
         }
-    }
-
+    }    
+    
 }
