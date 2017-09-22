@@ -69,17 +69,28 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         gg = new GistoGraphM("BarDiagram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         xygraph.setGistoGraph(gg);
+        //
         Gui.HistoPanel.removeAll();
         Gui.HistoPanel.add(gg.getGraph());
+        //
+        // OBS, pay attention here, if i do reval... and repaint of Histopanel it won't work
+        // This was an enormous problem
+        gui.revalidate();
+        gui.repaint();
         //
         rebuildGraph();
     }
 
     public void switchToPlotGraph() {
+        //
         gg = new GistoGraph("PlotDiagram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         xygraph.setGistoGraph(gg);
+        //
         Gui.HistoPanel.removeAll();
         Gui.HistoPanel.add(gg.getGraph());
+        //
+        gui.revalidate();
+        gui.repaint();
         //
         rebuildGraph();
     }
@@ -161,10 +172,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
     public void rebuildGraph() {
         try {
             //
-            resultSet.first();
+//            resultSet.first();
+//            //
+//            xygraph.deleteAllPointsFromAllSeries();
+//            xygraph.addData(resultSet, "value");
             //
-            xygraph.deleteAllPointsFromAllSeries();
-            xygraph.addData(resultSet, "value");
+            xygraph.getSerie().resetPointsColorAndForm();
             //
             resultSet.first();
             //
