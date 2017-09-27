@@ -73,18 +73,18 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     }
     
     private void setFontJBoxesTitleBorders(){
-        Font font = new Font("Arial", Font.BOLD, 12);
+        Font font = new Font("Arial", Font.PLAIN, 12);
         //
         for (JComboBox jComboBox : JCOMBO_LIST) {
             JPanel parent = (JPanel)jComboBox.getParent();
             TitledBorder border = (TitledBorder)parent.getBorder();
             border.setTitleFont(font);
-            border.setTitleColor(Color.GRAY);
+//            border.setTitleColor(Color.GRAY);
         }
         //
         TitledBorder border = (TitledBorder)jPanel9.getBorder();
         border.setTitleFont(font);
-        border.setTitleColor(Color.GRAY);
+//        border.setTitleColor(Color.GRAY);
     }
     
     @Override
@@ -172,10 +172,10 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jLabel1.setLabelFor(jTextFieldSumm);
         jLabel1.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Sum" + "</h3></p>");
-        jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelSumContainer.add(jLabel1);
 
-        jTextFieldSumm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldSumm.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelSumContainer.add(jTextFieldSumm);
 
         jPanelOutputContainer.add(jPanelSumContainer);
@@ -185,10 +185,10 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jLabel3.setLabelFor(jTextFieldSumm);
         jLabel3.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Average" + "</h3></p>");
-        jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelAverageContainer.add(jLabel3);
 
-        jTextFieldAverage.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldAverage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelAverageContainer.add(jTextFieldAverage);
 
         jPanelOutputContainer.add(jPanelAverageContainer);
@@ -198,10 +198,10 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jLabel4.setLabelFor(jTextFieldSumm);
         jLabel4.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Median" + "</h3></p>");
-        jLabel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelMeanContainer.add(jLabel4);
 
-        jTextFieldMedian.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldMedian.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelMeanContainer.add(jTextFieldMedian);
 
         jPanelOutputContainer.add(jPanelMeanContainer);
@@ -304,7 +304,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanel12.add(jPanel5);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LSL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
-        jPanel10.setLayout(new java.awt.GridLayout());
+        jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
         jComboBoxLSL.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel10.add(jComboBoxLSL);
@@ -312,7 +312,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanel12.add(jPanel10);
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "USL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
-        jPanel11.setLayout(new java.awt.GridLayout());
+        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         jComboBoxUSL.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel11.add(jComboBoxUSL);
@@ -435,7 +435,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();

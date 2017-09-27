@@ -752,12 +752,18 @@ public class HelpA {
         return false;
     }
 
-    private static synchronized Object roundDouble(Object obj, String format) {
+    /**
+     * 
+     * @param obj
+     * @param format - %2.2f
+     * @return 
+     */
+    public static synchronized Object roundDouble(Object obj, String format) {
         if (isDouble(obj)) {
             String val = (String) obj;
             double ret = Double.parseDouble(val);
 //            return "" + Double.parseDouble(roundDouble(ret, format));
-            return "" + roundDouble(ret, format);
+            return "" + roundDouble_(ret, format);
         } else {
             return obj;
         }
@@ -766,7 +772,7 @@ public class HelpA {
     /**
      *
      * @param number
-     * @param format - is passed like "#.###"
+     * @param format - is passed like "%2.2f"
      * @return
      */
     public static synchronized double roundDouble_(double number, String format) {

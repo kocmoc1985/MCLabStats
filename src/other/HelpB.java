@@ -32,7 +32,7 @@ public class HelpB {
             PrintStream out = new PrintStream(new FileOutputStream(output_path));
             System.setErr(out);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(XYG_BASIC.HelpA.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HelpB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

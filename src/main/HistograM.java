@@ -5,7 +5,7 @@
 package main;
 
 import XYG_BASIC.DiffMarkerAction;
-import XYG_BASIC.HelpA;
+import XYG_BASIC.HelpAA;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MyXYGB;
@@ -183,7 +183,7 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
 
     public void buildHistogramDataSet(double key, TreeMap map, String round) {
         if (round != null) {
-            key = HelpA.roundDouble(key, round);
+            key = HelpAA.roundDouble(key, round);
         }
         if (map.containsKey(key)) {
             int val = (Integer) map.get(key);

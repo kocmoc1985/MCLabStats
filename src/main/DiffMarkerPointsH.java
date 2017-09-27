@@ -8,10 +8,11 @@ import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.DiffMarkerPoints;
 import static XYG_BASIC.DiffMarkerPoints.CALC_AVERAGE;
 import static XYG_BASIC.DiffMarkerPoints.CALC_SUMM;
+import static XYG_BASIC.DiffMarkerPoints.DEFAULT_OUT_PUT_FORMAT;
 import XYG_BASIC.MyGraphXY;
-import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import java.util.ArrayList;
+import other.HelpA;
 
 /**
  *
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class DiffMarkerPointsH extends DiffMarkerPoints {
 
     public static final String CALC_MEDIAN = "MEDIAN";
+    public static final String OUT_PUT_FORMAT = "%2.2f";
 
     public DiffMarkerPointsH(MySerie serie, MyGraphXY graphXY) {
         super(serie, graphXY);
@@ -39,19 +41,20 @@ public class DiffMarkerPointsH extends DiffMarkerPoints {
         }
     }
 
-
     @Override
     public void calcAndShow(String name) {
         if (name.equals(CALC_SUMM)) {
-            showOutPut(name, calcSum());
+            showOutPut(name, calcSum(),DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_AVERAGE)) {
-            showOutPut(name, calcAv());
+            showOutPut(name, calcAv(),DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_MEDIAN)) {
-            showOutPut(name, calcMedian());
+            showOutPut(name, calcMedian(),DEFAULT_OUT_PUT_FORMAT);
         } else {
             System.out.println("NO SUCH CALC EXIST: " + name);
         }
     }
+
+  
 
     public double calcMedian() {
         ArrayList<Double> list = new ArrayList<>();
@@ -77,6 +80,4 @@ public class DiffMarkerPointsH extends DiffMarkerPoints {
 
         return median;
     }
-
-    
 }
