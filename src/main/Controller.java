@@ -36,6 +36,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
     private XyGraph xygraph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private ShowMessage OUT;
     private Gui gui;
+    private ResultSet resultSet;
 
     public Controller(ShowMessage OUT) {
         //
@@ -79,7 +80,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         gui.revalidate();
         gui.repaint();
         //
-        rebuildGraph();
+        resetGraphs();
     }
 
     public void switchToPlotGraph() {
@@ -98,7 +99,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         gui.revalidate();
         gui.repaint();
         //
-        rebuildGraph();
+        resetGraphs();
     }
 
     public void deleteFromBarGraph() {
@@ -117,8 +118,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             highLightPoints(point.getRangeStart(), point.getRangeEnd(), true);
         }
     }
-    public static int MARKERS_SET_P_INDEX_FIRST = -1;
-    public static int MARKERS_SET_P_INDEX_LAST = -1;
+    private int MARKERS_SET_P_INDEX_FIRST = -1;
+    private int MARKERS_SET_P_INDEX_LAST = -1;
 
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
@@ -141,8 +142,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             MARKERS_SET_P_INDEX_LAST = markerB.POINT_INDEX + 1;
             //
             //
-            Thread x = new Thread(new BuildTableThread(null));
-            x.start();
+//            Thread x = new Thread(new BuildTableThread(null));
+//            x.start();
         }
     }
 
@@ -186,13 +187,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         }
     }
 
-    public void rebuildGraph() {
+    public void resetGraphs() {
         try {
-            //
-//            resultSet.first();
-//            //
-//            xygraph.deleteAllPointsFromAllSeries();
-//            xygraph.addData(resultSet, "value");
             //
             xygraph.getSerie().resetPointsColorAndForm();
             //
@@ -203,12 +199,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }
-    private ResultSet resultSet;
+    
 
-    public void buildGraph() {
+    public void buildGraphs() {
         //
         String q = SQL_Q.showResult(gui, SQL_Q.BATCH, "ASC", null);
 //        String q = SQL_Q.forTest();
