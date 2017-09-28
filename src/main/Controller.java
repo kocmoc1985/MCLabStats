@@ -55,6 +55,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         gg = new GistoGraph("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //====
         xygraph.setGistoGraph(gg);
+        xygraph.addDiffMarkersSetListener(this);
         Gui.HistoPanel.add(gg.getGraph());
         //
         if (gg instanceof GistoGraphM == false) {
@@ -119,6 +120,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
+        System.out.println("Markers set: " + trigerInstance);
         if (trigerInstance instanceof MyGraphXY_H) {
             //
             double min = markerA.x_Display;
@@ -131,8 +133,22 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             //
             Thread x = new Thread(new BuildTableThread(where));
             x.start();
+        }else if(trigerInstance instanceof MyGraphXY){
+             //
+            double min = markerA.y_Display;
+            double max = markerB.y_Display;
+            //
+//            highLightPoints(min, max, false);
+            //
+            //
+            String where = SQL_Q.buildAdditionalWhereGistoGram("" + min, "" + max);
+            //
+            Thread x = new Thread(new BuildTableThread(where));
+            x.start();
         }
     }
+    
+    
 
     @Override
     public void markersUnset(MyGraphXY mgxy) {

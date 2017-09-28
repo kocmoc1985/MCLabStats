@@ -65,17 +65,22 @@ public class SQL_Q {
         //
         return list;
     }
-    
-    public static String buildAdditionalWhereGistoGram(String lowerValue,String higherValue){
+
+    public static String buildAdditionalWhereGistoGram(String lowerValue, String higherValue) {
         return " AND [" + TEST_VALUE + "]>=" + quotes(lowerValue, true) + ""
                 + " AND [" + TEST_VALUE + "] <=" + quotes(higherValue, true);
     }
-    
-    public static String forTest(){
+
+    public static String buildAdditionalWhereXyGraph(int firstIndex, int lastIndex) {
+        return " AND [" + TEST_VALUE + "]>=" + quotes("" + firstIndex, true) + ""
+                + " AND [" + TEST_VALUE + "] <=" + quotes("" + lastIndex, true);
+    }
+
+    public static String forTest() {
         return "SELECT * from REsultsN WHERE [TestCode]='10171' AND [Name]='ML' AND [testdate]='09/12/14'";
     }
 
-    public static String showResult(Gui gui, String orderBy, String ascOrDesc,String additionalWhere) {
+    public static String showResult(Gui gui, String orderBy, String ascOrDesc, String additionalWhere) {
         //
         int nullCounter = 0;
         //
@@ -96,7 +101,7 @@ public class SQL_Q {
             }
         }
         //
-        if(nullCounter == list.size()){
+        if (nullCounter == list.size()) {
             return null;
         }
         //
@@ -113,7 +118,7 @@ public class SQL_Q {
         }
         //
         //
-        if(additionalWhere != null && additionalWhere.isEmpty() == false){
+        if (additionalWhere != null && additionalWhere.isEmpty() == false) {
             query += additionalWhere;
         }
         //
