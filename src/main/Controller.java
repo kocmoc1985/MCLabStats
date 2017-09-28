@@ -191,6 +191,15 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         xygraph.getGraph().updateUI();
     }
 
+    public void addDiffMarkerPoints() {
+        xygraph.addDiffMarkerPoints();
+    }
+
+    public void removeDiffMarkerPoints() {
+        xygraph.removeDiffMarkerPoints();
+        xygraph.getSerie().resetPointsColorAndForm();
+    }
+
     private void connect() {
         try {
             sql.connect_mdb("", "", "c:/test/data.mdb");
@@ -260,10 +269,9 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     private String ORDER_BY_PARAM = SQL_Q.BATCH;
     private String ORDER_ASC_DESC = "ASC";
-    
+
     public void buildTable(String addditionalWhere) {
         //
         String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, addditionalWhere);
