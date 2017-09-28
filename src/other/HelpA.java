@@ -640,6 +640,24 @@ public class HelpA {
         }
     }
 
+    public static synchronized void build_table_common(ResultSet rs, JTable jTable, String q, int indexFirst, int indexLast) {
+        //
+        if (rs == null) {
+            return;
+        }
+        //
+        HelpA.setTrackingToolTip(jTable, q);
+        //
+        try {
+            String[] headers = getHeaders(rs);
+            Object[][] content = getContent(rs, indexFirst, indexLast);
+            jTable.setModel(new DefaultTableModel(content, headers));
+        } catch (SQLException ex) {
+            Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+    }
+
     public static synchronized JTable build_table_common_return(ResultSet rs, JTable jTable) {
         //
         if (rs == null) {
@@ -686,6 +704,31 @@ public class HelpA {
                 Object obj = rs.getString(col + 1);
                 content[row][col] = obj;
             }
+        }
+        //
+        return content;
+    }
+
+    public static synchronized Object[][] getContent(ResultSet rs, int indexFirst, int indexLast) throws SQLException {
+        ResultSetMetaData rsmt;
+        Object[][] content;
+        int rows, columns;
+        rsmt = rs.getMetaData(); // får in antalet columner
+        rs.last(); // flyttar pekaren till sista positon
+        columns = rsmt.getColumnCount(); // retrieves number of columns och lagrar det i "columns".
+        rows = (indexLast - indexFirst)+1;
+        System.out.println("ROWS: " + rows);
+        content = new Object[rows][columns]; // ger arrayen content som är en "Object"
+        // initialisering i den första demensionen är "rows" i den andra "columns"
+        //
+        int row_ = 0;
+        for (int row = indexFirst; row <= indexLast; row++) {
+            rs.absolute(row+1); // Flytta till rätt rad i resultatmängden
+            for (int col = 0; col < columns; col++) {
+                Object obj = rs.getString(col + 1);
+                content[row_][col] = obj;
+            }
+            row_ ++;
         }
         //
         return content;
@@ -753,10 +796,10 @@ public class HelpA {
     }
 
     /**
-     * 
+     *
      * @param obj
      * @param format - %2.2f
-     * @return 
+     * @return
      */
     public static synchronized Object roundDouble(Object obj, String format) {
         if (isDouble(obj)) {
@@ -1487,7 +1530,7 @@ public class HelpA {
         if (HelpA.fillAllowedComboBox(flagWait) == false) {
             flagWait = System.currentTimeMillis();
             return flagWait;
-        } 
+        }
         //
         Object selection = box.getSelectedItem();
         //
@@ -1499,15 +1542,14 @@ public class HelpA {
         //
         flagWait = System.currentTimeMillis();
         //
-        if(selection == null && box.getItemCount() > 0){
+        if (selection == null && box.getItemCount() > 0) {
             box.setSelectedIndex(0);
-        }else{
+        } else {
             box.setSelectedItem(selection);
         }
         //
         return flagWait;
     }
-    
 
     /**
      * Very effective way of handling cases when it takes plenty of time to load
@@ -1885,7 +1927,8 @@ public class HelpA {
         byteArrayToFile(duplicate_file_name, b_arr);
         System.out.println("copy files done");
     }
-    public static String millisToDateConverter(String millis,String dateFormat) {
+
+    public static String millisToDateConverter(String millis, String dateFormat) {
 //        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS"); //this works!
         //note if to write hh instead of HH it will show like 03:15:16 and not 15:15:16
         DateFormat formatter = new SimpleDateFormat(dateFormat); // this works to!
@@ -1894,7 +1937,6 @@ public class HelpA {
         calendar.setTimeInMillis(now);
         return formatter.format(calendar.getTime());
     }
-    
 
     public static String get_proper_date_time_same_format_on_all_computers() {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
