@@ -257,7 +257,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             }
         });
 
-        jTextFieldTest.setText("10");
+        jTextFieldTest.setText("30");
 
         jButton3.setText("Histogram");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -422,8 +422,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 943, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonFind, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButtonFind, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -556,7 +556,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         }
         //</editor-fold>
 
-//        HelpA.err_output_to_file();
+        HelpA.err_output_to_file();
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
