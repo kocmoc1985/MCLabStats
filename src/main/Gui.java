@@ -16,7 +16,6 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import other.HelpA;
-import other.HelpB;
 import other.JComboBoxM;
 import sql.SQL_Q;
 import sql.ShowMessage;
@@ -28,7 +27,7 @@ import sql.ShowMessage;
 public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListener {
     
     private Controller controller;
-    private Properties p = HelpB.properties_load_properties("main.properties", false);
+    private Properties p = HelpA.properties_load_properties("main.properties", false);
     public static Color INITIAL_BG_COLOR_COMBO;
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
@@ -39,7 +38,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
      */
     public Gui() {
         initComponents();
-        this.controller = new Controller(this);
+        this.controller = new Controller(this,p);
         initOther();
         buildComboList();
         buildObligatoryComboList();
@@ -108,7 +107,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     @Override
     public void showMessage(String str) {
 //        System.out.println("" + str);
-        jTextArea1.append(HelpB.get_proper_date_time_same_format_on_all_computers() + "  " + str + "\n");
+        jTextArea1.append(HelpA.get_proper_date_time_same_format_on_all_computers() + "  " + str + "\n");
     }
 
     /**
@@ -135,7 +134,6 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanelMeanContainer = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldMedian = new javax.swing.JTextField();
-        jButtonClear = new javax.swing.JButton();
         jPanelTableContainer = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableMain = new javax.swing.JTable();
@@ -162,7 +160,9 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jComboBoxDateA = new JComboBoxM(SQL_Q.TEST_DATE,false);
         jPanel9 = new javax.swing.JPanel();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
+        jButtonClear = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -223,13 +223,6 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanelMeanContainer.add(jTextFieldMedian);
 
         jPanelOutputContainer.add(jPanelMeanContainer);
-
-        jButtonClear.setText("Clear");
-        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonClearActionPerformed(evt);
-            }
-        });
 
         jPanelTableContainer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelTableContainer.setLayout(new java.awt.BorderLayout());
@@ -351,12 +344,22 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jPanel12.add(jPanel9);
 
+        jButtonClear.setText("Clear");
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButtonClear);
+
         jButton5.setText("Clear Graphs");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
+
+        jButton2.setText("Add Markers");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -367,17 +370,18 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 943, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanelTableContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jButton5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,22 +393,20 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                                 .addGap(36, 36, 36)
                                 .addComponent(jButton4))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(815, 815, 815)))
+                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButtonFind)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonClear)))
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -412,7 +414,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jTextFieldTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GraphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -513,6 +516,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         }
         //</editor-fold>
 
+//        HelpA.err_output_to_file();
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -526,6 +531,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     public static javax.swing.JPanel HistoPanel;
     public com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

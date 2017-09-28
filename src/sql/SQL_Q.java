@@ -6,6 +6,7 @@ package sql;
 
 import com.michaelbaranov.microba.calendar.DatePicker;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.swing.JComboBox;
 import main.Gui;
 import static main.Gui.DATE_FORMAT;
@@ -18,7 +19,7 @@ import other.JComboBoxM;
  */
 public class SQL_Q {
 
-    public static final String PRIM_TABLE = "REsultsN";
+    public static final String PRIM_TABLE = loadFromProps();
     public static final String QUALITY = "Quality";
     public static final String ORDER = "order";
     public static final String BATCH = "BatchNo";
@@ -29,11 +30,9 @@ public class SQL_Q {
     public static final String TEST_DATE = "testdate";
     public static final String TEST_VALUE = "value";
 
-    public static String test_a(String quality) {
-        return "SELECT  * FROM resultsN\n"
-                + "WHERE resultsN.Quality=" + quotes(quality, false)
-                + " AND resultsN.Name='ML'\n"
-                + "ORDER BY resultsN.order, resultsN.BatchNo, resultsN.TestNo";
+    private static String loadFromProps(){
+        Properties p = HelpA.properties_load_properties("main.properties", false);
+        return p.getProperty("resultsn_name", "REsultsN");
     }
 
     private static ArrayList<FillAutoEntry> buildList(Gui gui) {
@@ -77,7 +76,11 @@ public class SQL_Q {
     }
 
     public static String forTest() {
-        return "SELECT * from REsultsN WHERE [TestCode]='10171' AND [Name]='ML' AND [testdate]='09/12/14'";
+        return "SELECT * from " + PRIM_TABLE +" WHERE [TestCode]='10171' AND [Name]='ML' AND [testdate]='09/12/14'";
+    }
+    
+     public static String forTestB() {
+        return "SELECT * from " + PRIM_TABLE +" WHERE [" +SQL_Q.QUALITY +"] = '1802860-ST220' AND [" +SQL_Q.TEST_CODE + "]='10194' AND [" + SQL_Q.TEST_NAME +"]='ML'";
     }
 
     public static String showResult(Gui gui, String orderBy, String ascOrDesc, String additionalWhere) {

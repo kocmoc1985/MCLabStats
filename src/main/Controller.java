@@ -16,6 +16,7 @@ import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -38,11 +39,13 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
     private ShowMessage OUT;
     private Gui gui;
     private ResultSet resultSet;
+    private Properties p;
 
-    public Controller(ShowMessage OUT) {
+    public Controller(ShowMessage OUT, Properties p) {
         //
         this.OUT = OUT;
         this.gui = (Gui) OUT;
+        this.p = p;
         //
         Gui.GraphPanel.add(xygraph.getGraph());
         //
@@ -66,13 +69,13 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         }
         //
     }
-    
-    private void tableHeaders(){
+
+    private void tableHeaders() {
         //
         ResultSet rs;
         //
         try {
-            rs = sql.execute("SELECT * from REsultsN WHERE [Quality]='xxxxxx-xxxx'");
+            rs = sql.execute("SELECT * from " + SQL_Q.PRIM_TABLE + " WHERE [Quality]='xxxxxx-xxxx'");
             HelpA.build_table_common_return(rs, gui.jTableMain);
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -192,9 +195,21 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         try {
             sql.connect_mdb("", "", "c:/test/data.mdb");
             sql_b.connect_mdb("", "", "c:/test/data.mdb");
+            //
 //            sql.connect_odbc("", "", "MC_LAB");
 //            sql.connect_jdbc("10.87.0.2", "1433", "MCLAB_COMPOUND", "sa", "");
+            //
+            //
+            //
+            //
+//            sql.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+//                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+//            //
+//            sql_b.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+//                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+            //
             OUT.showMessage("Connected");
+            //
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -217,12 +232,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     public void buildGraphs() {
         //
-        if(gui.obligatoryBoxesFilled() == false){
-            return;
-        }
+//        if (gui.obligatoryBoxesFilled() == false) {
+//            return;
+//        }
         //
-        String q = SQL_Q.showResult(gui, SQL_Q.BATCH, "ASC", null);
-//        String q = SQL_Q.forTest();
+//        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
+        String q = SQL_Q.forTestB();
         //
         if (q == null) {
             return;
@@ -246,9 +261,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         }
     }
 
+    private String ORDER_BY_PARAM = SQL_Q.BATCH;
+    private String ORDER_ASC_DESC = "ASC";
+    
     public void buildTable(String addditionalWhere) {
         //
-        String q = SQL_Q.showResult(gui, SQL_Q.BATCH, "ASC", addditionalWhere);
+        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, addditionalWhere);
         //
         if (q == null) {
             return;
