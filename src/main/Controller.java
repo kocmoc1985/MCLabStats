@@ -40,6 +40,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
     private Gui gui;
     private ResultSet resultSet;
     private Properties p;
+    private int MARKERS_SET_P_INDEX_FIRST = -1;
+    private int MARKERS_SET_P_INDEX_LAST = -1;
+     private String ORDER_BY_PARAM = SQL_Q.TEST_DATE;
+    private String ORDER_ASC_DESC = "ASC";
 
     public Controller(ShowMessage OUT, Properties p) {
         //
@@ -135,12 +139,9 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             highLightPoints(point.getRangeStart(), point.getRangeEnd(), true);
         }
     }
-    private int MARKERS_SET_P_INDEX_FIRST = -1;
-    private int MARKERS_SET_P_INDEX_LAST = -1;
 
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
-        System.out.println("Markers set: " + trigerInstance);
         if (trigerInstance instanceof MyGraphXY_H) {
             //
             double min = markerA.x_Display;
@@ -241,12 +242,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     public void buildGraphs() {
         //
-//        if (gui.obligatoryBoxesFilled() == false) {
-//            return;
-//        }
+        if (gui.obligatoryBoxesFilled() == false) {
+            return;
+        }
         //
-//        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
-        String q = SQL_Q.forTestB();
+        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
+//        String q = SQL_Q.forTestB();
         //
         if (q == null) {
             return;
@@ -269,8 +270,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private String ORDER_BY_PARAM = SQL_Q.BATCH;
-    private String ORDER_ASC_DESC = "ASC";
+   
 
     public void buildTable(String addditionalWhere) {
         //
