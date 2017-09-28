@@ -31,6 +31,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private Properties p = HelpB.properties_load_properties("main.properties", false);
     public static Color INITIAL_BG_COLOR_COMBO;
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
+    private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
     public final static String DATE_FORMAT = "yy/MM/dd";
 
     /**
@@ -41,6 +42,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         this.controller = new Controller(this);
         initOther();
         buildComboList();
+        buildObligatoryComboList();
         addJComboListeners();
         setFontJBoxesTitleBorders();
     }
@@ -51,6 +53,22 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     
     public ArrayList<JComboBox> getJCOMBO_LIST() {
         return JCOMBO_LIST;
+    }
+    
+    public boolean obligatoryBoxesFilled() {
+        for (JComboBox jComboBox : JCOMBO_OBLIGATORY_LIST) {
+            if (HelpA.getComboBoxSelectedValue_b(jComboBox) == null) {
+                HelpA.showNotification("Obligatory fields not filled");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private void buildObligatoryComboList() {
+        JCOMBO_OBLIGATORY_LIST.add(jComboBoxQuality);
+        JCOMBO_OBLIGATORY_LIST.add(jComboBoxTestCode);
+        JCOMBO_OBLIGATORY_LIST.add(jComboBoxTestName);
     }
     
     private void buildComboList() {
@@ -72,17 +90,17 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         }
     }
     
-    private void setFontJBoxesTitleBorders(){
+    private void setFontJBoxesTitleBorders() {
         Font font = new Font("Arial", Font.PLAIN, 12);
         //
         for (JComboBox jComboBox : JCOMBO_LIST) {
-            JPanel parent = (JPanel)jComboBox.getParent();
-            TitledBorder border = (TitledBorder)parent.getBorder();
+            JPanel parent = (JPanel) jComboBox.getParent();
+            TitledBorder border = (TitledBorder) parent.getBorder();
             border.setTitleFont(font);
 //            border.setTitleColor(Color.GRAY);
         }
         //
-        TitledBorder border = (TitledBorder)jPanel9.getBorder();
+        TitledBorder border = (TitledBorder) jPanel9.getBorder();
         border.setTitleFont(font);
 //        border.setTitleColor(Color.GRAY);
     }
@@ -123,7 +141,6 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jTableMain = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jTextFieldTest = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
@@ -133,10 +150,10 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jComboBoxOrder = new JComboBoxM(SQL_Q.ORDER,false);
         jPanel8 = new javax.swing.JPanel();
         jComboBoxBatch = new JComboBoxM(SQL_Q.BATCH,true);
-        jPanel1 = new javax.swing.JPanel();
-        jComboBoxTestName = new JComboBoxM(SQL_Q.TEST_NAME,false);
         jPanel5 = new javax.swing.JPanel();
         jComboBoxTestCode = new JComboBoxM(SQL_Q.TEST_CODE,false);
+        jPanel1 = new javax.swing.JPanel();
+        jComboBoxTestName = new JComboBoxM(SQL_Q.TEST_NAME,false);
         jPanel10 = new javax.swing.JPanel();
         jComboBoxLSL = new JComboBoxM(SQL_Q.LSL,true);
         jPanel11 = new javax.swing.JPanel();
@@ -239,14 +256,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             }
         });
 
-        jTextFieldTest.setText("3");
-
-        jButton2.setText("Delete");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jTextFieldTest.setText("10");
 
         jButton3.setText("BarGraph");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +274,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jPanel12.setLayout(new java.awt.GridLayout(2, 4));
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "QUALITY", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "QUALITY*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel7.setLayout(new java.awt.GridLayout(1, 1));
 
         jComboBoxQuality.setModel(new javax.swing.DefaultComboBoxModel());
@@ -288,21 +298,21 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jPanel12.add(jPanel8);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "TEST NAME", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
-        jPanel1.setLayout(new java.awt.GridLayout(1, 1));
-
-        jComboBoxTestName.setModel(new javax.swing.DefaultComboBoxModel());
-        jPanel1.add(jComboBoxTestName);
-
-        jPanel12.add(jPanel1);
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "TEST CODE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "TEST CODE*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel5.setLayout(new java.awt.GridLayout(1, 1));
 
         jComboBoxTestCode.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel5.add(jComboBoxTestCode);
 
         jPanel12.add(jPanel5);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "TEST NAME*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
+        jPanel1.setLayout(new java.awt.GridLayout(1, 1));
+
+        jComboBoxTestName.setModel(new javax.swing.DefaultComboBoxModel());
+        jPanel1.add(jComboBoxTestName);
+
+        jPanel12.add(jPanel1);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LSL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel10.setLayout(new java.awt.GridLayout(1, 0));
@@ -341,7 +351,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jPanel12.add(jPanel9);
 
-        jButton5.setText("Clear Graph");
+        jButton5.setText("Clear Graphs");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -365,24 +375,22 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                     .addComponent(jPanelTableContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                            .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jButton5)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(HistoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(18, 18, 18)
                                 .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldTest, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTextFieldTest, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(jButton4))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(815, 815, 815)))
                 .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
@@ -399,20 +407,19 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                         .addComponent(jButtonClear)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jTextFieldTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GraphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(HistoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(31, 31, 31))
         );
 
         jTabbedPane1.addTab("Main", jPanel2);
@@ -462,27 +469,23 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         controller.clearComponents();
         controller.resetFlagWaits();
     }//GEN-LAST:event_jButtonClearActionPerformed
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         controller.buildTable(null);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        controller.deleteFromBarGraph();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         controller.switchToBarGraph();
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         controller.switchToPlotGraph();
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       controller.resetGraphs();
-    }//GEN-LAST:event_jButton5ActionPerformed
     
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        controller.resetGraphs();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -523,7 +526,6 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     public static javax.swing.JPanel HistoPanel;
     public com.michaelbaranov.microba.calendar.DatePicker datePicker1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

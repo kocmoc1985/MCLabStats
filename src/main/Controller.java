@@ -32,6 +32,7 @@ import sql.Sql_B;
 public class Controller implements DiffMarkerAction, BarGraphListener {
 
     private Sql_B sql = new Sql_B(false, true);
+    private Sql_B sql_b = new Sql_B(false, true); // obs this one is for building table
     private GG gg;
     private XyGraph xygraph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private ShowMessage OUT;
@@ -49,6 +50,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         //
         connect();
         //
+        tableHeaders();
     }
 
     private void defineInitialGistoGraph() {
@@ -63,6 +65,18 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             gg.addDiffMarkersSetListener(this);// GG triggers event which is processed in this class
         }
         //
+    }
+    
+    private void tableHeaders(){
+        //
+        ResultSet rs;
+        //
+        try {
+            rs = sql.execute("SELECT * from REsultsN WHERE [Quality]='xxxxxx-xxxx'");
+            HelpA.build_table_common_return(rs, gui.jTableMain);
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void switchToBarGraph() {
@@ -142,8 +156,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             MARKERS_SET_P_INDEX_LAST = markerB.POINT_INDEX + 1;
             //
             //
-//            Thread x = new Thread(new BuildTableThread(null));
-//            x.start();
+            Thread x = new Thread(new BuildTableThread(null));
+            x.start();
         }
     }
 
@@ -177,12 +191,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
     private void connect() {
         try {
             sql.connect_mdb("", "", "c:/test/data.mdb");
+            sql_b.connect_mdb("", "", "c:/test/data.mdb");
 //            sql.connect_odbc("", "", "MC_LAB");
 //            sql.connect_jdbc("10.87.0.2", "1433", "MCLAB_COMPOUND", "sa", "");
             OUT.showMessage("Connected");
-        } catch (SQLException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -201,12 +214,15 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     public void buildGraphs() {
         //
-//        String q = SQL_Q.showResult(gui, SQL_Q.BATCH, "ASC", null);
-        String q = SQL_Q.forTest();
+        if(gui.obligatoryBoxesFilled() == false){
+            return;
+        }
+        //
+        String q = SQL_Q.showResult(gui, SQL_Q.BATCH, "ASC", null);
+//        String q = SQL_Q.forTest();
         //
         if (q == null) {
             return;
@@ -239,7 +255,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         }
         //
         try {
-            ResultSet rs = sql.execute(q, OUT);
+            ResultSet rs = sql_b.execute(q, OUT);
             //
             if (MARKERS_SET_P_INDEX_FIRST != -1 && MARKERS_SET_P_INDEX_LAST != -1) {
                 HelpA.build_table_common(rs, gui.jTableMain, q, MARKERS_SET_P_INDEX_FIRST, MARKERS_SET_P_INDEX_LAST);

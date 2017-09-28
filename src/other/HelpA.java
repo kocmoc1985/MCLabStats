@@ -1576,6 +1576,11 @@ public class HelpA {
         }
     }
 
+    /**
+     * @deprecated 
+     * @param box
+     * @return 
+     */
     public static String getComboBoxSelectedValue(JComboBox box) {
         Object val = box.getSelectedItem();
         //
