@@ -189,6 +189,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     public void resetGraphs() {
         try {
+            xygraph.removeDiffMarkerPoints();
             //
             xygraph.getSerie().resetPointsColorAndForm();
             //
@@ -204,8 +205,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     public void buildGraphs() {
         //
-        String q = SQL_Q.showResult(gui, SQL_Q.BATCH, "ASC", null);
-//        String q = SQL_Q.forTest();
+//        String q = SQL_Q.showResult(gui, SQL_Q.BATCH, "ASC", null);
+        String q = SQL_Q.forTest();
         //
         if (q == null) {
             return;
