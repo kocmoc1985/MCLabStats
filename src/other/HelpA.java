@@ -717,7 +717,6 @@ public class HelpA {
         rs.last(); // flyttar pekaren till sista positon
         columns = rsmt.getColumnCount(); // retrieves number of columns och lagrar det i "columns".
         rows = (indexLast - indexFirst)+1;
-        System.out.println("ROWS: " + rows);
         content = new Object[rows][columns]; // ger arrayen content som är en "Object"
         // initialisering i den första demensionen är "rows" i den andra "columns"
         //
