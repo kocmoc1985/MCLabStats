@@ -82,6 +82,10 @@ public class SQL_Q {
      public static String forTestB() {
         return "SELECT * from " + PRIM_TABLE +" WHERE [" +SQL_Q.QUALITY +"] = '1802860-ST220' AND [" +SQL_Q.TEST_CODE + "]='10194' AND [" + SQL_Q.TEST_NAME +"]='ML'";
     }
+     
+      public static String forTestC() {
+        return "SELECT * from " + PRIM_TABLE +" WHERE [" +SQL_Q.QUALITY +"] = '93004200091' AND [" +SQL_Q.TEST_CODE + "]='VUG01' AND [" + SQL_Q.TEST_NAME +"]='Minimum'";
+    }
 
     public static String showResult(Gui gui, String orderBy, String ascOrDesc, String additionalWhere) {
         //
