@@ -168,7 +168,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
 //                    p.setPointColor(Color.red);
 //                    p.setPointDimenssion(16);
 //                } else {
-                p = new MyPointH(((int) val), val, LSL, USL);
+                p = new MyPointH(val, val, LSL, USL);
 //                }
                 //
                 p.addPointInfo("Serie", rs.getString("Name"));

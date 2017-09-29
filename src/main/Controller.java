@@ -214,7 +214,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             //
             sql.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
                     p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
-//            //
+            
             sql_b.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
                     p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
             //
