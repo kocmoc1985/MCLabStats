@@ -9,7 +9,7 @@ import XYG_BASIC.HelpAA;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MyXYGB;
-import XYG_HISTO.MyGraphXY_H;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

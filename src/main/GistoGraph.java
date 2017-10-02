@@ -8,7 +8,6 @@ import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.PointHighLighter;
-import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
 import java.sql.ResultSet;
 

@@ -9,7 +9,6 @@ import XYG_BASIC.MyGraphContainer;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
-import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
@@ -264,7 +263,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             //
 //            gg.addLimits(rs);
             //
-            gg.addData(rs, "value", "#.##");
+            gg.addData(rs, "value", "#.####");
             //
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);

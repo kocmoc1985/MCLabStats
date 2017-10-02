@@ -6,7 +6,6 @@ package main;
 
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
-import XYG_HISTO.MyGraphXY_H;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;

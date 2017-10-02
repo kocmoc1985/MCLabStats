@@ -70,9 +70,9 @@ public class MyGraphXY_H extends MyGraphXY {
     public void scaleX(Graphics2D g2) {
         if (SCALE_X_AXIS) {
             int j = 0; // step identifier
-
-            int vv = (int) (X_MAX);
-
+            //
+            double vv = (X_MAX);
+            //
             if (vv > 500) {
                 j = 100;
             } else if (vv > 200) {
@@ -82,15 +82,13 @@ public class MyGraphXY_H extends MyGraphXY {
             } else if (vv > 30) {
                 j = 10;
             } else {
-                j = 2;
+                j = 5;
             }
-
-
+            //
             if (STEP_IDENTIFIER_X_AXIS != -1) {
                 j = STEP_IDENTIFIER_X_AXIS;
             }
-
-
+            //
             int m = 1; // frequency regulator
             for (int i = 1; i < getWidth(); i++) {
                 double X = i / ONE_UNIT_X; //!!!!!!!!! X = nr of one_unit_x per real pixel
