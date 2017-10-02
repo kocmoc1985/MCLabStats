@@ -203,8 +203,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     private void connect() {
         try {
-            sql.connect_mdb("", "", "c:/test/data.mdb");
-            sql_b.connect_mdb("", "", "c:/test/data.mdb");
+//            sql.connect_mdb("", "", "c:/test/data.mdb");
+//            sql_b.connect_mdb("", "", "c:/test/data.mdb");
             //
 //            sql.connect_odbc("", "", "MC_LAB");
 //            sql.connect_jdbc("10.87.0.2", "1433", "MCLAB_COMPOUND", "sa", "");
@@ -212,11 +212,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             //
             //
             //
-//            sql.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-//                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
-//            
-//            sql_b.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-//                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+            sql.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+            
+            sql_b.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
             //
             OUT.showMessage("Connected");
             //
@@ -246,8 +246,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 //            return;
 //        }
         //
-        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
-//        String q = SQL_Q.forTestB();
+//        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
+        String q = SQL_Q.forTestC();
         //
         if (q == null) {
             return;
