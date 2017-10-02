@@ -48,7 +48,7 @@ public class GistoGraphM extends GistoGraph implements GG {
         //
         try {
             //
-            rs.first();
+            rs.beforeFirst();
             //
             while (rs.next()) {
                 if (x >= start && x <= end) {

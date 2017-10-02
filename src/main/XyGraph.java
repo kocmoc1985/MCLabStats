@@ -128,7 +128,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
             double average;
             int devide_with = 0;
             //
-            rs.first();
+            rs.beforeFirst();
             //
             while (rs.next()) {
                 //
@@ -142,7 +142,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
             //
             average = sum_all_values / devide_with;
             //
-            rs.first();
+            rs.beforeFirst();
             //
             int filtered = 0;
             //

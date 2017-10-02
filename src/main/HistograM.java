@@ -122,7 +122,7 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
         //
         try {
             //
-            rs.first();
+            rs.beforeFirst();
             //
             while (rs.next()) {
                 if (x >= start && x <= end) {
