@@ -23,6 +23,7 @@ import other.HelpA;
 public class GistoGraphM extends GistoGraph implements GG {
 
     ArrayList<Step> stepList = new ArrayList<>();
+    private String rounding;
 
     public GistoGraphM(String title, MyGraphXY_H mgxyh, int displayMode) {
         super(title, mgxyh, displayMode);
@@ -66,11 +67,10 @@ public class GistoGraphM extends GistoGraph implements GG {
     }
 
     @Override
-    public void addData(ResultSet rs, String valueColName, String round) {
+    public void addData(ResultSet rs, String valueColName) {
         //
         this.resultSet = rs;
         this.valueColName = valueColName;
-        this.round = round;
         //
         ArrayList<Double> list = new ArrayList<>();
         //
@@ -140,7 +140,32 @@ public class GistoGraphM extends GistoGraph implements GG {
         //
         System.out.println("step: " + step);
         //
-        return step + 0.01;
+        double x = defineExtra(min);
+        //
+        return step + x;
+    }
+    
+
+    private double defineExtra(double min) {
+        if (min < 0.01) {
+            rounding = "%2.5f";
+            return 0.0001;
+        } else if (min < 0.1) {
+            rounding = "%2.4f";
+            return 0.001;
+        } else if (min < 1) {
+            rounding = "%2.3f";
+            return 0.01;
+        } else if (min < 10) {
+            rounding = "%2.2f";
+            return 0.1;
+        } else if (min < 100) {
+            rounding = "%2.1f";
+            return 1;
+        } else {
+            rounding = "%2.2f";
+            return 0.1;
+        }
     }
 
     private ArrayList<Step> defineSteps(double min, double step, int steps, ArrayList<Double> list) {
@@ -149,12 +174,12 @@ public class GistoGraphM extends GistoGraph implements GG {
         double min_ = 0;
         for (int i = 0; i < steps; i++) {
             if (i == 0) {
-                min_ = HelpA.roundDouble_(min + step, "%2.2f");
+                min_ = HelpA.roundDouble_(min + step, rounding);
                 step_ = new Step(min, min_, list);
             } else {
-                double lh = HelpA.roundDouble_(min_ + step, "%2.2f");
+                double lh = HelpA.roundDouble_(min_ + step, rounding);
                 step_ = new Step(min_, lh, list);
-                min_ = HelpA.roundDouble_(min_ + step, "%2.2f");
+                min_ = HelpA.roundDouble_(min_ + step, rounding);
             }
             lst.add(step_);
         }
@@ -170,7 +195,7 @@ public class GistoGraphM extends GistoGraph implements GG {
 
         public Step(double limLow, double limHigh, ArrayList<Double> list) {
             this.limLow = limLow;
-            this.limHigh = HelpA.roundDouble_(limHigh, "%2.2f");
+            this.limHigh = HelpA.roundDouble_(limHigh, rounding);
             this.list = list;
             count();
         }

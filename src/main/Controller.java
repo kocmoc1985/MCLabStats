@@ -232,7 +232,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             //
             resultSet.first();
             //
-            gg.addData(resultSet, "value", "#.##");
+            gg.addData(resultSet, "value");
             //
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -263,7 +263,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
             //
 //            gg.addLimits(rs);
             //
-            gg.addData(rs, "value", "#.####");
+            gg.addData(rs, "value");
             //
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);

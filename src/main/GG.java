@@ -18,7 +18,7 @@ public interface GG extends DiffMarkerAction{
     
     public void addDiffMarkersSetListener(DiffMarkerAction dma);
     
-    public void addData(ResultSet rs, String valueColName, String round);
+    public void addData(ResultSet rs, String valueColName);
     
     public String getRound();
     
