@@ -65,11 +65,7 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
     public void refresh() {
         getGraph().repaint();
     }
-
-    public void setStepIdentifierX(int x) {
-        MyGraphXY_H h = (MyGraphXY_H) myGraphXY;
-        h.setStepIdentifierX(x);
-    }
+ 
 
     @Override
     public void addData(ResultSet rs, String valueColName) {

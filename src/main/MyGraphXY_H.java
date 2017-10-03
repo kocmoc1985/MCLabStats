@@ -5,10 +5,12 @@
 package main;
 
 import XYG_BASIC.MyGraphXY;
+import XYG_BASIC.MyPoint;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +21,11 @@ public class MyGraphXY_H extends MyGraphXY {
 
     public ArrayList<String> xValuesList;
     public int STEP_IDENTIFIER_X_AXIS = -1;
+    private final ArrayList<PointGraphListener> pointGraphListeners = new ArrayList<>();
+
+    public void addPointGraphListener(PointGraphListener pgl) {
+        pointGraphListeners.add(pgl);
+    }
 
     public void setXValues(ArrayList<String> list) {
         xValuesList = list;
@@ -125,7 +132,6 @@ public class MyGraphXY_H extends MyGraphXY {
         }
     }
 
-
     @Override
     public void addPointInfo() {
         MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
@@ -139,6 +145,30 @@ public class MyGraphXY_H extends MyGraphXY {
             popup.add(menu_item_diff_marker_add);
         } else if (MARKER_POINT.isDiffMarkerPoint()) {
             popup.add(menu_item_diff_marker_remove);
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        super.mouseMoved(e); //To change body of generated methods, choose Tools | Templates.
+        //
+        if (e.getSource() instanceof MyPoint) {
+            callEventWatchersHover(e);
+        } else {
+            callEventWatchersHoverOut(e);
+        }
+
+    }
+
+    private void callEventWatchersHoverOut(MouseEvent e) {
+        for (PointGraphListener pgl : pointGraphListeners) {
+            pgl.pointGraphHoverOutEvent(e);
+        }
+    }
+
+    private void callEventWatchersHover(MouseEvent e) {
+        for (PointGraphListener pgl : pointGraphListeners) {
+            pgl.pointGraphHoverEvent(e, MARKER_POINT);
         }
     }
 }

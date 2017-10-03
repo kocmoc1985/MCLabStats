@@ -22,7 +22,7 @@ import other.HelpA;
  */
 public class GistoGraphM extends GistoGraph implements GG {
 
-    ArrayList<Step> stepList = new ArrayList<>();
+    private ArrayList<Step> stepList = new ArrayList<>();
     private String rounding;
 
     public GistoGraphM(String title, MyGraphXY_H mgxyh, int displayMode) {

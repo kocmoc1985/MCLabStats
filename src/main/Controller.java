@@ -29,7 +29,7 @@ import sql.Sql_B;
  *
  * @author KOCMOC
  */
-public class Controller implements DiffMarkerAction, BarGraphListener {
+public class Controller implements DiffMarkerAction, BarGraphListener,PointGraphListener {
 
     private Sql_B sql = new Sql_B(false, true);
     private Sql_B sql_b = new Sql_B(false, true); // obs this one is for building table
@@ -61,7 +61,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     private void defineInitialGistoGraph() {
         //===
-        gg = new GistoGraph("Histogram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        MyGraphXY_H mgxyh = new MyGraphXY_H();
+        mgxyh.addPointGraphListener(this);
+        //
+        gg = new GistoGraph("PlotDiagram", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        //
         //====
         xygraph.setGistoGraph(gg);
         xygraph.addDiffMarkersSetListener(this);
@@ -105,7 +109,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     public void switchToPlotGraph() {
         //
-        gg = new GistoGraph("PlotDiagram", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        MyGraphXY_H mgxyh = new MyGraphXY_H();
+        mgxyh.addPointGraphListener(this);
+        //
+        gg = new GistoGraph("PlotDiagram", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        //
         xygraph.setGistoGraph(gg);
         //
         Gui.HistoPanel.removeAll();
@@ -125,6 +133,16 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
     public void deleteFromBarGraph() {
         GistoGraphM ggm = (GistoGraphM) gg;
         ggm.myGraphXY.deleteAllPointsFromSerie(ggm.serie);
+    }
+    
+    @Override
+    public void pointGraphHoverEvent(MouseEvent e, MyPoint point) {
+        highLightPoints(point.x_Display, point.x_Display, false);
+    }
+
+    @Override
+    public void pointGraphHoverOutEvent(MouseEvent e) {
+        xygraph.getSerie().resetPointsColorAndForm();
     }
 
     @Override
@@ -241,12 +259,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
 
     public void buildGraphs() {
         //
-//        if (gui.obligatoryBoxesFilled() == false) {
-//            return;
-//        }
+        if (gui.obligatoryBoxesFilled() == false) {
+            return;
+        }
         //
-//        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
-        String q = SQL_Q.forTestC();
+        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
+//        String q = SQL_Q.forTestC();
         //
         if (q == null) {
             return;
@@ -295,6 +313,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener {
         }
 
     }
+
+    
 
     class BuildTableThread implements Runnable {
 
