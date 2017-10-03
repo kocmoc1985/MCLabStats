@@ -716,18 +716,18 @@ public class HelpA {
         rsmt = rs.getMetaData(); // får in antalet columner
         rs.last(); // flyttar pekaren till sista positon
         columns = rsmt.getColumnCount(); // retrieves number of columns och lagrar det i "columns".
-        rows = (indexLast - indexFirst)+1;
+        rows = (indexLast - indexFirst) + 1;
         content = new Object[rows][columns]; // ger arrayen content som är en "Object"
         // initialisering i den första demensionen är "rows" i den andra "columns"
         //
         int row_ = 0;
         for (int row = indexFirst; row <= indexLast; row++) {
-            rs.absolute(row+1); // Flytta till rätt rad i resultatmängden
+            rs.absolute(row + 1); // Flytta till rätt rad i resultatmängden
             for (int col = 0; col < columns; col++) {
                 Object obj = rs.getString(col + 1);
                 content[row_][col] = obj;
             }
-            row_ ++;
+            row_++;
         }
         //
         return content;
@@ -1576,9 +1576,8 @@ public class HelpA {
     }
 
     /**
-     * @deprecated 
-     * @param box
-     * @return 
+     * @deprecated @param box
+     * @return
      */
     public static String getComboBoxSelectedValue(JComboBox box) {
         Object val = box.getSelectedItem();
@@ -1856,6 +1855,41 @@ public class HelpA {
         meta = rs.getMetaData();
         headers = new String[meta.getColumnCount()];
         return headers.length;
+    }
+
+    public static double calc_Filter_Coeff(ResultSet rs, String valueColName) {
+        //
+        double sum_all_values = 0;
+        int devide_with = 0;
+        //
+        try {
+            while (rs.next()) {
+                //
+                double act_value = parseDouble(rs.getString(valueColName));
+                //
+                if (act_value > 0) {
+                    sum_all_values += act_value;
+                    devide_with++;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        return (sum_all_values / devide_with)*2;
+    }
+
+    public static double parseDouble(String str) {
+        if (str == null || str.equals("null")) {
+            return 0;
+        }
+
+        try {
+            double x = Double.parseDouble(str);
+            return x;
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 
     public static void looseFocus() {

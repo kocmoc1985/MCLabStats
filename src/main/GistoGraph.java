@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import other.HelpA;
 
 /**
  *
@@ -65,7 +66,6 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
     public void refresh() {
         getGraph().repaint();
     }
- 
 
     @Override
     public void addData(ResultSet rs, String valueColName) {
@@ -77,9 +77,20 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
         refresh();
         //
         try {
+            //
+            rs.beforeFirst();
+            //
+            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            //
+            rs.beforeFirst();
+            //
             while (rs.next()) {
+                //
                 double val = rs.getDouble(valueColName);
-                buildHistogramDataSet(val, histoMap, round);
+                //
+                if (val < (filterCoeff)) {
+                    buildHistogramDataSet(val, histoMap, round);
+                }
             }
             //
             addPoints();

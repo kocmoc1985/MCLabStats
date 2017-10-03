@@ -259,12 +259,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
 
     public void buildGraphs() {
         //
-        if (gui.obligatoryBoxesFilled() == false) {
-            return;
-        }
+//        if (gui.obligatoryBoxesFilled() == false) {
+//            return;
+//        }
         //
-        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
-//        String q = SQL_Q.forTestC();
+//        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
+        String q = SQL_Q.forTestC();
         //
         if (q == null) {
             return;

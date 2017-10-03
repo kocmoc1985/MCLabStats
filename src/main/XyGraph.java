@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import other.HelpA;
 
 /**
  *
@@ -120,27 +121,14 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
     }
 
     public void addData(ResultSet rs, String valueColName) {
-
+        //
         boolean diffMarkerPointsDeleteFlag = true;
-
+        //
         try {
-            double sum_all_values = 0;
-            double average;
-            int devide_with = 0;
             //
             rs.beforeFirst();
             //
-            while (rs.next()) {
-                //
-                double act_value = parseDouble(rs.getString(valueColName));
-                //
-                if (act_value > 0) {
-                    sum_all_values += act_value;
-                    devide_with++;
-                }
-            }
-            //
-            average = sum_all_values / devide_with;
+            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
             //
             rs.beforeFirst();
             //
@@ -177,8 +165,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
                 p.addPointInfo("Batch", rs.getString("BatchNo"));
                 p.addPointInfo("Status", rs.getString("Status"));
                 //
-                if (val < (average * 2)) {
-//                    addPoint(p);
+                if (val < (filterCoeff)) {
                     addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
                     diffMarkerPointsDeleteFlag = false;
                 } else {

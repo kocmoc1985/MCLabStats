@@ -75,11 +75,22 @@ public class GistoGraphM extends GistoGraph implements GG {
         ArrayList<Double> list = new ArrayList<>();
         //
         try {
+            //
+            rs.beforeFirst();
+            //
+            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            //
+            rs.beforeFirst();
+            //
             while (rs.next()) {
+                //
                 double val = rs.getDouble(valueColName);
-                list.add(val);
+                //
+                if (val < (filterCoeff)) {
+                    list.add(val);
+                }
             }
-
+            //
         } catch (SQLException ex) {
             Logger.getLogger(GistoGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -144,24 +155,23 @@ public class GistoGraphM extends GistoGraph implements GG {
         //
         return step + x;
     }
-    
 
     private double defineExtra(double min) {
         if (min < 0.01) {
-            rounding = "%2.5f";
-            return 0.0001;
-        } else if (min < 0.1) {
             rounding = "%2.4f";
-            return 0.001;
-        } else if (min < 1) {
+            return 0.0015;
+        } else if (min < 0.1) {
             rounding = "%2.3f";
             return 0.01;
-        } else if (min < 10) {
+        } else if (min < 1) {
             rounding = "%2.2f";
             return 0.1;
-        } else if (min < 100) {
+        } else if (min < 10) {
             rounding = "%2.1f";
             return 1;
+        } else if (min < 100) {
+            rounding = "%2.0f";
+            return 5;
         } else {
             rounding = "%2.2f";
             return 0.1;
