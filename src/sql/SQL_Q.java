@@ -142,7 +142,7 @@ public class SQL_Q {
             }
         }
         //
-        System.out.println("query: " + query);
+//        System.out.println("query: " + query);
         return query;
     }
 
@@ -183,7 +183,7 @@ public class SQL_Q {
         //
         query += " GROUP BY [" + actualComboParam + "]";
         //
-        System.out.println("query: " + query);
+//        System.out.println("query: " + query);
         return query;
     }
 

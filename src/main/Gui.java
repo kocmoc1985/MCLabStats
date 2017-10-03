@@ -35,7 +35,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
     public final static String DATE_FORMAT = "yy/MM/dd";
-    public static final String VERSION = "ALPHA 1.34";
+    public static final String VERSION = "ALPHA 1.35";
 
     /**
      * Creates new form Gui
@@ -92,6 +92,9 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         //
         for (JComboBox jComboBox : JCOMBO_LIST) {
             HelpA.addMouseListenerJComboBox(jComboBox, this);
+            //
+            JComboBoxM boxM = (JComboBoxM)jComboBox;
+            boxM.setName(boxM.getPARAMETER());
         }
     }
     

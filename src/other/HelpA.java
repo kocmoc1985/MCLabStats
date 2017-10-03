@@ -1377,7 +1377,7 @@ public class HelpA {
             //
             while (rs.next()) {
                 //
-                String val = null;
+                String val;
                 //
                 try {
                     val = rs.getString(1);
@@ -1433,7 +1433,9 @@ public class HelpA {
             support = autoSupportList.get(jbox);
             //
             if (support.isInstalled()) {
+                //
                 support.uninstall();
+                //
                 support = AutoCompleteSupport.install(
                         jbox, GlazedLists.eventListOf(arr));
                 //
@@ -1535,6 +1537,8 @@ public class HelpA {
         //
         String q = query;
         //
+        //
+        System.out.println("fillComboBox: " + box.getName());
         //
         HelpA.fillComboBox(sql, box, q, null, true, false);
 //        HelpA.fillComboBox_no_autofill(sql, box, query, null);
@@ -1876,7 +1880,7 @@ public class HelpA {
             Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
         }
         //
-        return (sum_all_values / devide_with)*2;
+        return (sum_all_values / devide_with) * 2;
     }
 
     public static double parseDouble(String str) {

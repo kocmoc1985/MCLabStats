@@ -153,6 +153,8 @@ public class GistoGraphM extends GistoGraph implements GG {
         //
         double x = defineExtra(min);
         //
+        System.out.println("addCoeff: " + x);
+        //
         return step + x;
     }
 
@@ -160,19 +162,10 @@ public class GistoGraphM extends GistoGraph implements GG {
         if (min < 0.01) {
             rounding = "%2.4f";
             return 0.0015;
-        } else if (min < 0.1) {
-            rounding = "%2.3f";
-            return 0.01;
-        } else if (min < 1) {
+        } else if (min < 5) {
             rounding = "%2.2f";
-            return 0.1;
-        } else if (min < 10) {
-            rounding = "%2.1f";
-            return 1;
-        } else if (min < 100) {
-            rounding = "%2.0f";
-            return 5;
-        } else {
+            return 0.01;
+        }   else {
             rounding = "%2.2f";
             return 0.1;
         }

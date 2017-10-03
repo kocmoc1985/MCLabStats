@@ -269,6 +269,7 @@ public class Sql_B implements SqlBasicLocal {
     
     @Override
     public ResultSet execute(String sql, ShowMessage sm) throws SQLException {
+        //
         sm.showMessage(sql);
         //
         if (statement.execute(sql)) {
