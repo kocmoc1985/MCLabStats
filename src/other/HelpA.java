@@ -723,8 +723,9 @@ public class HelpA {
         //
         int row_ = 0;
         for (int row = indexFirst; row <= indexLast; row++) {
-            rs.absolute(row + 1); // Flytta till rätt rad i resultatmängden
+            rs.absolute(row); // Flytta till rätt rad i resultatmängden
             for (int col = 0; col < columns; col++) {
+//                System.out.println("Col: " + (col+1));
                 Object obj = rs.getString(col + 1);
                 content[row_][col] = obj;
             }

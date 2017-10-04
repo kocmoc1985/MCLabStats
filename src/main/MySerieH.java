@@ -5,6 +5,7 @@
 package main;
 
 import XYG_BASIC.MyGraphXY;
+import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import java.awt.Color;
 
@@ -28,6 +29,14 @@ public class MySerieH extends MySerie {
         if (myGraphXY instanceof MyGraphXY_H_M) {
             pointsHighlightColor = Color.MAGENTA;
         }
-    }    
+    }
+    
+    @Override
+    public void addDiffMarkerPoints() {
+        MyPoint pointA = getPoint(0);
+        MyPoint pointB = getPoint(points.size() - 1);
+        this.DIFF_MARKER_POINTS.add(pointA);
+        this.DIFF_MARKER_POINTS.add(pointB);
+    }
     
 }

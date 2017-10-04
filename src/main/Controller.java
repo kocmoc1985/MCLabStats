@@ -300,6 +300,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         try {
             ResultSet rs = sql_b.execute(q, OUT);
             //
+            rs.beforeFirst();
+            //
             if (MARKERS_SET_P_INDEX_FIRST != -1 && MARKERS_SET_P_INDEX_LAST != -1) {
                 HelpA.build_table_common(rs, gui.jTableMain, q, MARKERS_SET_P_INDEX_FIRST, MARKERS_SET_P_INDEX_LAST);
                 MARKERS_SET_P_INDEX_FIRST = -1;

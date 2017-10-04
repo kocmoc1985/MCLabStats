@@ -35,7 +35,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
     public final static String DATE_FORMAT = "yy/MM/dd";
-    public static final String VERSION = "ALPHA 1.35";
+    public static final String VERSION = "BETA 1.01";
 
     /**
      * Creates new form Gui
@@ -53,7 +53,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private void initOther() {
         datePicker1.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
         this.setTitle("MCLabStats " + VERSION);
-        this.setIconImage(new ImageIcon(IconUrls.UNDO_ICON_URL).getImage());
+        this.setIconImage(new ImageIcon(IconUrls.APP_ICON).getImage());
     }
     
     public ArrayList<JComboBox> getJCOMBO_LIST() {
@@ -131,7 +131,6 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         GraphPanel = new javax.swing.JPanel();
-        jButtonFind = new javax.swing.JButton();
         HistoPanel = new javax.swing.JPanel();
         jPanelOutputContainer = new javax.swing.JPanel();
         jPanelSumContainer = new javax.swing.JPanel();
@@ -146,34 +145,38 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanelTableContainer = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableMain = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jTextFieldTest = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jComboBoxQuality = new JComboBoxA(SQL_Q.QUALITY,false);
+        jComboBoxQuality = new other.JComboBoxA(SQL_Q.QUALITY,false);
         jPanel4 = new javax.swing.JPanel();
-        jComboBoxOrder = new JComboBoxA(SQL_Q.ORDER,false);
+        jComboBoxOrder = new other.JComboBoxA(SQL_Q.ORDER,false);
         jPanel8 = new javax.swing.JPanel();
-        jComboBoxBatch = new JComboBoxA(SQL_Q.BATCH,true);
+        jComboBoxBatch = new other.JComboBoxA(SQL_Q.BATCH,true);
         jPanel5 = new javax.swing.JPanel();
-        jComboBoxTestCode = new JComboBoxA(SQL_Q.TEST_CODE,false);
+        jComboBoxTestCode = new other.JComboBoxA(SQL_Q.TEST_CODE,false);
         jPanel1 = new javax.swing.JPanel();
-        jComboBoxTestName = new JComboBoxA(SQL_Q.TEST_NAME,false);
+        jComboBoxTestName = new other.JComboBoxA(SQL_Q.TEST_NAME,false);
         jPanel10 = new javax.swing.JPanel();
-        jComboBoxLSL = new JComboBoxA(SQL_Q.LSL,true);
+        jComboBoxLSL = new other.JComboBoxA(SQL_Q.LSL,true);
         jPanel11 = new javax.swing.JPanel();
-        jComboBoxUSL = new JComboBoxA(SQL_Q.USL,true);
+        jComboBoxUSL = new other.JComboBoxA(SQL_Q.USL,true);
         jPanel6 = new javax.swing.JPanel();
-        jComboBoxDateA = new JComboBoxA(SQL_Q.TEST_DATE,false);
+        jComboBoxDateA = new other.JComboBoxA(SQL_Q.TEST_DATE,false);
         jPanel9 = new javax.swing.JPanel();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
-        jButtonClear = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel46 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jButtonClear = new javax.swing.JButton();
+        jButtonFind = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jPanel14 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jPanel15 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jLabel46 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -182,13 +185,6 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         GraphPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         GraphPanel.setLayout(new java.awt.GridLayout(1, 1));
-
-        jButtonFind.setText("Show Graph");
-        jButtonFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFindActionPerformed(evt);
-            }
-        });
 
         HistoPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         HistoPanel.setLayout(new java.awt.GridLayout(1, 1));
@@ -253,28 +249,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jPanelTableContainer.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jButton1.setText("Build Table");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jTextFieldTest.setText("30");
-
-        jButton3.setText("Histogram");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("PlotDiagram");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        jTextFieldTest.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jPanel12.setLayout(new java.awt.GridLayout(2, 4));
 
@@ -339,38 +315,78 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jPanel12.add(jPanel9);
 
-        jButtonClear.setText("Clear Search Fields");
-        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonClearActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButtonClear);
-
-        jButton5.setText("Clear Graphs");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/undo_2.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Add Markers");
+        jLabel46.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel46.setText("MCLabStats");
+
+        jPanel13.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
+
+        jButtonClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/undo_2.png"))); // NOI18N
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
+        jPanel13.add(jButtonClear);
+
+        jButtonFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/graph.png"))); // NOI18N
+        jButtonFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFindActionPerformed(evt);
+            }
+        });
+        jPanel13.add(jButtonFind);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/table_2.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel13.add(jButton1);
+
+        jPanel14.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bar-graph.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jButton3);
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/graph.png"))); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jButton4);
+
+        jPanel15.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cursor.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel15.add(jButton2);
 
-        jButton6.setText("Delete Markers");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cursor_clear.png"))); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-
-        jLabel46.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel46.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel46.setText("MCLabStats");
+        jPanel15.add(jButton6);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -380,59 +396,46 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelTableContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton5)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(HistoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jButton3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldTest, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(37, 37, 37)
-                                        .addComponent(jButton4))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(17, 17, 17))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 943, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 86, Short.MAX_VALUE))
+                    .addComponent(jPanelTableContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonFind, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(HistoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTextFieldTest, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonFind, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jTextFieldTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton2)
-                    .addComponent(jButton6)
-                    .addComponent(jButton4))
+                .addComponent(jPanelTableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldTest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GraphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -441,7 +444,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel46))
-                .addGap(31, 31, 31))
+                .addGap(5, 5, 5))
         );
 
         jTabbedPane1.addTab("Main", jPanel2);
@@ -457,14 +460,14 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addContainerGap(368, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addContainerGap(531, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Log", jPanel3);
@@ -581,6 +584,9 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
