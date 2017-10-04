@@ -11,7 +11,7 @@ import javax.swing.JComboBox;
 import main.Gui;
 import static main.Gui.DATE_FORMAT;
 import other.HelpA;
-import other.JComboBoxM;
+import other.JComboBoxA;
 
 /**
  *
@@ -40,7 +40,7 @@ public class SQL_Q {
         //
 
         for (JComboBox box : gui.getJCOMBO_LIST()) {
-            JComboBoxM boxM = (JComboBoxM) box;
+            JComboBoxA boxM = (JComboBoxA) box;
             //
             if (boxM.getPARAMETER().equals(TEST_DATE) == false) {
                 list.add(new FillAutoEntry(boxM.getPARAMETER(), HelpA.getComboBoxSelectedValue_b(boxM), boxM.isNUMBER()));

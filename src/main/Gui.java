@@ -19,7 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import other.HelpA;
-import other.JComboBoxM;
+import other.JComboBoxA;
 import sql.SQL_Q;
 import sql.ShowMessage;
 
@@ -93,7 +93,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         for (JComboBox jComboBox : JCOMBO_LIST) {
             HelpA.addMouseListenerJComboBox(jComboBox, this);
             //
-            JComboBoxM boxM = (JComboBoxM)jComboBox;
+            JComboBoxA boxM = (JComboBoxA)jComboBox;
             boxM.setName(boxM.getPARAMETER());
         }
     }
@@ -152,21 +152,21 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jButton4 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jComboBoxQuality = new JComboBoxM(SQL_Q.QUALITY,false);
+        jComboBoxQuality = new JComboBoxA(SQL_Q.QUALITY,false);
         jPanel4 = new javax.swing.JPanel();
-        jComboBoxOrder = new JComboBoxM(SQL_Q.ORDER,false);
+        jComboBoxOrder = new JComboBoxA(SQL_Q.ORDER,false);
         jPanel8 = new javax.swing.JPanel();
-        jComboBoxBatch = new JComboBoxM(SQL_Q.BATCH,true);
+        jComboBoxBatch = new JComboBoxA(SQL_Q.BATCH,true);
         jPanel5 = new javax.swing.JPanel();
-        jComboBoxTestCode = new JComboBoxM(SQL_Q.TEST_CODE,false);
+        jComboBoxTestCode = new JComboBoxA(SQL_Q.TEST_CODE,false);
         jPanel1 = new javax.swing.JPanel();
-        jComboBoxTestName = new JComboBoxM(SQL_Q.TEST_NAME,false);
+        jComboBoxTestName = new JComboBoxA(SQL_Q.TEST_NAME,false);
         jPanel10 = new javax.swing.JPanel();
-        jComboBoxLSL = new JComboBoxM(SQL_Q.LSL,true);
+        jComboBoxLSL = new JComboBoxA(SQL_Q.LSL,true);
         jPanel11 = new javax.swing.JPanel();
-        jComboBoxUSL = new JComboBoxM(SQL_Q.USL,true);
+        jComboBoxUSL = new JComboBoxA(SQL_Q.USL,true);
         jPanel6 = new javax.swing.JPanel();
-        jComboBoxDateA = new JComboBoxM(SQL_Q.TEST_DATE,false);
+        jComboBoxDateA = new JComboBoxA(SQL_Q.TEST_DATE,false);
         jPanel9 = new javax.swing.JPanel();
         datePicker1 = new com.michaelbaranov.microba.calendar.DatePicker();
         jButtonClear = new javax.swing.JButton();
@@ -280,64 +280,48 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "QUALITY*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel7.setLayout(new java.awt.GridLayout(1, 1));
-
-        jComboBoxQuality.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel7.add(jComboBoxQuality);
 
         jPanel12.add(jPanel7);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "ORDER", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel4.setLayout(new java.awt.GridLayout(1, 1, 10, 0));
-
-        jComboBoxOrder.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel4.add(jComboBoxOrder);
 
         jPanel12.add(jPanel4);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "BATCH", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel8.setLayout(new java.awt.GridLayout(1, 1));
-
-        jComboBoxBatch.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel8.add(jComboBoxBatch);
 
         jPanel12.add(jPanel8);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "TEST CODE*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel5.setLayout(new java.awt.GridLayout(1, 1));
-
-        jComboBoxTestCode.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel5.add(jComboBoxTestCode);
 
         jPanel12.add(jPanel5);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "TEST NAME*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel1.setLayout(new java.awt.GridLayout(1, 1));
-
-        jComboBoxTestName.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel1.add(jComboBoxTestName);
 
         jPanel12.add(jPanel1);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LSL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel10.setLayout(new java.awt.GridLayout(1, 0));
-
-        jComboBoxLSL.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel10.add(jComboBoxLSL);
 
         jPanel12.add(jPanel10);
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "USL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel11.setLayout(new java.awt.GridLayout(1, 0));
-
-        jComboBoxUSL.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel11.add(jComboBoxUSL);
 
         jPanel12.add(jPanel11);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "DATE FROM", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
         jPanel6.setLayout(new java.awt.GridLayout(1, 1));
-
-        jComboBoxDateA.setModel(new javax.swing.DefaultComboBoxModel());
         jPanel6.add(jComboBoxDateA);
 
         jPanel12.add(jPanel6);
@@ -632,7 +616,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
             if (button.getParent() instanceof JComboBox) {
                 JComboBox parent = (JComboBox) button.getParent();
                 //
-                controller.fillComboStandard((JComboBoxM) parent);
+                controller.fillComboStandard((JComboBoxA) parent);
                 //
                 parent.setEditable(true);
                 parent.setBackground(INITIAL_BG_COLOR_COMBO);

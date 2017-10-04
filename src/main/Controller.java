@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import other.HelpA;
-import other.JComboBoxM;
+import other.JComboBoxA;
 import sql.SQL_Q;
 import sql.ShowMessage;
 import sql.Sql_B;
@@ -353,7 +353,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
     //==========================================================================
     //==========================================================================
 
-    public void fillComboStandard(JComboBoxM jcbm) {
+    public void fillComboStandard(JComboBoxA jcbm) {
         //
         String q = SQL_Q.fillAuto(jcbm.getPARAMETER(), gui);
         //
@@ -364,12 +364,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         resetFlagsWaitSelective(jcbm);
     }
 
-    public void resetFlagsWaitSelective(JComboBoxM jcbm) {
+    public void resetFlagsWaitSelective(JComboBoxA jcbm) {
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
         //
         for (JComboBox jComboBox : list) {
             //
-            JComboBoxM boxM = (JComboBoxM) jComboBox;
+            JComboBoxA boxM = (JComboBoxA) jComboBox;
             //
             if (boxM.getPARAMETER().equals(jcbm.getPARAMETER()) == false) {
                 boxM.setFLAG_WAIT(0);
@@ -383,7 +383,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         //
         for (JComboBox jComboBox : list) {
             //
-            JComboBoxM boxM = (JComboBoxM) jComboBox;
+            JComboBoxA boxM = (JComboBoxA) jComboBox;
             //
             boxM.setFLAG_WAIT(0);
         }

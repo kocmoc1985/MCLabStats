@@ -4,6 +4,7 @@
  */
 package other;
 
+import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import images.IconUrls;
@@ -1355,10 +1356,10 @@ public class HelpA {
      * @param fakeValue shows a predefined "title" instead for the real value
      * @return
      */
-    public static JComboBox fillComboBox(SqlBasicLocal sql, JComboBox jbox, String query,
+    public static JComboBox fillComboBox(SqlBasicLocal sql, JComboBoxA jbox, String query,
             Object initialValue, boolean showMultipleValues, boolean fakeValue) {
         //
-        ArrayList<Object> list = new ArrayList<Object>();
+        ArrayList<Object> list = new ArrayList<>();
         //
         boolean cond_1 = initialValue != null && (initialValue instanceof Boolean == false)
                 && showMultipleValues == false && fakeValue == false;
@@ -1384,7 +1385,7 @@ public class HelpA {
                 } catch (Exception ex) {
                     break;
                 }
-
+                //
                 if (val != null && val.isEmpty() == false) {
                     if (showMultipleValues) {
                         //
@@ -1410,41 +1411,8 @@ public class HelpA {
             Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
         }
         //
-        Object[] arr = list.toArray();
+        jbox.AUTOFILL_ADD(list);
         //
-        if (arr.length == 0) {
-            arr = new Object[1];
-            arr[0] = "";
-        }
-        //
-        AutoCompleteSupport support;
-        //
-        //#AutoComplete, Auto complete# glazedlists_java15-1.9.1.jar is needed
-        if (autoSupportList.containsKey(jbox) == false) {
-            support = AutoCompleteSupport.install(
-                    jbox, GlazedLists.eventListOf(arr));
-            //
-            autoSupportList.put(jbox, support);
-            //
-            jbox.setSelectedIndex(0);
-            //
-        } else {
-            //
-            support = autoSupportList.get(jbox);
-            //
-            if (support.isInstalled()) {
-                //
-                support.uninstall();
-                //
-                support = AutoCompleteSupport.install(
-                        jbox, GlazedLists.eventListOf(arr));
-                //
-                autoSupportList.remove(jbox);
-                //
-                autoSupportList.put(jbox, support);
-                //
-            }
-        }
         //
         if (initialComboBoxBorder == null) {
             initialComboBoxBorder = jbox.getBorder();
@@ -1457,6 +1425,117 @@ public class HelpA {
         return jbox;
     }
 
+//    /**
+//     *
+//     * @param sql
+//     * @param jbox
+//     * @param query
+//     * @param initialValue
+//     * @param showMultipleValues if true the combo box will show 2 parameters
+//     * @param fakeValue shows a predefined "title" instead for the real value
+//     * @return
+//     */
+//    public static JComboBox fillComboBox(SqlBasicLocal sql, JComboBox jbox, String query,
+//            Object initialValue, boolean showMultipleValues, boolean fakeValue) {
+//        //
+//        ArrayList<Object> list = new ArrayList<Object>();
+//        //
+//        boolean cond_1 = initialValue != null && (initialValue instanceof Boolean == false)
+//                && showMultipleValues == false && fakeValue == false;
+//        //
+//        if (cond_1) {
+//            list.add(initialValue);
+//        }
+//        //
+//        if (fakeValue) {
+//            list.add(" ");
+//        }
+//        //
+//        try {
+//            //
+//            ResultSet rs = sql.execute(query);
+//            //
+//            while (rs.next()) {
+//                //
+//                String val;
+//                //
+//                try {
+//                    val = rs.getString(1);
+//                } catch (Exception ex) {
+//                    break;
+//                }
+//
+//                if (val != null && val.isEmpty() == false) {
+//                    if (showMultipleValues) {
+//                        //
+//                        list.add(new ComboBoxObjectB(getValueResultSet(rs, 1), getValueResultSet(rs, 2), getValueResultSet(rs, 3)));
+//                        //
+//                    } else if (fakeValue) {
+//                        //
+//                        String value = getValueResultSet(rs, 1);
+//                        String fakeVal = fakeValuesMap.get(value);
+//                        if (fakeVal != null) {
+//                            list.add(new ComboBoxObjectC(value, fakeVal, ""));
+//                        }
+//                        //
+//                    } else {
+//                        //
+//                        list.add(new ComboBoxObject(getValueResultSet(rs, 1), getValueResultSet(rs, 2), getValueResultSet(rs, 3)));
+//                        //
+//                    }
+//                }
+//            }
+//            //
+//        } catch (Exception ex) {
+//            Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        //
+//        Object[] arr = list.toArray();
+//        //
+//        if (arr.length == 0) {
+//            arr = new Object[1];
+//            arr[0] = "";
+//        }
+//        //
+//        AutoCompleteSupport support;
+//        //
+//        //#AutoComplete, Auto complete# glazedlists_java15-1.9.1.jar is needed
+//        if (autoSupportList.containsKey(jbox) == false) {
+//            support = AutoCompleteSupport.install(
+//                    jbox, GlazedLists.eventListOf(arr));
+//            //
+//            autoSupportList.put(jbox, support);
+//            //
+//            jbox.setSelectedIndex(0);
+//            //
+//        } else {
+//            //
+//            support = autoSupportList.get(jbox);
+//            //
+//            if (support.isInstalled()) {
+//                //
+//                support.uninstall();
+//                //
+//                support = AutoCompleteSupport.install(
+//                        jbox, GlazedLists.eventListOf(arr));
+//                //
+//                autoSupportList.remove(jbox);
+//                //
+//                autoSupportList.put(jbox, support);
+//                //
+//            }
+//        }
+//        //
+//        if (initialComboBoxBorder == null) {
+//            initialComboBoxBorder = jbox.getBorder();
+//        }
+//        //
+//        tryMatch(jbox, (String) initialValue, showMultipleValues, fakeValue);
+//        //
+//        setTrackingToolTip(jbox, query);
+//        //
+//        return jbox;
+//    }
     /**
      * For MultipleValues only with initial value present
      *
@@ -1526,7 +1605,7 @@ public class HelpA {
      * @param query
      * @param sql
      */
-    public static synchronized long fillComboBox_with_wait(final JComboBox box, long flagWait, String query, SqlBasicLocal sql) {
+    public static synchronized long fillComboBox_with_wait(final JComboBoxA box, long flagWait, String query, SqlBasicLocal sql) {
         //
         if (HelpA.fillAllowedComboBox(flagWait) == false) {
             flagWait = System.currentTimeMillis();
@@ -1554,6 +1633,40 @@ public class HelpA {
         return flagWait;
     }
 
+//    /**
+//     * IMPORTANT!
+//     *
+//     * @param box
+//     * @param query
+//     * @param sql
+//     */
+//    public static synchronized long fillComboBox_with_wait(final JComboBox box, long flagWait, String query, SqlBasicLocal sql) {
+//        //
+//        if (HelpA.fillAllowedComboBox(flagWait) == false) {
+//            flagWait = System.currentTimeMillis();
+//            return flagWait;
+//        }
+//        //
+//        Object selection = box.getSelectedItem();
+//        //
+//        String q = query;
+//        //
+//        //
+//        System.out.println("fillComboBox: " + box.getName());
+//        //
+//        HelpA.fillComboBox(sql, box, q, null, true, false);
+////        HelpA.fillComboBox_no_autofill(sql, box, query, null);
+//        //
+//        flagWait = System.currentTimeMillis();
+//        //
+//        if (selection == null && box.getItemCount() > 0) {
+//            box.setSelectedIndex(0);
+//        } else {
+//            box.setSelectedItem(selection);
+//        }
+//        //
+//        return flagWait;
+//    }
     /**
      * Very effective way of handling cases when it takes plenty of time to load
      * data to a combo box, and each time when you point on the combo box it
