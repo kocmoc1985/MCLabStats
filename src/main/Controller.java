@@ -29,7 +29,7 @@ import sql.Sql_B;
  *
  * @author KOCMOC
  */
-public class Controller implements DiffMarkerAction, BarGraphListener,PointGraphListener {
+public class Controller implements DiffMarkerAction, BarGraphListener, PointGraphListener {
 
     private Sql_B sql = new Sql_B(false, true);
     private Sql_B sql_b = new Sql_B(false, true); // obs this one is for building table
@@ -43,6 +43,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
     private int MARKERS_SET_P_INDEX_LAST = -1;
     private String ORDER_BY_PARAM = SQL_Q.TEST_DATE;
     private String ORDER_ASC_DESC = "ASC";
+    private boolean MARKERS_SET = false;
 
     public Controller(ShowMessage OUT, Properties p) {
         //
@@ -52,19 +53,19 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         //
         Gui.GraphPanel.add(xygraph.getGraph());
         //
-        defineInitialGistoGraph();
+        defineInitialGraph();
         //
         connect();
         //
         tableHeaders();
     }
 
-    private void defineInitialGistoGraph() {
+    private void defineInitialGraph() {
         //===
         MyGraphXY_H mgxyh = new MyGraphXY_H();
         mgxyh.addPointGraphListener(this);
         //
-        gg = new GistoGraph("PlotDiagram", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        gg = new GistoGraph("Polygon Graph", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         //====
         xygraph.setGistoGraph(gg);
@@ -89,10 +90,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         }
     }
 
-    public void switchToBarGraph() {
+    public void switchToHistogramBarGraph() {
+        //
         MyGraphXY_H_M mgxyhm = new MyGraphXY_H_M();
         mgxyhm.addBarGraphListener(this);//        mgxyhm triggers event which is processed in this class
-        gg = new GistoGraphM("BarDiagram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        gg = new GistoGraphM("Histogram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         xygraph.setGistoGraph(gg);
         //
@@ -107,12 +109,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         resetGraphs();
     }
 
-    public void switchToPlotGraph() {
+    public void switchToFrequencyPolygonGraph() {
         //
         MyGraphXY_H mgxyh = new MyGraphXY_H();
         mgxyh.addPointGraphListener(this);
         //
-        gg = new GistoGraph("PlotDiagram", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        gg = new GistoGraph("Polygon Frequency Graph", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         xygraph.setGistoGraph(gg);
         //
@@ -134,31 +136,43 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         GistoGraphM ggm = (GistoGraphM) gg;
         ggm.myGraphXY.deleteAllPointsFromSerie(ggm.serie);
     }
-    
+
     @Override
     public void pointGraphHoverEvent(MouseEvent e, MyPoint point) {
-        highLightPoints(point.x_Display, point.x_Display, false);
+        if (MARKERS_SET == false) {
+            highLightPoints(point.x_Display, point.x_Display, false);
+        }
     }
 
     @Override
     public void pointGraphHoverOutEvent(MouseEvent e) {
-        xygraph.getSerie().resetPointsColorAndForm();
+        if (MARKERS_SET == false) {
+            xygraph.getSerie().resetPointsColorAndForm();
+        }
+
     }
 
     @Override
     public void barGraphHoverOutEvent(MouseEvent e) {
-        xygraph.getSerie().resetPointsColorAndForm();
+        if (MARKERS_SET == false) {
+            xygraph.getSerie().resetPointsColorAndForm();
+        }
     }
 
     @Override
     public void barGraphHoverEvent(MouseEvent e, MyPoint_H_M point) {
         if (e.getSource() instanceof MyPoint_H_M) {
-            highLightPoints(point.getRangeStart(), point.getRangeEnd(), true);
+            if (MARKERS_SET == false) {
+                highLightPoints(point.getRangeStart(), point.getRangeEnd(), true);
+            }
         }
     }
 
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
+        //
+        MARKERS_SET = true;
+        //
         if (trigerInstance instanceof MyGraphXY_H) {
             //
             double min = markerA.x_Display;
@@ -184,6 +198,9 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
 
     @Override
     public void markersUnset(MyGraphXY mgxy) {
+        //
+        MARKERS_SET = false;
+        //
         xygraph.getSerie().resetPointsColorAndForm();
     }
 
@@ -242,7 +259,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         }
     }
 
-    public void resetGraphs() {
+    public synchronized void resetGraphs() {
         try {
             xygraph.removeDiffMarkerPoints();
             //
@@ -287,9 +304,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
 
-    public void buildTable(String addditionalWhere) {
+    public synchronized void buildTable(String addditionalWhere) {
         //
         String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, addditionalWhere);
         //
@@ -298,6 +314,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         }
         //
         try {
+            //
             ResultSet rs = sql_b.execute(q, OUT);
             //
             rs.beforeFirst();
@@ -315,8 +332,6 @@ public class Controller implements DiffMarkerAction, BarGraphListener,PointGraph
         }
 
     }
-
-    
 
     class BuildTableThread implements Runnable {
 

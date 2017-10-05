@@ -7,7 +7,6 @@ package main;
 import images.IconUrls;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
@@ -35,7 +34,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
     public final static String DATE_FORMAT = "yy/MM/dd";
-    public static final String VERSION = "BETA 1.01";
+    public static final String VERSION = "BETA 1.02";
 
     /**
      * Creates new form Gui
@@ -88,6 +87,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     }
     
     private void addJComboListeners() {
+        //
         INITIAL_BG_COLOR_COMBO = jComboBoxQuality.getBackground();
         //
         for (JComboBox jComboBox : JCOMBO_LIST) {
@@ -168,9 +168,9 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jButton5 = new javax.swing.JButton();
         jLabel46 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
-        jButtonClear = new javax.swing.JButton();
         jButtonFind = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButtonClear = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -250,6 +250,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanelTableContainer.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jTextFieldTest.setText("30");
+        jTextFieldTest.setToolTipText("Histogram frequency regulator");
         jTextFieldTest.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jPanel12.setLayout(new java.awt.GridLayout(2, 4));
@@ -316,6 +317,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanel12.add(jPanel9);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/undo_2.png"))); // NOI18N
+        jButton5.setToolTipText("reset all graphs");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -328,15 +330,8 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
 
         jPanel13.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
 
-        jButtonClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/undo_2.png"))); // NOI18N
-        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonClearActionPerformed(evt);
-            }
-        });
-        jPanel13.add(jButtonClear);
-
         jButtonFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/graph.png"))); // NOI18N
+        jButtonFind.setToolTipText("show graph");
         jButtonFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFindActionPerformed(evt);
@@ -345,6 +340,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanel13.add(jButtonFind);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/table_2.png"))); // NOI18N
+        jButton1.setToolTipText("show result in table");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -352,9 +348,19 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         });
         jPanel13.add(jButton1);
 
+        jButtonClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/undo_2.png"))); // NOI18N
+        jButtonClear.setToolTipText("reset all search fields");
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
+        jPanel13.add(jButtonClear);
+
         jPanel14.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bar-graph.png"))); // NOI18N
+        jButton3.setToolTipText("show histogram");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -363,6 +369,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanel14.add(jButton3);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/graph.png"))); // NOI18N
+        jButton4.setToolTipText("show frequency polygon graph");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -373,6 +380,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanel15.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cursor.png"))); // NOI18N
+        jButton2.setToolTipText("add markers to graph");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -381,6 +389,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         jPanel15.add(jButton2);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cursor_clear.png"))); // NOI18N
+        jButton6.setToolTipText("remove markers from graph");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -429,13 +438,13 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelTableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldTest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTextFieldTest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GraphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -500,11 +509,11 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        controller.switchToBarGraph();
+        controller.switchToHistogramBarGraph();
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        controller.switchToPlotGraph();
+        controller.switchToFrequencyPolygonGraph();
     }//GEN-LAST:event_jButton4ActionPerformed
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
