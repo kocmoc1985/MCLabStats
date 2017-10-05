@@ -8,8 +8,8 @@ import com.michaelbaranov.microba.calendar.DatePicker;
 import java.util.ArrayList;
 import java.util.Properties;
 import javax.swing.JComboBox;
-import main.Gui;
-import static main.Gui.DATE_FORMAT;
+import main.Main;
+import static main.Main.DATE_FORMAT;
 import other.HelpA;
 import other.JComboBoxA;
 
@@ -35,7 +35,7 @@ public class SQL_Q {
         return p.getProperty("resultsn_name", "REsultsN");
     }
 
-    private static ArrayList<FillAutoEntry> buildList(Gui gui) {
+    private static ArrayList<FillAutoEntry> buildList(Main gui) {
         ArrayList<FillAutoEntry> list = new ArrayList<>();
         //
 
@@ -51,7 +51,7 @@ public class SQL_Q {
         return list;
     }
 
-    private static ArrayList<FillAutoEntry> buildListB(Gui gui) {
+    private static ArrayList<FillAutoEntry> buildListB(Main gui) {
         ArrayList<FillAutoEntry> list = new ArrayList<>();
         //
         list.add(new FillAutoEntry(QUALITY, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxQuality), false));
@@ -87,7 +87,7 @@ public class SQL_Q {
         return "SELECT * from " + PRIM_TABLE +" WHERE [" +SQL_Q.QUALITY +"] = '93004200091' AND [" +SQL_Q.TEST_CODE + "]='VUG01' AND [" + SQL_Q.TEST_NAME +"]='Minimum'";
     }
 
-    public static String showResult(Gui gui, String orderBy, String ascOrDesc, String additionalWhere) {
+    public static String showResult(Main gui, String orderBy, String ascOrDesc, String additionalWhere) {
         //
         int nullCounter = 0;
         //
@@ -146,7 +146,7 @@ public class SQL_Q {
         return query;
     }
 
-    public static String fillAuto(String actualComboParam, Gui gui) {
+    public static String fillAuto(String actualComboParam, Main gui) {
         //
         String query = "SELECT DISTINCT [" + actualComboParam + "], COUNT(" + actualComboParam + ") as 'ammount'"
                 + " from " + PRIM_TABLE;
@@ -228,15 +228,15 @@ public class SQL_Q {
 //        //
 //        String query = "SELECT * from " + PRIM_TABLE;
 //        //
-//        String quality = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxQuality);
-//        String order = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxOrder);
-//        String batch = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxBatch);
-//        String testCode = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxTestCode);
-//        String testName = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxTestName);
-//        String lsl = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxLSL);
-//        String usl = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxUSL);
-//        String dateA = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxDateA);
-//        String dateB = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxDateB);
+//        String quality = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxQuality);
+//        String order = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxOrder);
+//        String batch = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxBatch);
+//        String testCode = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxTestCode);
+//        String testName = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxTestName);
+//        String lsl = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxLSL);
+//        String usl = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxUSL);
+//        String dateA = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateA);
+//        String dateB = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateB);
 //        //
 //        if (quality != null && quality.isEmpty() == false) {
 //            query += " AND [" + QUALITY + "]=" + quotes(quality, false);
@@ -285,15 +285,15 @@ public class SQL_Q {
 //        String query = "SELECT DISTINCT [" + actualComboParam + "], COUNT(" + actualComboParam + ") as 'ammount'"
 //                + " from " + PRIM_TABLE;
 //        //
-//        String quality = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxQuality);
-//        String order = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxOrder);
-//        String batch = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxBatch);
-//        String testCode = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxTestCode);
-//        String testName = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxTestName);
-//        String lsl = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxLSL);
-//        String usl = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxUSL);
-//        String dateA = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxDateA);
-//        String dateB = HelpA.getComboBoxSelectedValue_b(Gui.jComboBoxDateB);
+//        String quality = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxQuality);
+//        String order = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxOrder);
+//        String batch = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxBatch);
+//        String testCode = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxTestCode);
+//        String testName = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxTestName);
+//        String lsl = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxLSL);
+//        String usl = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxUSL);
+//        String dateA = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateA);
+//        String dateB = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateB);
 //        //
 //        if (quality != null && quality.isEmpty() == false && actualComboParam.equals(QUALITY) == false) {
 //            query += " AND [" + QUALITY + "]=" + quotes(quality, false);

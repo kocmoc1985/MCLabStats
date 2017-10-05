@@ -13,12 +13,12 @@ import java.awt.Graphics2D;
  *
  * @author KOCMOC
  */
-public class MyPoint_H_M extends MyPoint {
+public class MyPoint_HG extends MyPoint {
 
     private double rangeStart;
     private double rangeEnd;
 
-    public MyPoint_H_M(double y, double y_, double rangeStart, double rangeEnd) {
+    public MyPoint_HG(double y, double y_, double rangeStart, double rangeEnd) {
         super(y, y_);
         this.rangeStart = rangeStart;
         this.rangeEnd = rangeEnd;

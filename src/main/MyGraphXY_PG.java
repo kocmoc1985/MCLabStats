@@ -14,10 +14,10 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
- *
+ * MyGraphXY_PG = MyGraphXY for the POLYGON GRAPH
  * @author KOCMOC
  */
-public class MyGraphXY_H extends MyGraphXY {
+public class MyGraphXY_PG extends MyGraphXY {
 
     public ArrayList<String> xValuesList;
     public int STEP_IDENTIFIER_X_AXIS = -1;

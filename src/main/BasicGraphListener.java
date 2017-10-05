@@ -14,7 +14,7 @@ import javax.swing.JComponent;
  *
  * @author KOCMOC
  */
-public interface GG extends DiffMarkerAction{
+public interface BasicGraphListener extends DiffMarkerAction{
     
     public void addDiffMarkersSetListener(DiffMarkerAction dma);
     

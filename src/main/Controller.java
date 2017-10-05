@@ -33,10 +33,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     private Sql_B sql = new Sql_B(false, true);
     private Sql_B sql_b = new Sql_B(false, true); // obs this one is for building table
-    private GG gg;
-    private XyGraph xygraph = new XyGraph("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private BasicGraphListener gg;
+    private XyGraph_M xygraph = new XyGraph_M("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private ShowMessage OUT;
-    private Gui gui;
+    private Main gui;
     private ResultSet resultSet;
     private Properties p;
     private int MARKERS_SET_P_INDEX_FIRST = -1;
@@ -48,10 +48,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     public Controller(ShowMessage OUT, Properties p) {
         //
         this.OUT = OUT;
-        this.gui = (Gui) OUT;
+        this.gui = (Main) OUT;
         this.p = p;
         //
-        Gui.GraphPanel.add(xygraph.getGraph());
+        Main.GraphPanel.add(xygraph.getGraph());
         //
         defineInitialGraph();
         //
@@ -62,18 +62,18 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     private void defineInitialGraph() {
         //===
-        MyGraphXY_H mgxyh = new MyGraphXY_H();
+        MyGraphXY_PG mgxyh = new MyGraphXY_PG();
         mgxyh.addPointGraphListener(this);
         //
-        gg = new GistoGraph("Polygon Graph", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        gg = new PolygonGraph("Polygon Graph", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         //====
         xygraph.setGistoGraph(gg);
         xygraph.addDiffMarkersSetListener(this);
-        Gui.HistoPanel.add(gg.getGraph());
+        Main.HistoPanel.add(gg.getGraph());
         //
-        if (gg instanceof GistoGraphM == false) {
-            gg.addDiffMarkersSetListener(this);// GG triggers event which is processed in this class
+        if (gg instanceof HistogramGraph == false) {
+            gg.addDiffMarkersSetListener(this);// BasicGraphListener triggers event which is processed in this class
         }
         //
     }
@@ -92,14 +92,14 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     public void switchToHistogramBarGraph() {
         //
-        MyGraphXY_H_M mgxyhm = new MyGraphXY_H_M();
+        MyGraphXY_HG mgxyhm = new MyGraphXY_HG();
         mgxyhm.addBarGraphListener(this);//        mgxyhm triggers event which is processed in this class
-        gg = new GistoGraphM("Histogram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        gg = new HistogramGraph("Histogram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         xygraph.setGistoGraph(gg);
         //
-        Gui.HistoPanel.removeAll();
-        Gui.HistoPanel.add(gg.getGraph());
+        Main.HistoPanel.removeAll();
+        Main.HistoPanel.add(gg.getGraph());
         //
         // OBS, pay attention here, if i do reval... and repaint of Histopanel it won't work
         // This was an enormous problem
@@ -111,19 +111,19 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     public void switchToFrequencyPolygonGraph() {
         //
-        MyGraphXY_H mgxyh = new MyGraphXY_H();
+        MyGraphXY_PG mgxyh = new MyGraphXY_PG();
         mgxyh.addPointGraphListener(this);
         //
-        gg = new GistoGraph("Polygon Frequency Graph", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        gg = new PolygonGraph("Polygon Frequency Graph", mgxyh, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         xygraph.setGistoGraph(gg);
         //
-        Gui.HistoPanel.removeAll();
-        Gui.HistoPanel.add(gg.getGraph());
+        Main.HistoPanel.removeAll();
+        Main.HistoPanel.add(gg.getGraph());
         //
         //
-        if (gg instanceof GistoGraphM == false) {
-            gg.addDiffMarkersSetListener(this);// GG triggers event which is processed in this class
+        if (gg instanceof HistogramGraph == false) {
+            gg.addDiffMarkersSetListener(this);// BasicGraphListener triggers event which is processed in this class
         }
         //
         gui.revalidate();
@@ -133,7 +133,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     }
 
     public void deleteFromBarGraph() {
-        GistoGraphM ggm = (GistoGraphM) gg;
+        HistogramGraph ggm = (HistogramGraph) gg;
         ggm.myGraphXY.deleteAllPointsFromSerie(ggm.serie);
     }
 
@@ -160,8 +160,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     }
 
     @Override
-    public void barGraphHoverEvent(MouseEvent e, MyPoint_H_M point) {
-        if (e.getSource() instanceof MyPoint_H_M) {
+    public void barGraphHoverEvent(MouseEvent e, MyPoint_HG point) {
+        if (e.getSource() instanceof MyPoint_HG) {
             if (MARKERS_SET == false) {
                 highLightPoints(point.getRangeStart(), point.getRangeEnd(), true);
             }
@@ -173,7 +173,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         MARKERS_SET = true;
         //
-        if (trigerInstance instanceof MyGraphXY_H) {
+        if (trigerInstance instanceof MyGraphXY_PG) {
             //
             double min = markerA.x_Display;
             double max = markerB.x_Display;
@@ -276,9 +276,9 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     public void buildGraphs() {
         //
-//        if (gui.obligatoryBoxesFilled() == false) {
-//            return;
-//        }
+        if (gui.obligatoryBoxesFilled() == false) {
+            return;
+        }
         //
         String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
 //        String q = SQL_Q.forTestC();
@@ -356,7 +356,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         for (JComboBox jComboBox : list) {
             jComboBox.setSelectedItem(null);
             jComboBox.setEditable(false);
-            jComboBox.setBackground(Gui.INITIAL_BG_COLOR_COMBO);
+            jComboBox.setBackground(Main.INITIAL_BG_COLOR_COMBO);
         }
         //
         try {

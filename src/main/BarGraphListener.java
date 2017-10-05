@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
  */
 public interface BarGraphListener {
 
-    public void barGraphHoverEvent(MouseEvent e, MyPoint_H_M point);
+    public void barGraphHoverEvent(MouseEvent e, MyPoint_HG point);
 
     public void barGraphHoverOutEvent(MouseEvent e);
 

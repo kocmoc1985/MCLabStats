@@ -12,18 +12,17 @@ import static XYG_BASIC.DiffMarkerPoints.DEFAULT_OUT_PUT_FORMAT;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MySerie;
 import java.util.ArrayList;
-import other.HelpA;
 
 /**
  *
  * @author KOCMOC
  */
-public class DiffMarkerPointsH extends DiffMarkerPoints {
+public class DiffMarkerPoints_RS extends DiffMarkerPoints {
 
     public static final String CALC_MEDIAN = "MEDIAN";
     public static final String OUT_PUT_FORMAT = "%2.2f";
 
-    public DiffMarkerPointsH(MySerie serie, MyGraphXY graphXY) {
+    public DiffMarkerPoints_RS(MySerie serie, MyGraphXY graphXY) {
         super(serie, graphXY);
     }
 

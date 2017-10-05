@@ -26,7 +26,7 @@ import sql.ShowMessage;
  *
  * @author KOCMOC
  */
-public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListener {
+public class Main extends javax.swing.JFrame implements ShowMessage, MouseListener {
     
     private Controller controller;
     private Properties p = HelpA.properties_load_properties("main.properties", false);
@@ -37,9 +37,9 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
     public static final String VERSION = "BETA 1.02";
 
     /**
-     * Creates new form Gui
+     * Creates new form Main
      */
-    public Gui() {
+    public Main() {
         initComponents();
         this.controller = new Controller(this,p);
         initOther();
@@ -545,13 +545,13 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -561,7 +561,7 @@ public class Gui extends javax.swing.JFrame implements ShowMessage, MouseListene
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Gui().setVisible(true);
+                new Main().setVisible(true);
             }
         });
     }

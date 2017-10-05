@@ -25,7 +25,7 @@ import other.HelpA;
  *
  * @author KOCMOC
  */
-public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
+public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraphListener {
 
     public TreeMap<Double, Integer> histoMap = new TreeMap();
     public ArrayList<String> xValuesList;
@@ -33,7 +33,7 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
     public String valueColName;
     public String round = "#.####";
 
-    public GistoGraph(String title, MyGraphXY_H mgxyh, int displayMode) {
+    public PolygonGraph(String title, MyGraphXY_PG mgxyh, int displayMode) {
         super(title, mgxyh, displayMode);
     }
 
@@ -53,7 +53,7 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
 
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
-        if (trigerInstance instanceof MyGraphXY_H == false) {
+        if (trigerInstance instanceof MyGraphXY_PG == false) {
             rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
         }
     }
@@ -96,7 +96,7 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
             addPoints();
             //
         } catch (SQLException ex) {
-            Logger.getLogger(GistoGraph.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
             addPoints();
         }
     }
@@ -138,7 +138,7 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
             addPoints();
             //
         } catch (SQLException ex) {
-            Logger.getLogger(GistoGraph.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -162,7 +162,7 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
         //
         Set set = histoMap.keySet();
         Iterator it = set.iterator();
-        xValuesList = new ArrayList<String>();
+        xValuesList = new ArrayList<>();
         myGraphXY.X_MAX = 0;
         //
         while (it.hasNext()) {
@@ -178,7 +178,7 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
             //
         }
         //
-        MyGraphXY_H h = (MyGraphXY_H) myGraphXY;
+        MyGraphXY_PG h = (MyGraphXY_PG) myGraphXY;
         h.setXValues(xValuesList);
         //
     }
@@ -213,7 +213,7 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
             double maxLim = rs.getDouble("USL");
             setLimits(minLim, maxLim);
         } catch (SQLException ex) {
-            Logger.getLogger(GistoGraph.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -243,7 +243,7 @@ public class GistoGraph extends MyXYGB implements DiffMarkerAction, GG {
 
     @Override
     public void initializeB() {
-        serie = new MySerieH(getTitle());
+        serie = new MySerie_M(getTitle());
         //
         serie.setDrawPoints(true);
         serie.setPointThickness(1);

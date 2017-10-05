@@ -10,16 +10,16 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
- *
+ * MyGraphXY_HG = MyGraphXY for the HISTOGRAM GRAPH
  * @author KOCMOC
  */
-public class MyGraphXY_H_M extends MyGraphXY_H {
+public class MyGraphXY_HG extends MyGraphXY_PG {
 
     private final ArrayList<BarGraphListener> bg_listener_list = new ArrayList<>();
 
     @Override
     public void addPointInfo() {
-        MyPoint_H_M m = (MyPoint_H_M) MARKER_POINT;
+        MyPoint_HG m = (MyPoint_HG) MARKER_POINT;
         MARKER_POINT.addPointInfo("serie", m.getSerieName());
         MARKER_POINT.addPointInfo("y", "" + (m.y_Display));
         MARKER_POINT.addPointInfo("x", "" + m.getRangeStart() + " -> " + m.getRangeEnd());
@@ -28,8 +28,6 @@ public class MyGraphXY_H_M extends MyGraphXY_H {
     public void addBarGraphListener(BarGraphListener bgl) {
         bg_listener_list.add(bgl);
     }
-
-    
 
     @Override
     public void scaleX(Graphics2D g2) {
@@ -110,7 +108,7 @@ public class MyGraphXY_H_M extends MyGraphXY_H {
 
     private void callEventWatchersHover(MouseEvent e) {
         for (BarGraphListener bgl : bg_listener_list) {
-            bgl.barGraphHoverEvent(e, (MyPoint_H_M) MARKER_POINT);
+            bgl.barGraphHoverEvent(e, (MyPoint_HG) MARKER_POINT);
         }
     }
 }

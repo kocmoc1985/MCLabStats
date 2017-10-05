@@ -10,7 +10,6 @@ import XYG_BASIC.MySerie;
 import XYG_BASIC.MyXYGB;
 import XYG_BASIC.PointDeletedAction;
 import XYG_BASIC.PointHighLighter;
-import XYG_HISTO.MyPointH;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,18 +22,18 @@ import other.HelpA;
  *
  * @author KOCMOC
  */
-public class XyGraph extends MyXYGB implements PointDeletedAction {
+public class XyGraph_M extends MyXYGB implements PointDeletedAction {
 
     private MySerie serieLimitL;
     private MySerie serieLimitU;
-    private GG gistoGraph;
+    private BasicGraphListener gistoGraph;
 
-    public XyGraph(String title, int displayMode) {
+    public XyGraph_M(String title, int displayMode) {
         super(title, new MyGraphXY(), displayMode);
         init();
     }
 
-    public void setGistoGraph(GG gg) {
+    public void setGistoGraph(BasicGraphListener gg) {
         this.gistoGraph = gg;
         // THIS triggers event which is processed in gg class
         this.addDiffMarkersSetListener(gg);
@@ -48,9 +47,9 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
 
     private void init() {
         serie.addPointDeletedActionListener(this);
-        addDiffMarkerOutPutComponent(DiffMarkerPointsH.CALC_SUMM, Gui.jTextFieldSumm);
-        addDiffMarkerOutPutComponent(DiffMarkerPointsH.CALC_AVERAGE, Gui.jTextFieldAverage);
-        addDiffMarkerOutPutComponent(DiffMarkerPointsH.CALC_MEDIAN, Gui.jTextFieldMedian);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_SUMM, Main.jTextFieldSumm);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_AVERAGE, Main.jTextFieldAverage);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_MEDIAN, Main.jTextFieldMedian);
     }
 
     @Override
@@ -80,7 +79,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
     @Override
     public void initializeB() {
         //
-        serie = new MySerieH(getTitle());
+        serie = new MySerie_M(getTitle());
         //
         serie.setDrawPoints(true);
         serie.setPointThickness(1);
@@ -149,14 +148,14 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
                 //
 //                    setLimits(minLim, maxLim);
                 //
-                MyPointH p;
+                MyPoint_M p;
                 //
 //                if (val > (average * 3)) {
 //                    p = new MyPoint(((int) (average)), (average));
 //                    p.setPointColor(Color.red);
 //                    p.setPointDimenssion(16);
 //                } else {
-                p = new MyPointH(val, val, LSL, USL);
+                p = new MyPoint_M(val, val, LSL, USL);
 //                }
                 //
                 p.addPointInfo("Serie", rs.getString("Name"));
@@ -177,18 +176,18 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
             System.out.println("Filtered batches: " + filtered);
             //
         } catch (SQLException ex) {
-            Logger.getLogger(XyGraph.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XyGraph_M.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     public void rebuildData() {
         //
-        ArrayList<MyPointH> newList = new ArrayList<>();
+        ArrayList<MyPoint_M> newList = new ArrayList<>();
         //
         for (MyPoint p : serie.getPoints()) {
-            MyPointH pp = (MyPointH) p;
-            MyPointH mph = new MyPointH(pp.y_Real, pp.y_Scaled, pp.getLSL(), pp.getUSL());
+            MyPoint_M pp = (MyPoint_M) p;
+            MyPoint_M mph = new MyPoint_M(pp.y_Real, pp.y_Scaled, pp.getLSL(), pp.getUSL());
             
             newList.add(mph);
         }
@@ -198,7 +197,7 @@ public class XyGraph extends MyXYGB implements PointDeletedAction {
         boolean diffMarkerPointsDeleteFlag = true;
         //
         for (MyPoint p : newList) {
-            MyPointH phm = (MyPointH) p;
+            MyPoint_M phm = (MyPoint_M) p;
             addPointBySerie(phm.getLSL(), serieLimitL);
             addPointBySerie(phm.getUSL(), serieLimitU);
             addPointWithDiffMarkerPointsDelete(phm, diffMarkerPointsDeleteFlag);

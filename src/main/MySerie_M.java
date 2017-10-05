@@ -13,9 +13,9 @@ import java.awt.Color;
  *
  * @author KOCMOC
  */
-public class MySerieH extends MySerie {
+public class MySerie_M extends MySerie {
 
-    public MySerieH(String name) {
+    public MySerie_M(String name) {
         super(name);
     }
 
@@ -23,20 +23,13 @@ public class MySerieH extends MySerie {
     public void setMyGraphXY(MyGraphXY myGraph, boolean createDiffMarkers) {
         this.myGraphXY = myGraph;
         if (this.DIFF_MARKER_POINTS == null) {
-            this.DIFF_MARKER_POINTS = new DiffMarkerPointsH(this, myGraphXY);
+            this.DIFF_MARKER_POINTS = new DiffMarkerPoints_RS(this, myGraphXY);
         }
         //
-        if (myGraphXY instanceof MyGraphXY_H_M) {
+        if (myGraphXY instanceof MyGraphXY_HG) {
             pointsHighlightColor = Color.MAGENTA;
         }
     }
     
-    @Override
-    public void addDiffMarkerPoints() {
-        MyPoint pointA = getPoint(0);
-        MyPoint pointB = getPoint(points.size() - 1);
-        this.DIFF_MARKER_POINTS.add(pointA);
-        this.DIFF_MARKER_POINTS.add(pointB);
-    }
     
 }

@@ -20,18 +20,18 @@ import other.HelpA;
  *
  * @author KOCMOC
  */
-public class GistoGraphM extends GistoGraph implements GG {
+public class HistogramGraph extends PolygonGraph implements BasicGraphListener {
 
     private ArrayList<Step> stepList = new ArrayList<>();
     private String rounding;
 
-    public GistoGraphM(String title, MyGraphXY_H mgxyh, int displayMode) {
+    public HistogramGraph(String title, MyGraphXY_PG mgxyh, int displayMode) {
         super(title, mgxyh, displayMode);
     }
 
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
-        if (trigerInstance instanceof MyGraphXY_H == false) {
+        if (trigerInstance instanceof MyGraphXY_PG == false) {
             rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
         }
     }
@@ -59,7 +59,7 @@ public class GistoGraphM extends GistoGraph implements GG {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(GistoGraph.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
         //
         addDataH(list);
@@ -92,7 +92,7 @@ public class GistoGraphM extends GistoGraph implements GG {
             }
             //
         } catch (SQLException ex) {
-            Logger.getLogger(GistoGraph.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
         //
         addDataH(list);
@@ -100,7 +100,7 @@ public class GistoGraphM extends GistoGraph implements GG {
     }
 
     private void addDataH(ArrayList<Double> list) {
-        int steps = Integer.parseInt(Gui.jTextFieldTest.getText());
+        int steps = Integer.parseInt(Main.jTextFieldTest.getText());
         stepList = new ArrayList<>();
         //
         Collections.sort(list);
@@ -125,7 +125,7 @@ public class GistoGraphM extends GistoGraph implements GG {
             //
             xValuesList.add("" + step.limLow + " -> " + step.limHigh);
             //
-            MyPoint_H_M p = new MyPoint_H_M(step.ammount, step.ammount, step.limLow, step.limHigh);
+            MyPoint_HG p = new MyPoint_HG(step.ammount, step.ammount, step.limLow, step.limHigh);
             p.setDisplayValueX(step.limLow);
             this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
             //
@@ -133,7 +133,7 @@ public class GistoGraphM extends GistoGraph implements GG {
             //
         }
         //
-        MyGraphXY_H h = (MyGraphXY_H) myGraphXY;
+        MyGraphXY_PG h = (MyGraphXY_PG) myGraphXY;
         h.setXValues(xValuesList);
         //
     }
@@ -215,7 +215,7 @@ public class GistoGraphM extends GistoGraph implements GG {
 
     @Override
     public void initializeB() {
-        serie = new MySerieH(getTitle());
+        serie = new MySerie_M(getTitle());
         //
         serie.setDrawPoints(true);
         serie.setPointThickness(1);
