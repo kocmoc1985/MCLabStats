@@ -12,6 +12,7 @@ import static XYG_BASIC.DiffMarkerPoints.DEFAULT_OUT_PUT_FORMAT;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MySerie;
 import java.util.ArrayList;
+import javax.swing.JTextField;
 
 /**
  *
@@ -21,10 +22,30 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
 
     public static final String CALC_MEDIAN = "MEDIAN";
     public static final String OUT_PUT_FORMAT = "%2.2f";
+    public static ArrayList<String> CALC_LIST = new ArrayList<>();
+
+    static {
+        CALC_LIST.add(CALC_SUMM);
+        CALC_LIST.add(CALC_AVERAGE);
+        CALC_LIST.add(CALC_MEDIAN);
+    }
 
     public DiffMarkerPoints_RS(MySerie serie, MyGraphXY graphXY) {
         super(serie, graphXY);
     }
+
+    @Override
+    public void markersUnset() {
+        super.markersUnset(); //To change body of generated methods, choose Tools | Templates.
+        //
+        for(String str: CALC_LIST){
+            JTextField jtf = outPutMap.get(str);
+            jtf.setText("");
+        }
+        //
+    }
+    
+    
 
     @Override
     public void go() {
@@ -43,17 +64,15 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
     @Override
     public void calcAndShow(String name) {
         if (name.equals(CALC_SUMM)) {
-            showOutPut(name, calcSum(),DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcSum(), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_AVERAGE)) {
-            showOutPut(name, calcAv(),DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcAv(), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_MEDIAN)) {
-            showOutPut(name, calcMedian(),DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcMedian(), DEFAULT_OUT_PUT_FORMAT);
         } else {
             System.out.println("NO SUCH CALC EXIST: " + name);
         }
     }
-
-  
 
     public double calcMedian() {
         ArrayList<Double> list = new ArrayList<>();

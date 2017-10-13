@@ -233,6 +233,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     public void removeDiffMarkerPoints() {
         xygraph.removeDiffMarkerPoints();
         xygraph.getSerie().resetPointsColorAndForm();
+        MARKERS_SET = false;
     }
 
     private void connect() {
