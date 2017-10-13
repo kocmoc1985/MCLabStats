@@ -526,6 +526,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
        controller.removeDiffMarkerPoints();
+       controller.resetGraphs();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
