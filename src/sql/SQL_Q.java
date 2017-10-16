@@ -30,7 +30,7 @@ public class SQL_Q {
     public static final String TEST_DATE = "testdate";
     public static final String TEST_VALUE = "value";
 
-    private static String loadFromProps(){
+    private static String loadFromProps() {
         Properties p = HelpA.properties_load_properties("main.properties", false);
         return p.getProperty("resultsn_name", "REsultsN");
     }
@@ -76,15 +76,15 @@ public class SQL_Q {
     }
 
     public static String forTest() {
-        return "SELECT * from " + PRIM_TABLE +" WHERE [TestCode]='10171' AND [Name]='ML' AND [testdate]='09/12/14'";
+        return "SELECT * from " + PRIM_TABLE + " WHERE [TestCode]='10171' AND [Name]='ML' AND [testdate]='09/12/14'";
     }
-    
-     public static String forTestB() {
-        return "SELECT * from " + PRIM_TABLE +" WHERE [" +SQL_Q.QUALITY +"] = '1802860-ST220' AND [" +SQL_Q.TEST_CODE + "]='10194' AND [" + SQL_Q.TEST_NAME +"]='ML'";
+
+    public static String forTestB() {
+        return "SELECT * from " + PRIM_TABLE + " WHERE [" + SQL_Q.QUALITY + "] = '1802860-ST220' AND [" + SQL_Q.TEST_CODE + "]='10194' AND [" + SQL_Q.TEST_NAME + "]='ML'";
     }
-     
-      public static String forTestC() {
-        return "SELECT * from " + PRIM_TABLE +" WHERE [" +SQL_Q.QUALITY +"] = '93004200091' AND [" +SQL_Q.TEST_CODE + "]='VUG01' AND [" + SQL_Q.TEST_NAME +"]='Minimum'";
+
+    public static String forTestC() {
+        return "SELECT * from " + PRIM_TABLE + " WHERE [" + SQL_Q.QUALITY + "] = '93004200091' AND [" + SQL_Q.TEST_CODE + "]='VUG01' AND [" + SQL_Q.TEST_NAME + "]='Minimum'";
     }
 
     public static String showResult(Main gui, String orderBy, String ascOrDesc, String additionalWhere) {
@@ -182,6 +182,13 @@ public class SQL_Q {
         }
         //
         query += " GROUP BY [" + actualComboParam + "]";
+        //
+        //
+        if (actualComboParam.equals(TEST_DATE)) {
+            query += " ORDER BY [" + actualComboParam + "] desc";
+        }else if(actualComboParam.equals(QUALITY)){
+            query += " ORDER BY [ammount] desc";
+        }
         //
 //        System.out.println("query: " + query);
         return query;
