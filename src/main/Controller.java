@@ -10,7 +10,10 @@ import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +32,7 @@ import sql.Sql_B;
  *
  * @author KOCMOC
  */
-public class Controller implements DiffMarkerAction, BarGraphListener, PointGraphListener {
+public class Controller implements DiffMarkerAction, BarGraphListener, PointGraphListener, MouseListener, KeyListener {
 
     private Sql_B sql = new Sql_B(false, true);
     private Sql_B sql_b = new Sql_B(false, true); // obs this one is for building table
@@ -58,6 +61,13 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         connect();
         //
         tableHeaders();
+        //
+        initOther();
+    }
+
+    private void initOther() {
+        this.gui.jTableMain.addMouseListener(this);
+        this.gui.jTableMain.addKeyListener(this);
     }
 
     private void defineInitialGraph() {
@@ -140,7 +150,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     @Override
     public void pointGraphHoverEvent(MouseEvent e, MyPoint point) {
         if (MARKERS_SET == false) {
-            highLightPoints(point.x_Display, point.x_Display, false);
+            highLightPointsByValue(point.x_Display, point.x_Display, false);
         }
     }
 
@@ -163,7 +173,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     public void barGraphHoverEvent(MouseEvent e, MyPoint_HG point) {
         if (e.getSource() instanceof MyPoint_HG) {
             if (MARKERS_SET == false) {
-                highLightPoints(point.getRangeStart(), point.getRangeEnd(), true);
+                highLightPointsByValue(point.getRangeStart(), point.getRangeEnd(), true);
             }
         }
     }
@@ -178,7 +188,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             double min = markerA.x_Display;
             double max = markerB.x_Display;
             //
-            highLightPoints(min, max, false);
+            highLightPointsByValue(min, max, false);
             //
             //
             String where = SQL_Q.buildAdditionalWhereGistoGram("" + min, "" + max);
@@ -204,7 +214,25 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         xygraph.getSerie().resetPointsColorAndForm();
     }
 
-    private void highLightPoints(double min, double max, boolean barGraph) {
+    private void highLightPointByIndex(int index) {
+        //
+        MySerie serie = xygraph.getSerie();
+        //
+        serie.resetPointsColorAndForm();
+        //
+        for (MyPoint point : serie.getPoints()) {
+            if (point.getPointIndex() == index) {
+                point.setPointColor(Color.MAGENTA);
+                point.setPointDrawRect(true);
+                point.POINT_D = (int)(point.POINT_D * 1.5);
+            }
+        }
+        //
+        xygraph.getGraph().revalidate();
+        xygraph.getGraph().repaint();
+    }
+
+    private void highLightPointsByValue(double min, double max, boolean barGraph) {
         //
         MySerie serie = xygraph.getSerie();
         //
@@ -222,8 +250,9 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             }
         }
         //
+        xygraph.getGraph().revalidate();
         xygraph.getGraph().repaint();
-        xygraph.getGraph().updateUI();
+//        xygraph.getGraph().updateUI();
     }
 
     public void addDiffMarkerPoints() {
@@ -306,7 +335,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         }
     }
 
-    public synchronized void buildTable(String addditionalWhere) {
+    public void buildTableByThread(String addditionalWhere) {
+        Thread x = new Thread(new BuildTableThread(addditionalWhere));
+        x.start();
+    }
+
+    private synchronized void buildTable(String addditionalWhere) {
         //
         String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, addditionalWhere);
         //
@@ -332,6 +366,49 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        if (ke.getSource() == gui.jTableMain) {
+            showCurrTableEntryOnGraph();
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        if (me.getSource() == gui.jTableMain) {
+            showCurrTableEntryOnGraph();
+        }
+    }
+
+    private void showCurrTableEntryOnGraph() {
+        int row = gui.jTableMain.getSelectedRow();
+        highLightPointByIndex(row);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
     }
 
     class BuildTableThread implements Runnable {

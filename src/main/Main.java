@@ -7,6 +7,7 @@ package main;
 import images.IconUrls;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
@@ -34,7 +35,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
     public final static String DATE_FORMAT = "yy/MM/dd";
-    public static final String VERSION = "BETA 1.02";
+    public static final String VERSION = "BETA 1.03";
 
     /**
      * Creates new form Main
@@ -497,6 +498,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
     private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindActionPerformed
         controller.buildGraphs();
+        controller.buildTableByThread(null);
     }//GEN-LAST:event_jButtonFindActionPerformed
     
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
@@ -505,7 +507,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     }//GEN-LAST:event_jButtonClearActionPerformed
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controller.buildTable(null);
+        controller.buildTableByThread(null);
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -527,6 +529,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
        controller.removeDiffMarkerPoints();
        controller.resetGraphs();
+       controller.buildTableByThread(null);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
