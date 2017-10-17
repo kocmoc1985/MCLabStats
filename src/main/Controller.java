@@ -270,6 +270,9 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 //            sql.connect_mdb("", "", "c:/test/data.mdb");
 //            sql_b.connect_mdb("", "", "c:/test/data.mdb");
             //
+//            sql.connect_mdb("", "", "data.mdb");
+//            sql_b.connect_mdb("", "", "data.mdb");
+            //
 //            sql.connect_odbc("", "", "MC_LAB");
 //            sql.connect_jdbc("10.87.0.2", "1433", "MCLAB_COMPOUND", "sa", "");
             //

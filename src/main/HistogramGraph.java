@@ -162,10 +162,13 @@ public class HistogramGraph extends PolygonGraph implements BasicGraphListener {
         if (min < 0.01) {
             rounding = "%2.4f";
             return 0.0015;
+        } else if (min < 1) {
+            rounding = "%2.3f";
+            return 0.002;
         } else if (min < 5) {
             rounding = "%2.2f";
             return 0.01;
-        }   else {
+        } else {
             rounding = "%2.2f";
             return 0.1;
         }

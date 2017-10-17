@@ -7,7 +7,6 @@ package main;
 import images.IconUrls;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
@@ -16,6 +15,7 @@ import java.util.Properties;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import other.HelpA;
@@ -54,6 +54,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         datePicker1.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
         this.setTitle("MCLabStats " + VERSION);
         this.setIconImage(new ImageIcon(IconUrls.APP_ICON).getImage());
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     
     public ArrayList<JComboBox> getJCOMBO_LIST() {
@@ -559,7 +560,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         }
         //</editor-fold>
 
-//        HelpA.err_output_to_file();
+        HelpA.err_output_to_file();
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
