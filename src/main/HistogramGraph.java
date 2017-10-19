@@ -15,12 +15,13 @@ import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import other.HelpA;
+import sql.Sql_B;
 
 /**
  *
  * @author KOCMOC
  */
-public class HistogramGraph extends PolygonGraph implements BasicGraphListener {
+public class HistogramGraph extends PolygonGraph {
 
     private ArrayList<Step> stepList = new ArrayList<>();
     private String rounding;
@@ -37,8 +38,8 @@ public class HistogramGraph extends PolygonGraph implements BasicGraphListener {
             x.start();
         }
     }
-    
-    class RebuildDataThread implements Runnable{
+
+    class RebuildDataThread implements Runnable {
 
         private int markerAPointIndex;
         private int markerBPointIndex;
@@ -50,14 +51,12 @@ public class HistogramGraph extends PolygonGraph implements BasicGraphListener {
 
         @Override
         public void run() {
-            rebuildData(resultSet, valueColName, round, markerAPointIndex, markerBPointIndex);
+            rebuildData(valueColName, round, markerAPointIndex, markerBPointIndex);
         }
-        
-        
     }
 
     @Override
-    public void rebuildData(ResultSet rs, String valueColName, String round, int start, int end) {
+    public void rebuildData(String valueColName, String round, int start, int end) {
         //
         deleteAllPointsFromSerie(serie);
         //
@@ -68,7 +67,7 @@ public class HistogramGraph extends PolygonGraph implements BasicGraphListener {
         //
         try {
             //
-            rs.beforeFirst();
+            ResultSet rs = sql.execute_2(query);
             //
             while (rs.next()) {
                 if (x >= start && x <= end) {
@@ -87,14 +86,18 @@ public class HistogramGraph extends PolygonGraph implements BasicGraphListener {
     }
 
     @Override
-    public void addData(ResultSet rs, String valueColName) {
+    public void addData(Sql_B sql, String q, String valueColName) {
         //
-        this.resultSet = rs;
         this.valueColName = valueColName;
         //
         ArrayList<Double> list = new ArrayList<>();
         //
         try {
+            //
+            this.sql = sql;
+            this.query = q;
+            //
+            ResultSet rs = sql.execute(q);
             //
             rs.beforeFirst();
             //

@@ -9,6 +9,7 @@ import XYG_BASIC.MyPoint;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import sql.Sql_B;
 
 /**
  *
@@ -18,7 +19,7 @@ public interface BasicGraphListener extends DiffMarkerAction{
     
     public void addDiffMarkersSetListener(DiffMarkerAction dma);
     
-    public void addData(ResultSet rs, String valueColName);
+    public void addData(Sql_B sql,String q, String valueColName);
     
     public String getRound();
     

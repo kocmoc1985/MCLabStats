@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import other.HelpA;
+import sql.Sql_B;
 
 /**
  *
@@ -119,11 +120,13 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
 //        serieLimitU.setLineThickness(1);
     }
 
-    public void addData(ResultSet rs, String valueColName) {
+    public void addData(Sql_B sql,String q, String valueColName) {
         //
         boolean diffMarkerPointsDeleteFlag = true;
         //
         try {
+            //
+            ResultSet rs = sql.execute(q);
             //
             rs.beforeFirst();
             //

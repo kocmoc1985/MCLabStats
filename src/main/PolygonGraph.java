@@ -20,6 +20,7 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import other.HelpA;
+import sql.Sql_B;
 
 /**
  *
@@ -29,9 +30,10 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
 
     public TreeMap<Double, Integer> histoMap = new TreeMap();
     public ArrayList<String> xValuesList;
-    public ResultSet resultSet;
     public String valueColName;
     public String round = "#.####";
+    public Sql_B sql;
+    public String query;
 
     public PolygonGraph(String title, MyGraphXY_PG mgxyh, int displayMode) {
         super(title, mgxyh, displayMode);
@@ -60,6 +62,8 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         }
     }
 
+    
+
     class RebuildDataThread implements Runnable{
 
         private int markerAPointIndex;
@@ -72,7 +76,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
 
         @Override
         public void run() {
-            rebuildData(resultSet, valueColName, round, markerAPointIndex, markerBPointIndex);
+            rebuildData(valueColName, round, markerAPointIndex, markerBPointIndex);
         }
         
         
@@ -87,16 +91,21 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         getGraph().repaint();
     }
 
+  
     @Override
-    public void addData(ResultSet rs, String valueColName) {
+    public void addData(Sql_B sql,String q, String valueColName) {
         //
-        this.resultSet = rs;
         this.valueColName = valueColName;
         //
         reset();
         refresh();
         //
         try {
+            //
+            this.sql = sql;
+            this.query = q;
+            //
+            ResultSet rs = sql.execute(q);
             //
             rs.beforeFirst();
             //
@@ -136,7 +145,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         addPoints();
     }
 
-    public void rebuildData(ResultSet rs, String valueColName, String round, int start, int end) {
+    public void rebuildData(String valueColName, String round, int start, int end) {
         //
         deleteAllPointsFromSerie(serie);
         histoMap.clear();
@@ -145,7 +154,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         //
         try {
             //
-            rs.beforeFirst();
+            ResultSet rs = sql.execute_2(query);
             //
             while (rs.next()) {
                 if (x >= start && x <= end) {
