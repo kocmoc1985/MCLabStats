@@ -150,6 +150,7 @@ public class MyGraphXY_PG extends MyGraphXY {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        //
         super.mouseMoved(e); //To change body of generated methods, choose Tools | Templates.
         //
         if (e.getSource() instanceof MyPoint) {

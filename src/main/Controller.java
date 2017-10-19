@@ -38,6 +38,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     private Sql_B sql_histogram_g = new Sql_B(false, true);
     private Sql_B sql_polygon_g = new Sql_B(false, true);
     private Sql_B sql_table = new Sql_B(false, true); // obs this one is for building table
+    private Sql_B[] SQL_ARR = {sql_common_g, sql_histogram_g, sql_polygon_g, sql_table};
     private BasicGraphListener gg;
     private XyGraph_M xygraph = new XyGraph_M("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private ShowMessage OUT;
@@ -48,6 +49,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     private String ORDER_BY_PARAM = SQL_Q.TEST_DATE;
     private String ORDER_ASC_DESC = "ASC";
     private boolean MARKERS_SET = false;
+    private boolean ALL_ENTRIES_SHOWN_TABLE = false;
 
     public Controller(ShowMessage OUT, Properties p) {
         //
@@ -89,7 +91,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
     }
 
-    private void tableHeaders() {
+    private synchronized void tableHeaders() {
         //
         ResultSet rs;
         //
@@ -262,37 +264,55 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 //        xygraph.getGraph().updateUI();
     }
 
-    public void addDiffMarkerPoints() {
+    public void addDiffMarkerPointsPolygonGraph() {
+        if (gg instanceof PolygonGraph && gg instanceof HistogramGraph == false) {
+            PolygonGraph pg = (PolygonGraph) gg;
+            pg.addDiffMarkerPoints();
+        }
+    }
+
+    public void removeDiffMarkerPointsPolygonGraph() {
+        if (gg instanceof PolygonGraph && gg instanceof HistogramGraph == false) {
+            PolygonGraph pg = (PolygonGraph) gg;
+            pg.removeDiffMarkerPoints();
+            pg.getSerie().resetPointsColorAndForm();
+            MARKERS_SET = false;
+            resetGraphs();
+            buildTableByThread(null);
+        }
+    }
+
+    public void addDiffMarkerPointsCommonGraph() {
         xygraph.addDiffMarkerPoints();
     }
 
-    public void removeDiffMarkerPoints() {
+    public void removeDiffMarkerPointsCommonGraph() {
         xygraph.removeDiffMarkerPoints();
         xygraph.getSerie().resetPointsColorAndForm();
         MARKERS_SET = false;
+        resetGraphs();
+        buildTableByThread(null);
     }
 
     private void connect() {
         try {
-            sql_common_g.connect_mdb("", "", "c:/test/data.mdb");
-            sql_histogram_g.connect_mdb("", "", "c:/test/data.mdb");
-            sql_polygon_g.connect_mdb("", "", "c:/test/data.mdb");
-            sql_table.connect_mdb("", "", "c:/test/data.mdb");
+//            for (Sql_B sql_B : SQL_ARR) {
+//                sql_B.connect_mdb("", "", "c:/test/data.mdb");
+//            }
             //
-//            sql_polygon_g.connect_mdb("", "", "data.mdb");
-//            sql_table.connect_mdb("", "", "data.mdb");
+//            for (Sql_B sql_B : SQL_ARR) {
+//                sql_B.connect_mdb("", "", "data.mdb");
+//            }
             //
-//            sql_polygon_g.connect_odbc("", "", "MC_LAB");
-//            sql_polygon_g.connect_jdbc("10.87.0.2", "1433", "MCLAB_COMPOUND", "sa", "");
+//            for (Sql_B sql_B : SQL_ARR) {
+//                sql_B.connect_odbc("", "", "MC_LAB");
+//            }
             //
             //
-            //
-            //
-//            sql_polygon_g.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-//                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
-//            
-//            sql_table.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-//                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+            for (Sql_B sql_B : SQL_ARR) {
+                sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+                        p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+            }
             //
             OUT.showMessage("Connected");
             //
@@ -310,7 +330,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         if (gg instanceof HistogramGraph) {
             gg.addData(sql_histogram_g, q, "value");
-        }else if(gg instanceof PolygonGraph){
+        } else if (gg instanceof PolygonGraph) {
             gg.addData(sql_polygon_g, q, "value");
         }
     }
@@ -340,7 +360,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         if (gg instanceof HistogramGraph) {
             gg.addData(sql_histogram_g, q, "value");
-        }else if(gg instanceof PolygonGraph){
+        } else if (gg instanceof PolygonGraph) {
             gg.addData(sql_polygon_g, q, "value");
         }
         //
@@ -352,12 +372,17 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         x.start();
     }
 
-    private boolean ALL_ENTRIES_SHOWN_TABLE = false;
+    /**
+     * @deprecated - shall only be called by the TableBuilderThread
+     * @param addditionalWhere
+     */
     private synchronized void buildTable(String addditionalWhere) {
         //
-        if(addditionalWhere == null && MARKERS_SET_P_INDEX_FIRST == -1 && MARKERS_SET_P_INDEX_LAST == -1){
+        tableHeaders();
+        //
+        if (addditionalWhere == null && MARKERS_SET_P_INDEX_FIRST == -1 && MARKERS_SET_P_INDEX_LAST == -1) {
             ALL_ENTRIES_SHOWN_TABLE = true;
-        }else{
+        } else {
             ALL_ENTRIES_SHOWN_TABLE = false;
         }
         //
@@ -402,7 +427,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     }
 
     private void showCurrTableEntryOnGraph() {
-         if(ALL_ENTRIES_SHOWN_TABLE == false){
+        if (ALL_ENTRIES_SHOWN_TABLE == false) {
             return;
         }
         //
@@ -450,7 +475,51 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     //==========================================================================
     //==========================================================================
-    public void clearComponents() {
+    public void fillComboStandard(JComboBoxA jcbm) {
+        //
+        String q = SQL_Q.fillAuto(jcbm.getPARAMETER(), gui);
+        //
+        OUT.showMessage(q);
+        //
+        jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql_common_g));
+        //
+        resetFlagsWaitSelective(jcbm);
+    }
+
+    private void resetFlagsWaitSelective(JComboBoxA jcbm) {
+        ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
+        //
+        for (JComboBox jComboBox : list) {
+            //
+            JComboBoxA boxM = (JComboBoxA) jComboBox;
+            //
+            if (boxM.getPARAMETER().equals(jcbm.getPARAMETER()) == false) {
+                boxM.setFLAG_WAIT(0);
+            }
+            //
+        }
+    }
+
+    public void reset() {
+        clearComponents();
+        resetFlagWaits();
+        clearEntriesFromCBoxes();
+    }
+
+    private void clearEntriesFromCBoxes() {
+        //
+        ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
+        //
+        for (JComboBox jComboBox : list) {
+            //
+            JComboBoxA boxA = (JComboBoxA) jComboBox;
+            //
+            boxA.clearContent();
+            //
+        }
+    }
+
+    private void clearComponents() {
         //
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
         //
@@ -468,42 +537,15 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         gui.repaint();
     }
-    //==========================================================================
-    //==========================================================================
 
-    public void fillComboStandard(JComboBoxA jcbm) {
-        //
-        String q = SQL_Q.fillAuto(jcbm.getPARAMETER(), gui);
-        //
-        OUT.showMessage(q);
-        //
-        jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql_common_g));
-        //
-        resetFlagsWaitSelective(jcbm);
-    }
-
-    public void resetFlagsWaitSelective(JComboBoxA jcbm) {
+    private void resetFlagWaits() {
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
         //
         for (JComboBox jComboBox : list) {
             //
-            JComboBoxA boxM = (JComboBoxA) jComboBox;
+            JComboBoxA boxA = (JComboBoxA) jComboBox;
             //
-            if (boxM.getPARAMETER().equals(jcbm.getPARAMETER()) == false) {
-                boxM.setFLAG_WAIT(0);
-            }
-            //
-        }
-    }
-
-    public void resetFlagWaits() {
-        ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
-        //
-        for (JComboBox jComboBox : list) {
-            //
-            JComboBoxA boxM = (JComboBoxA) jComboBox;
-            //
-            boxM.setFLAG_WAIT(0);
+            boxA.setFLAG_WAIT(0);
         }
     }
     //==========================================================================

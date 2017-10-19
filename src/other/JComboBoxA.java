@@ -7,6 +7,7 @@ package other;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 
@@ -30,6 +31,11 @@ public class JComboBoxA extends JComboBox {
     public JComboBoxA() {
     }
     
+    
+    public void clearContent(){
+         LIST.clear();
+         LIST.addAll(new BasicEventList<>());
+    }
 
     public void AUTOFILL_ADD(List list) {
         if (support == null || support.isInstalled() == false) {

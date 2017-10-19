@@ -10,6 +10,7 @@ import static XYG_BASIC.DiffMarkerPoints.CALC_AVERAGE;
 import static XYG_BASIC.DiffMarkerPoints.CALC_SUMM;
 import static XYG_BASIC.DiffMarkerPoints.DEFAULT_OUT_PUT_FORMAT;
 import XYG_BASIC.MyGraphXY;
+import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import java.util.ArrayList;
 import javax.swing.JTextField;
@@ -34,18 +35,23 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
         super(serie, graphXY);
     }
 
+    
+
     @Override
     public void markersUnset() {
-        super.markersUnset(); //To change body of generated methods, choose Tools | Templates.
         //
-        for(String str: CALC_LIST){
+        super.markersUnset();
+        //
+        for (String str : CALC_LIST) {
             JTextField jtf = outPutMap.get(str);
-            jtf.setText("");
+            //
+            if (jtf != null) {
+                jtf.setText("");
+            }
+            //
         }
         //
     }
-    
-    
 
     @Override
     public void go() {

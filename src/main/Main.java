@@ -28,39 +28,41 @@ import sql.ShowMessage;
  * @author KOCMOC
  */
 public class Main extends javax.swing.JFrame implements ShowMessage, MouseListener {
-    
+
     private Controller controller;
     private Properties p = HelpA.properties_load_properties("main.properties", false);
     public static Color INITIAL_BG_COLOR_COMBO;
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
     public final static String DATE_FORMAT = "yy/MM/dd";
-    public static final String VERSION = "BETA 1.03";
+    public static final String VERSION = "BETA 1.04";
+    private boolean BUILD_GRAPH_BTN_CLICKED = false;
 
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
-        this.controller = new Controller(this,p);
+        this.controller = new Controller(this, p);
         initOther();
         buildComboList();
         buildObligatoryComboList();
         addJComboListeners();
         setFontJBoxesTitleBorders();
     }
-    
+
     private void initOther() {
         datePicker1.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
         this.setTitle("MCLabStats " + VERSION);
         this.setIconImage(new ImageIcon(IconUrls.APP_ICON).getImage());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.jLabelCursorHint.setVisible(false);
     }
-    
+
     public ArrayList<JComboBox> getJCOMBO_LIST() {
         return JCOMBO_LIST;
     }
-    
+
     public boolean obligatoryBoxesFilled() {
         for (JComboBox jComboBox : JCOMBO_OBLIGATORY_LIST) {
             if (HelpA.getComboBoxSelectedValue_b(jComboBox) == null) {
@@ -70,13 +72,13 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         }
         return true;
     }
-    
+
     private void buildObligatoryComboList() {
         JCOMBO_OBLIGATORY_LIST.add(jComboBoxQuality);
         JCOMBO_OBLIGATORY_LIST.add(jComboBoxTestCode);
         JCOMBO_OBLIGATORY_LIST.add(jComboBoxTestName);
     }
-    
+
     private void buildComboList() {
         JCOMBO_LIST.add(jComboBoxQuality);
         JCOMBO_LIST.add(jComboBoxOrder);
@@ -87,7 +89,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         JCOMBO_LIST.add(jComboBoxUSL);
         JCOMBO_LIST.add(jComboBoxDateA);
     }
-    
+
     private void addJComboListeners() {
         //
         INITIAL_BG_COLOR_COMBO = jComboBoxQuality.getBackground();
@@ -95,11 +97,11 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         for (JComboBox jComboBox : JCOMBO_LIST) {
             HelpA.addMouseListenerJComboBox(jComboBox, this);
             //
-            JComboBoxA boxM = (JComboBoxA)jComboBox;
+            JComboBoxA boxM = (JComboBoxA) jComboBox;
             boxM.setName(boxM.getPARAMETER());
         }
     }
-    
+
     private void setFontJBoxesTitleBorders() {
         Font font = new Font("Arial", Font.PLAIN, 12);
         //
@@ -114,7 +116,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         border.setTitleFont(font);
 //        border.setTitleColor(Color.GRAY);
     }
-    
+
     @Override
     public void showMessage(String str) {
 //        System.out.println("" + str);
@@ -180,6 +182,10 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jPanel16 = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jLabelCursorHint = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -402,6 +408,28 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
         jLabel2.setText("*Obligatory fields");
 
+        jPanel16.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
+
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cursor.png"))); // NOI18N
+        jButton8.setToolTipText("add markers to graph");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel16.add(jButton8);
+
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cursor_clear.png"))); // NOI18N
+        jButton9.setToolTipText("remove markers from graph");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel16.add(jButton9);
+
+        jLabelCursorHint.setText("Move the cursor by clicking on it");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -419,15 +447,21 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
                     .addComponent(jPanelTableContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelCursorHint)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(141, 141, 141)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(HistoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTextFieldTest, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -448,13 +482,18 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                .addGap(7, 7, 7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldTest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanelTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton5))
+                        .addGap(2, 2, 2))
+                    .addComponent(jLabelCursorHint))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GraphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -508,38 +547,48 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindActionPerformed
         controller.buildGraphs();
         controller.buildTableByThread(null);
+        BUILD_GRAPH_BTN_CLICKED = true;
     }//GEN-LAST:event_jButtonFindActionPerformed
-    
+
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        controller.clearComponents();
-        controller.resetFlagWaits();
+//        controller.clearComponents();
+//        controller.resetFlagWaits();
+        controller.reset();
     }//GEN-LAST:event_jButtonClearActionPerformed
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         controller.buildTableByThread(null);
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         controller.switchToHistogramBarGraph();
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         controller.switchToFrequencyPolygonGraph();
     }//GEN-LAST:event_jButton4ActionPerformed
-    
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         controller.resetGraphs();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      controller.addDiffMarkerPoints();
+        controller.addDiffMarkerPointsCommonGraph();
+        jLabelCursorHint.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       controller.removeDiffMarkerPoints();
-       controller.resetGraphs();
-       controller.buildTableByThread(null);
+        controller.removeDiffMarkerPointsCommonGraph();
+        jLabelCursorHint.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        controller.addDiffMarkerPointsPolygonGraph();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        controller.removeDiffMarkerPointsPolygonGraph();
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -569,7 +618,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         //</editor-fold>
 
 //        HelpA.err_output_to_file();
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -588,6 +637,8 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonFind;
     public javax.swing.JComboBox jComboBoxBatch;
@@ -603,6 +654,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabelCursorHint;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -610,6 +662,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -636,8 +689,18 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
     @Override
     public void mouseEntered(MouseEvent me) {
+        if (me.getSource() instanceof JButton) {
+            JButton button = (JButton) me.getSource();
+            if (button.getParent() instanceof JComboBox) {
+                if(BUILD_GRAPH_BTN_CLICKED){
+                    controller.reset();
+                    BUILD_GRAPH_BTN_CLICKED = false;
+                }
+            }
+
+        }
     }
-    
+
     @Override
     public void mouseClicked(MouseEvent me) {
         if (me.getSource() instanceof JButton) {
@@ -652,7 +715,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             }
         }
     }
-    
+
     @Override
     public void mousePressed(MouseEvent me) {
         if (me.getSource() instanceof JButton) {
@@ -671,11 +734,11 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             }
         }
     }
-    
+
     @Override
     public void mouseReleased(MouseEvent me) {
     }
-    
+
     @Override
     public void mouseExited(MouseEvent me) {
     }
