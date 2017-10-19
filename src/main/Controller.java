@@ -34,8 +34,9 @@ import sql.Sql_B;
  */
 public class Controller implements DiffMarkerAction, BarGraphListener, PointGraphListener, MouseListener, KeyListener {
 
-    private Sql_B sql = new Sql_B(false, true);
-    private Sql_B sql_b = new Sql_B(false, true); // obs this one is for building table
+    private Sql_B sql_polygon_g = new Sql_B(false, true);
+    private Sql_B sql_histogram_g = new Sql_B(false, true);
+    private Sql_B sql_table = new Sql_B(false, true); // obs this one is for building table
     private BasicGraphListener gg;
     private XyGraph_M xygraph = new XyGraph_M("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
     private ShowMessage OUT;
@@ -93,7 +94,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         ResultSet rs;
         //
         try {
-            rs = sql.execute("SELECT * from " + SQL_Q.PRIM_TABLE + " WHERE [Quality]='xxxxxx-xxxx'");
+            rs = sql_table.execute("SELECT * from " + SQL_Q.PRIM_TABLE + " WHERE [Quality]='xxxxxx-xxxx'");
             HelpA.build_table_common_return(rs, gui.jTableMain);
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -267,22 +268,23 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     private void connect() {
         try {
-            sql.connect_mdb("", "", "c:/test/data.mdb");
-            sql_b.connect_mdb("", "", "c:/test/data.mdb");
+            sql_polygon_g.connect_mdb("", "", "c:/test/data.mdb");
+            sql_histogram_g.connect_mdb("", "", "c:/test/data.mdb");
+            sql_table.connect_mdb("", "", "c:/test/data.mdb");
             //
-//            sql.connect_mdb("", "", "data.mdb");
-//            sql_b.connect_mdb("", "", "data.mdb");
+//            sql_polygon_g.connect_mdb("", "", "data.mdb");
+//            sql_table.connect_mdb("", "", "data.mdb");
             //
-//            sql.connect_odbc("", "", "MC_LAB");
-//            sql.connect_jdbc("10.87.0.2", "1433", "MCLAB_COMPOUND", "sa", "");
-            //
-            //
+//            sql_polygon_g.connect_odbc("", "", "MC_LAB");
+//            sql_polygon_g.connect_jdbc("10.87.0.2", "1433", "MCLAB_COMPOUND", "sa", "");
             //
             //
-//            sql.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+            //
+            //
+//            sql_polygon_g.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
 //                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
 //            
-//            sql_b.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+//            sql_table.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
 //                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
             //
             OUT.showMessage("Connected");
@@ -322,7 +324,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         try {
             //
-            ResultSet rs = sql.execute(q, OUT);
+            ResultSet rs = sql_polygon_g.execute(q, OUT);
             this.resultSet = rs;
             xygraph.deleteAllPointsFromAllSeries();
             xygraph.addData(rs, "value");
@@ -353,7 +355,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         try {
             //
-            ResultSet rs = sql_b.execute(q, OUT);
+            ResultSet rs = sql_table.execute(q, OUT);
             //
             rs.beforeFirst();
             //
@@ -457,7 +459,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         OUT.showMessage(q);
         //
-        jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql));
+        jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql_polygon_g));
         //
         resetFlagsWaitSelective(jcbm);
     }

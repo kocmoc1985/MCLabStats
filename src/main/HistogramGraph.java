@@ -32,8 +32,28 @@ public class HistogramGraph extends PolygonGraph implements BasicGraphListener {
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
         if (trigerInstance instanceof MyGraphXY_PG == false) {
-            rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
+//            rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
+            Thread x = new Thread(new PolygonGraph.RebuildDataThread(markerA.getPointIndex(), markerB.getPointIndex()));
+            x.start();
         }
+    }
+    
+    class RebuildDataThread implements Runnable{
+
+        private int markerAPointIndex;
+        private int markerBPointIndex;
+
+        public RebuildDataThread(int markerAPointIndex, int markerBPointIndex) {
+            this.markerAPointIndex = markerAPointIndex;
+            this.markerBPointIndex = markerBPointIndex;
+        }
+
+        @Override
+        public void run() {
+            rebuildData(resultSet, valueColName, round, markerAPointIndex, markerBPointIndex);
+        }
+        
+        
     }
 
     @Override

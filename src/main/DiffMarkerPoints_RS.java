@@ -49,13 +49,15 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
 
     @Override
     public void go() {
+        //
         addProperties();
+        //
         if (outPutMap.size() > 0) {
             calcAndShow(CALC_SUMM);
             calcAndShow(CALC_AVERAGE);
             calcAndShow(CALC_MEDIAN);
         }
-
+        //
         for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
             diffMarkerAction.markersSet(myGraphXY, MARKER_POINT_A, MARKER_POINT_B);
         }
