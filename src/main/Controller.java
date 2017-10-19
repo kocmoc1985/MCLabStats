@@ -339,17 +339,19 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         return SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
     }
 
-    public void buildGraphs() {
+    public boolean buildGraphs() {
         //
         if (gui.obligatoryBoxesFilled() == false) {
-            return;
+            return false;
         }
+        //
+        buildTableByThread(null);
         //
         String q = getQ();
 //        String q = SQL_Q.forTestC();
         //
         if (q == null) {
-            return;
+            return false;
         }
         //
         xygraph.deleteAllPointsFromAllSeries();
@@ -364,7 +366,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             gg.addData(sql_polygon_g, q, "value");
         }
         //
-
+        return true;
     }
 
     public synchronized void buildTableByThread(String addditionalWhere) {

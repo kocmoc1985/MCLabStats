@@ -545,9 +545,9 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindActionPerformed
-        controller.buildGraphs();
-        controller.buildTableByThread(null);
-        BUILD_GRAPH_BTN_CLICKED = true;
+        if (controller.buildGraphs()) {
+            BUILD_GRAPH_BTN_CLICKED = true;
+        }
     }//GEN-LAST:event_jButtonFindActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
@@ -692,7 +692,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         if (me.getSource() instanceof JButton) {
             JButton button = (JButton) me.getSource();
             if (button.getParent() instanceof JComboBox) {
-                if(BUILD_GRAPH_BTN_CLICKED){
+                if (BUILD_GRAPH_BTN_CLICKED) {
                     controller.reset();
                     BUILD_GRAPH_BTN_CLICKED = false;
                 }
