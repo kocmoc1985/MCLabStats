@@ -145,7 +145,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         addPoints();
     }
 
-    public void rebuildData(String valueColName, String round, int start, int end) {
+    public synchronized void rebuildData(String valueColName, String round, int start, int end) {
         //
         deleteAllPointsFromSerie(serie);
         histoMap.clear();

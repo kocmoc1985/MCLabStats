@@ -56,7 +56,7 @@ public class HistogramGraph extends PolygonGraph {
     }
 
     @Override
-    public void rebuildData(String valueColName, String round, int start, int end) {
+    public synchronized void rebuildData(String valueColName, String round, int start, int end) {
         //
         deleteAllPointsFromSerie(serie);
         //
@@ -98,8 +98,6 @@ public class HistogramGraph extends PolygonGraph {
             this.query = q;
             //
             ResultSet rs = sql.execute(q);
-            //
-            rs.beforeFirst();
             //
             double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
             //

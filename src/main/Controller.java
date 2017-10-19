@@ -194,16 +194,22 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             //
             String where = SQL_Q.buildAdditionalWhereGistoGram("" + min, "" + max);
             //
-            Thread x = new Thread(new BuildTableThread(where));
-            x.start();
+//            Thread x = new Thread(new BuildTableThread(where));
+//            x.start();
+            //
+            buildTableByThread(where);
+            //
         } else if (trigerInstance instanceof MyGraphXY) {
             //
             MARKERS_SET_P_INDEX_FIRST = markerA.POINT_INDEX + 1;
             MARKERS_SET_P_INDEX_LAST = markerB.POINT_INDEX + 1;
             //
             //
-            Thread x = new Thread(new BuildTableThread(null));
-            x.start();
+//            Thread x = new Thread(new BuildTableThread(null));
+//            x.start();
+            //
+            buildTableByThread(null);
+            //
         }
     }
 
@@ -341,12 +347,19 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     }
 
-    public void buildTableByThread(String addditionalWhere) {
+    public synchronized void buildTableByThread(String addditionalWhere) {
         Thread x = new Thread(new BuildTableThread(addditionalWhere));
         x.start();
     }
 
+    private boolean ALL_ENTRIES_SHOWN_TABLE = false;
     private synchronized void buildTable(String addditionalWhere) {
+        //
+        if(addditionalWhere == null && MARKERS_SET_P_INDEX_FIRST == -1 && MARKERS_SET_P_INDEX_LAST == -1){
+            ALL_ENTRIES_SHOWN_TABLE = true;
+        }else{
+            ALL_ENTRIES_SHOWN_TABLE = false;
+        }
         //
         String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, addditionalWhere);
         //
@@ -389,6 +402,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     }
 
     private void showCurrTableEntryOnGraph() {
+         if(ALL_ENTRIES_SHOWN_TABLE == false){
+            return;
+        }
+        //
         int row = gui.jTableMain.getSelectedRow();
         highLightPointByIndex(row);
     }
