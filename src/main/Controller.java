@@ -267,8 +267,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     private void connect() {
         try {
-//            sql.connect_mdb("", "", "c:/test/data.mdb");
-//            sql_b.connect_mdb("", "", "c:/test/data.mdb");
+            sql.connect_mdb("", "", "c:/test/data.mdb");
+            sql_b.connect_mdb("", "", "c:/test/data.mdb");
             //
 //            sql.connect_mdb("", "", "data.mdb");
 //            sql_b.connect_mdb("", "", "data.mdb");
@@ -279,11 +279,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             //
             //
             //
-            sql.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
-            
-            sql_b.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+//            sql.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+//                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+//            
+//            sql_b.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+//                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
             //
             OUT.showMessage("Connected");
             //

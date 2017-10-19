@@ -186,7 +186,7 @@ public class SQL_Q {
         //
         if (actualComboParam.equals(TEST_DATE)) {
             query += " ORDER BY [" + actualComboParam + "] desc";
-        }else if(actualComboParam.equals(QUALITY)){
+        }else if(actualComboParam.equals(QUALITY) && Sql_B.MDB_CONNECTION == false){
             query += " ORDER BY [ammount] desc";
         }
         //

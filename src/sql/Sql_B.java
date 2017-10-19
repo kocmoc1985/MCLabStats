@@ -32,6 +32,8 @@ public class Sql_B implements SqlBasicLocal {
     private boolean LOGG_CONNECTION_STRING;
     //
     public boolean ODBC_OR_MDB;
+    //
+    public static boolean MDB_CONNECTION = false;
 
     public Sql_B(boolean statementSimple, boolean loggConnectionStr) {
         this.CREATE_STATEMENT_SIMPLE = statementSimple;
@@ -211,8 +213,10 @@ public class Sql_B implements SqlBasicLocal {
      * @throws ClassNotFoundException
      */
     public void connect_mdb(String user, String pass, String pathToMdbFile) throws SQLException, ClassNotFoundException {
+        //
         ODBC_OR_MDB = true;
-
+        //
+        MDB_CONNECTION = true;
         //Class.forName("com.mysql.jdbc.Driver");
         Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
         String connectionUrl = "jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=" + pathToMdbFile;
