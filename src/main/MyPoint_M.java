@@ -5,6 +5,8 @@
 package main;
 
 import XYG_BASIC.MyPoint;
+import java.awt.Color;
+import java.awt.Graphics;
 
 /**
  *
@@ -19,6 +21,11 @@ public class MyPoint_M extends MyPoint {
         super(y, y_);
         this.LSL = LSL;
         this.USL = USL;
+    }
+    
+    @Override
+    protected void drawPoint(Graphics g, Color pointColor) {
+        super.drawPoint(g, pointColor); //#MINUS_VALUES
     }
 
     public MyPoint getLSL() {
@@ -40,4 +47,8 @@ public class MyPoint_M extends MyPoint {
     public Object clone() throws CloneNotSupportedException {
         return super.clone(); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
+    
+    
 }
