@@ -9,17 +9,17 @@ import XYG_BASIC.MyPoint;
 import java.awt.Graphics2D;
 
 /**
- * MyGraphXY_M = MyGraphXY for the Common Point Graph which can display minus values
- * Range of -1 to -14 we turn to range from -14 to +14 which is the same as 0 to 28
- * y = is the max scale on Y axis (28 in this case)
- * x = is the value which we find the value for. If x = -4 we must find how much it is in range from 0 - 28
- * (y/2 - x) + 1 calculation of - values
- * (y/2 + x) + 1 calculation of + values
+ * MyGraphXY_M = MyGraphXY for the Common Point Graph which can display minus
+ * values Range of -1 to -14 we turn to range from -14 to +14 which is the same
+ * as 0 to 28 y = is the max scale on Y axis (28 in this case) x = is the value
+ * which we find the value for. If x = -4 we must find how much it is in range
+ * from 0 - 28 (y/2 - x) + 1 calculation of - values (y/2 + x) + 1 calculation
+ * of + values
+ *
  * @author KOCMOC
  */
-public class MyGraphXY_M extends MyGraphXY{
+public class MyGraphXY_M extends MyGraphXY {
 
-    
     @Override
     public void defineMaxForXYAxis(MyPoint point) {
         if (point.x_Scaled > X_MAX / 1.05) {
@@ -33,7 +33,7 @@ public class MyGraphXY_M extends MyGraphXY{
             Y_MAX *= 1.2;
         }
     }
-    
+
     @Override
     public void scaleY(Graphics2D g2) {
         if (SCALE_Y_AXIS) {
@@ -52,7 +52,10 @@ public class MyGraphXY_M extends MyGraphXY{
             double jj; // step identifier
             //
             //#MINUS-VALUES
-            Y_MAX = Y_MAX * 2;
+            boolean minus_values = true; // must be set some where
+            if (minus_values) {
+                Y_MAX = Y_MAX * 2;
+            }
             //
             double vvv = (Y_MAX / ALL_SERIES_COEFF);
             //
@@ -107,7 +110,4 @@ public class MyGraphXY_M extends MyGraphXY{
             }
         }
     }
-    
-    
-    
 }
