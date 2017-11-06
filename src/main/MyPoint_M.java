@@ -7,6 +7,7 @@ package main;
 import XYG_BASIC.MyPoint;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -22,10 +23,54 @@ public class MyPoint_M extends MyPoint {
         this.LSL = LSL;
         this.USL = USL;
     }
-    
+    boolean minusValues = false;
+    double y_max;
+    double one_unit_y;
+
     @Override
     protected void drawPoint(Graphics g, Color pointColor) {
-        super.drawPoint(g, pointColor); //#MINUS_VALUES
+        //
+        Graphics2D g2d = (Graphics2D) g;
+        //
+        if (highLightSet == false) {
+            POINT_COLOR = pointColor;
+        }
+        //
+        if (POINT_COLOR_B != null) {
+            POINT_COLOR = POINT_COLOR_B;
+        }
+        //
+        g2d.setColor(POINT_COLOR);
+        //
+        MyGraphXY_M mgxy = (MyGraphXY_M) getSerie().myGraphXY;
+        minusValues = mgxy.MINUS_VALUES_PRESENT;
+        y_max = mgxy.Y_MAX;
+        one_unit_y = mgxy.ONE_UNIT_Y;
+        //
+        recalc_y();
+        //
+        if (DRAW_RECT) {
+            g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
+        } else {
+            g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
+        }
+
+        point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);
+        //==================================IMPORTNAT=============================
+        //Sets the size of the component which reffers to this point
+        this.setLocation((x - POINT_D / 2), (int) (y - POINT_D / 2));
+        this.setSize(POINT_D, POINT_D);
+    }
+
+    public void recalc_y() {
+        double y__max = y_max * one_unit_y; 
+        if (minusValues) {
+            if (y_Scaled < 0) {
+                y = (int) (y__max / 2 - y) + (int)one_unit_y;
+            } else if (y_Scaled > 0) {
+                y = (int) (y__max / 2 + y) + (int)one_unit_y;
+            }
+        }
     }
 
     public MyPoint getLSL() {
@@ -47,8 +92,4 @@ public class MyPoint_M extends MyPoint {
     public Object clone() throws CloneNotSupportedException {
         return super.clone(); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
-    
-    
 }

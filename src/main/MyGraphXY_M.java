@@ -20,6 +20,8 @@ import java.awt.Graphics2D;
  */
 public class MyGraphXY_M extends MyGraphXY {
 
+    public boolean MINUS_VALUES_PRESENT = false;
+    
     @Override
     public void defineMaxForXYAxis(MyPoint point) {
         if (point.x_Scaled > X_MAX / 1.05) {
@@ -31,6 +33,11 @@ public class MyGraphXY_M extends MyGraphXY {
         if (Math.abs(point.y_Scaled) > Y_MAX / 1.2) {
             Y_MAX = Math.abs(point.y_Scaled);
             Y_MAX *= 1.2;
+        }
+        //#MINUS-VALUES
+        if(point.y_Scaled < 0 && MINUS_VALUES_PRESENT == false){
+            MINUS_VALUES_PRESENT = true;
+            System.out.println("minus");
         }
     }
 
@@ -52,8 +59,7 @@ public class MyGraphXY_M extends MyGraphXY {
             double jj; // step identifier
             //
             //#MINUS-VALUES
-            boolean minus_values = true; // must be set some where
-            if (minus_values) {
+            if (MINUS_VALUES_PRESENT) {
                 Y_MAX = Y_MAX * 2;
             }
             //

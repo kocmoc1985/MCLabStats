@@ -30,7 +30,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
     private BasicGraphListener gistoGraph;
 
     public XyGraph_M(String title, int displayMode) {
-        super(title, new MyGraphXY(), displayMode);
+        super(title, new MyGraphXY_M(), displayMode);
         init();
     }
 
