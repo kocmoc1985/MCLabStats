@@ -48,7 +48,7 @@ public class MyPoint_M extends MyPoint {
         y_max = mgxy.Y_MAX;
         one_unit_y = mgxy.ONE_UNIT_Y;
         //
-        recalc_y();
+//        recalc_y();
         //
         if (DRAW_RECT) {
             g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
@@ -65,15 +65,15 @@ public class MyPoint_M extends MyPoint {
 
     public void recalc_y() {
         //
-        double y__max = y_max * one_unit_y; 
-        //
-        y = Math.abs(y);
+//        y = Math.abs(y);
         //
         if (minusValues) {
             if (y_Scaled < 0) {
-                y = (int) (y__max / 2 - y) + 1;
+                double d = ((y_max / 2) + Math.abs(y_Scaled));
+                y = (int) (one_unit_y * d);
             } else if (y_Scaled > 0) {
-                y = (int) (y__max / 2 + y) + 1;
+                double d = ((y_max / 2) - Math.abs(y_Scaled));
+                y = (int) (one_unit_y * d);
             }
         }
     }

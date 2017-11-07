@@ -167,7 +167,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 p.addPointInfo("Batch", rs.getString("BatchNo"));
                 p.addPointInfo("Status", rs.getString("Status"));
                 //
-                if (val < (filterCoeff)) {
+                if (Math.abs(val) < (filterCoeff)) {
                     addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
                     diffMarkerPointsDeleteFlag = false;
                 } else {

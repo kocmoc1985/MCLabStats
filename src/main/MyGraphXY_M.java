@@ -8,6 +8,7 @@ import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 /**
  * MyGraphXY_M = MyGraphXY for the Common Point Graph which can display minus
@@ -39,8 +40,6 @@ public class MyGraphXY_M extends MyGraphXY {
         if (Math.abs(point.y_Scaled) > Y_MAX / 1.2) {
             Y_MAX = Math.abs(point.y_Scaled);
             Y_MAX *= 1.2;
-            System.out.println("Point_y_scaled: " + point.y_Scaled);
-            System.out.println("y_max: " + Y_MAX);
         }
         //#MINUS-VALUES
         if (point.y_Scaled < 0 && MINUS_VALUES_PRESENT == false) {
@@ -50,31 +49,68 @@ public class MyGraphXY_M extends MyGraphXY {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        //
-        basicPaintOperations(g);
-        //
-        if (RECALC_DONE == false) {
-            return;
+    public void recalc() {
+
+        for (int x = 0; x < SERIES.size(); x++) {
+            //
+            ArrayList<MyPoint> act_serie = SERIES.get(x).getSerie();
+            //
+            for (int i = 0; i < act_serie.size(); i++) {
+                //
+                int x_static = act_serie.get(i).x_Scaled;
+                double y_static = act_serie.get(i).y_Scaled;
+                //
+                y_static = Math.abs(y_static);
+                //
+                countUnit();
+                //
+                act_serie.get(i).x = (int) (Math.round(ONE_UNIT_X * x_static));
+                //
+                if (MINUS_VALUES_PRESENT) {
+                    if (act_serie.get(i).y_Scaled < 0) {
+                        double d = ((Y_MAX / 2) + Math.abs(act_serie.get(i).y_Scaled))+1;
+                        act_serie.get(i).y = (int) (ONE_UNIT_Y * d);
+                    } else if (act_serie.get(i).y_Scaled > 0) {
+                        double d = ((Y_MAX / 2) - Math.abs(act_serie.get(i).y_Scaled))+1;
+                        act_serie.get(i).y = (int) (ONE_UNIT_Y * d);
+                    }
+                } else {
+                    act_serie.get(i).y = (int) Math.round((getHeight() - (ONE_UNIT_Y * y_static)));
+                }
+            }
         }
         //
-        if (DRAW_MARKER) {
-            drawMarkerWhenPointing(g);
-        }
         //
-        drawDiffMarkers(g);
-        //
-        if (SCALE_XY_AXIS) {
-            scaleOfXYAxis(g);
-        }
-        //
-        drawLines(g);
-        //
-        drawPointsFixedSize(g);
-        //
-        drawLimits(g);
+        repaint();
+//        repaint_("recalc()");
+//        revalidate();
     }
 
+//    @Override
+//    public void paintComponent(Graphics g) {
+//        //
+//        basicPaintOperations(g);
+//        //
+//        if (RECALC_DONE == false) {
+//            return;
+//        }
+//        //
+//        if (DRAW_MARKER) {
+//            drawMarkerWhenPointing(g);
+//        }
+//        //
+//        drawDiffMarkers(g);
+//        //
+//        if (SCALE_XY_AXIS) {
+//            scaleOfXYAxis(g);
+//        }
+//        //
+////        drawLines(g);
+//        //
+//        drawPointsFixedSize(g);
+//        //
+////        drawLimits(g);
+//    }
     @Override
     public void countUnit() {
         //
@@ -83,7 +119,15 @@ public class MyGraphXY_M extends MyGraphXY {
         }
         //
         ONE_UNIT_X = (double) (getWidth() / X_MAX);
-        ONE_UNIT_Y = Math.round(getHeight() / Y_MAX);
+
+        //
+        if (MINUS_VALUES_PRESENT == false) {
+            ONE_UNIT_Y = Math.round(getHeight() / Y_MAX);
+        } else {
+            ONE_UNIT_Y = Math.round(getHeight() / (Y_MAX * 2));
+        }
+        //
+//        System.out.println("UNIT_Y: " + ONE_UNIT_Y);
         //
         RECALC_DONE = true;
     }

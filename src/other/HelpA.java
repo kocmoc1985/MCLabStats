@@ -1985,8 +1985,11 @@ public class HelpA {
                 //
                 double act_value = parseDouble(rs.getString(valueColName));
                 //
+                act_value = Math.abs(act_value);
+                //
                 if (act_value > 0) {
                     sum_all_values += act_value;
+//                    System.out.println("act value: " + act_value);
                     devide_with++;
                 }
             }
