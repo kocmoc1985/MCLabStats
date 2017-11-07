@@ -37,15 +37,25 @@ public class MyGraphXY_M extends MyGraphXY {
         //
         //#MINUS-VALUES
         //
-        if (Math.abs(point.y_Scaled) > Y_MAX / 1.2) {
-            Y_MAX = Math.abs(point.y_Scaled);
-            Y_MAX *= 1.2;
-        }
-        //#MINUS-VALUES
         if (point.y_Scaled < 0 && MINUS_VALUES_PRESENT == false) {
             MINUS_VALUES_PRESENT = true;
             System.out.println("minus");
         }
+        //
+        if (Math.abs(point.y_Scaled) > Y_MAX / 1.2) {
+            //
+            Y_MAX = Math.abs(point.y_Scaled);
+            //
+            if (MINUS_VALUES_PRESENT) {
+                Y_MAX *= 4;
+            } else {
+                Y_MAX *= 1.2;
+            }
+            //
+            System.out.println("Y_MAX: " + Y_MAX);
+            //
+        }
+        //
     }
 
     @Override
@@ -68,10 +78,10 @@ public class MyGraphXY_M extends MyGraphXY {
                 //
                 if (MINUS_VALUES_PRESENT) {
                     if (act_serie.get(i).y_Scaled < 0) {
-                        double d = ((Y_MAX / 2) + Math.abs(act_serie.get(i).y_Scaled))+1;
+                        double d = ((Y_MAX / 2) + Math.abs(act_serie.get(i).y_Scaled)) + 1;
                         act_serie.get(i).y = (int) (ONE_UNIT_Y * d);
                     } else if (act_serie.get(i).y_Scaled > 0) {
-                        double d = ((Y_MAX / 2) - Math.abs(act_serie.get(i).y_Scaled))+1;
+                        double d = ((Y_MAX / 2) - Math.abs(act_serie.get(i).y_Scaled)) + 1;
                         act_serie.get(i).y = (int) (ONE_UNIT_Y * d);
                     }
                 } else {
@@ -82,35 +92,34 @@ public class MyGraphXY_M extends MyGraphXY {
         //
         //
         repaint();
-//        repaint_("recalc()");
-//        revalidate();
     }
 
-//    @Override
-//    public void paintComponent(Graphics g) {
-//        //
-//        basicPaintOperations(g);
-//        //
-//        if (RECALC_DONE == false) {
-//            return;
-//        }
-//        //
-//        if (DRAW_MARKER) {
-//            drawMarkerWhenPointing(g);
-//        }
-//        //
-//        drawDiffMarkers(g);
-//        //
-//        if (SCALE_XY_AXIS) {
-//            scaleOfXYAxis(g);
-//        }
-//        //
-////        drawLines(g);
-//        //
-//        drawPointsFixedSize(g);
-//        //
-////        drawLimits(g);
-//    }
+    @Override
+    public void paintComponent(Graphics g) {
+        //
+        basicPaintOperations(g);
+        //
+        if (RECALC_DONE == false) {
+            return;
+        }
+        //
+        if (DRAW_MARKER) {
+            drawMarkerWhenPointing(g);
+        }
+        //
+        drawDiffMarkers(g);
+        //
+        if (SCALE_XY_AXIS) {
+            scaleOfXYAxis(g);
+        }
+        //
+        drawLines(g);
+        //
+        drawPointsFixedSize(g);
+        //
+        drawLimits(g);
+    }
+
     @Override
     public void countUnit() {
         //
@@ -119,13 +128,8 @@ public class MyGraphXY_M extends MyGraphXY {
         }
         //
         ONE_UNIT_X = (double) (getWidth() / X_MAX);
-
         //
-        if (MINUS_VALUES_PRESENT == false) {
-            ONE_UNIT_Y = Math.round(getHeight() / Y_MAX);
-        } else {
-            ONE_UNIT_Y = Math.round(getHeight() / (Y_MAX * 2));
-        }
+        ONE_UNIT_Y = Math.round(getHeight() / Y_MAX);
         //
 //        System.out.println("UNIT_Y: " + ONE_UNIT_Y);
         //
@@ -148,11 +152,7 @@ public class MyGraphXY_M extends MyGraphXY {
             double unreal_points_per_real = max_unreal_points / getHeight();
             //
             double jj; // step identifier
-            //
-            //#MINUS-VALUES
-            if (MINUS_VALUES_PRESENT) {
-                Y_MAX = Y_MAX * 2;
-            }
+            //  
             //
             double vvv = (Y_MAX / ALL_SERIES_COEFF);
             //
@@ -198,7 +198,15 @@ public class MyGraphXY_M extends MyGraphXY {
                         mm++;
                     } else {
                         g2.setPaint(GRID_COLOR);
-                        g2.drawString("" + round_(jj * mm), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
+                        double dbl = (jj * mm);
+                        if(MINUS_VALUES_PRESENT){
+//                            g2.drawString("" + round_(getVal(dbl)), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3)); 
+                            g2.drawString("" + round_(dbl), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3)); 
+                        }else{
+                           g2.drawString("" + round_(dbl), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3)); 
+                        }
+                        getVal(dbl);
+                        
                         g2.drawRect(0, (getHeight() - (i - fix_coef_2)), (int) (5 * COEFF_SMALL_GRID), 1);
                         mm++;
                     }
@@ -206,5 +214,10 @@ public class MyGraphXY_M extends MyGraphXY {
                 }
             }
         }
+    }
+    
+    private double getVal(double dbl){
+       return ((Y_MAX/2)+dbl)+1;
+//        System.out.println("ZERO: " + rst + " ");
     }
 }
