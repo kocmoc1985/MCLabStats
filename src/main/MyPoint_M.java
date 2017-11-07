@@ -26,6 +26,7 @@ public class MyPoint_M extends MyPoint {
     boolean minusValues = false;
     double y_max;
     double one_unit_y;
+    boolean recalc_done = false;
 
     @Override
     protected void drawPoint(Graphics g, Color pointColor) {
@@ -54,7 +55,7 @@ public class MyPoint_M extends MyPoint {
         } else {
             g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
         }
-
+        //
         point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);
         //==================================IMPORTNAT=============================
         //Sets the size of the component which reffers to this point
@@ -63,12 +64,16 @@ public class MyPoint_M extends MyPoint {
     }
 
     public void recalc_y() {
+        //
         double y__max = y_max * one_unit_y; 
+        //
+        y = Math.abs(y);
+        //
         if (minusValues) {
             if (y_Scaled < 0) {
-                y = (int) (y__max / 2 - y) + (int)one_unit_y;
+                y = (int) (y__max / 2 - y) + 1;
             } else if (y_Scaled > 0) {
-                y = (int) (y__max / 2 + y) + (int)one_unit_y;
+                y = (int) (y__max / 2 + y) + 1;
             }
         }
     }

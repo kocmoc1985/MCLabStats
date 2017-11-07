@@ -6,6 +6,7 @@ package main;
 
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 /**
@@ -21,24 +22,70 @@ import java.awt.Graphics2D;
 public class MyGraphXY_M extends MyGraphXY {
 
     public boolean MINUS_VALUES_PRESENT = false;
-    
+    public boolean RECALC_DONE = false;
+
     @Override
     public void defineMaxForXYAxis(MyPoint point) {
+        //
+        RECALC_DONE = false;
+        //
         if (point.x_Scaled > X_MAX / 1.05) {
             X_MAX = (int) ((point.x_Scaled));//1.2 Note this is important value!
             X_MAX *= 1.05;
         }
         //
         //#MINUS-VALUES
+        //
         if (Math.abs(point.y_Scaled) > Y_MAX / 1.2) {
             Y_MAX = Math.abs(point.y_Scaled);
             Y_MAX *= 1.2;
+            System.out.println("Point_y_scaled: " + point.y_Scaled);
+            System.out.println("y_max: " + Y_MAX);
         }
         //#MINUS-VALUES
-        if(point.y_Scaled < 0 && MINUS_VALUES_PRESENT == false){
+        if (point.y_Scaled < 0 && MINUS_VALUES_PRESENT == false) {
             MINUS_VALUES_PRESENT = true;
             System.out.println("minus");
         }
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        //
+        basicPaintOperations(g);
+        //
+        if (RECALC_DONE == false) {
+            return;
+        }
+        //
+        if (DRAW_MARKER) {
+            drawMarkerWhenPointing(g);
+        }
+        //
+        drawDiffMarkers(g);
+        //
+        if (SCALE_XY_AXIS) {
+            scaleOfXYAxis(g);
+        }
+        //
+        drawLines(g);
+        //
+        drawPointsFixedSize(g);
+        //
+        drawLimits(g);
+    }
+
+    @Override
+    public void countUnit() {
+        //
+        if (getHeight() < 100) {
+            return;
+        }
+        //
+        ONE_UNIT_X = (double) (getWidth() / X_MAX);
+        ONE_UNIT_Y = Math.round(getHeight() / Y_MAX);
+        //
+        RECALC_DONE = true;
     }
 
     @Override
