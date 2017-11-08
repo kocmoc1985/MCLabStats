@@ -6,8 +6,10 @@ package main;
 
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +26,7 @@ public class MyGraphXY_M extends MyGraphXY {
 
     public boolean MINUS_VALUES_PRESENT = false;
     public boolean RECALC_DONE = false;
+    public double OFFSET;
 
     @Override
     public void defineMaxForXYAxis(MyPoint point) {
@@ -59,7 +62,36 @@ public class MyGraphXY_M extends MyGraphXY {
     }
 
     @Override
-    public void recalc() {
+    public void addPointInfo() {
+        //
+        super.addPointInfo(); //To change body of generated methods, choose Tools | Templates.
+        //
+        if (MINUS_VALUES_PRESENT) {
+            MARKER_POINT.addPointInfo("y_Real", "" + (MARKER_POINT.y_Real) + " (" + (Math.abs(Y_MAX) - Math.abs(MARKER_POINT.y_Real)) + ")");
+            MARKER_POINT.addPointInfo("y_Max", "" + (Y_MAX));
+        }
+    }
+    private int counter;
+    private Dimension dimensionPrev = new Dimension(0, 0);
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        System.out.println("" + e.getComponent().getSize());
+        recalc(e.getComponent().getSize());
+    }
+
+    @Override
+    public synchronized void recalc(Dimension dim) {
+
+//        if (dimensionPrev.equals(dim) == false) {
+//            dimensionPrev = dim;
+//            counter++;
+//        } else {
+//            repaint();
+//            return;
+//        }
+//
+//        System.out.println("RECALC: " + counter);
 
         for (int x = 0; x < SERIES.size(); x++) {
             //
@@ -77,11 +109,20 @@ public class MyGraphXY_M extends MyGraphXY {
                 act_serie.get(i).x = (int) (Math.round(ONE_UNIT_X * x_static));
                 //
                 if (MINUS_VALUES_PRESENT) {
-                    if (act_serie.get(i).y_Scaled < 0) {
-                        double d = ((Y_MAX / 2) + Math.abs(act_serie.get(i).y_Scaled)) + 1;
+                    //
+                    double y_scaled = act_serie.get(i).y_Scaled;
+                    //
+                    if (y_scaled < 0) {
+                        double d = ((Y_MAX / 2) + Math.abs(y_scaled)) + 1;
+                        double dd = Y_MAX - d;
+                        OFFSET = dd - (y_scaled);
+                        act_serie.get(i).y_Real = d;
                         act_serie.get(i).y = (int) (ONE_UNIT_Y * d);
-                    } else if (act_serie.get(i).y_Scaled > 0) {
-                        double d = ((Y_MAX / 2) - Math.abs(act_serie.get(i).y_Scaled)) + 1;
+                    } else if (y_scaled > 0) {
+                        double d = ((Y_MAX / 2) - Math.abs(y_scaled)) + 1;
+                        double dd = Y_MAX - d;
+                        OFFSET = dd - (y_scaled);
+                        act_serie.get(i).y_Real = d;
                         act_serie.get(i).y = (int) (ONE_UNIT_Y * d);
                     }
                 } else {
@@ -90,34 +131,9 @@ public class MyGraphXY_M extends MyGraphXY {
             }
         }
         //
+        System.out.println("RECALC: " + counter + "  DONE");
         //
         repaint();
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        //
-        basicPaintOperations(g);
-        //
-        if (RECALC_DONE == false) {
-            return;
-        }
-        //
-        if (DRAW_MARKER) {
-            drawMarkerWhenPointing(g);
-        }
-        //
-        drawDiffMarkers(g);
-        //
-        if (SCALE_XY_AXIS) {
-            scaleOfXYAxis(g);
-        }
-        //
-        drawLines(g);
-        //
-        drawPointsFixedSize(g);
-        //
-        drawLimits(g);
     }
 
     @Override
@@ -130,8 +146,6 @@ public class MyGraphXY_M extends MyGraphXY {
         ONE_UNIT_X = (double) (getWidth() / X_MAX);
         //
         ONE_UNIT_Y = Math.round(getHeight() / Y_MAX);
-        //
-//        System.out.println("UNIT_Y: " + ONE_UNIT_Y);
         //
         RECALC_DONE = true;
     }
@@ -199,14 +213,13 @@ public class MyGraphXY_M extends MyGraphXY {
                     } else {
                         g2.setPaint(GRID_COLOR);
                         double dbl = (jj * mm);
-                        if(MINUS_VALUES_PRESENT){
-//                            g2.drawString("" + round_(getVal(dbl)), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3)); 
-                            g2.drawString("" + round_(dbl), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3)); 
-                        }else{
-                           g2.drawString("" + round_(dbl), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3)); 
+                        if (MINUS_VALUES_PRESENT) {
+                            g2.drawString("" + round_(transform(dbl)), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
+//                            g2.drawString("" + round_(dbl), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
+                        } else {
+                            g2.drawString("" + round_(dbl), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
                         }
-                        getVal(dbl);
-                        
+                        //
                         g2.drawRect(0, (getHeight() - (i - fix_coef_2)), (int) (5 * COEFF_SMALL_GRID), 1);
                         mm++;
                     }
@@ -215,9 +228,14 @@ public class MyGraphXY_M extends MyGraphXY {
             }
         }
     }
-    
-    private double getVal(double dbl){
-       return ((Y_MAX/2)+dbl)+1;
-//        System.out.println("ZERO: " + rst + " ");
+
+    /**
+     * OBS! This is very important
+     *
+     * @param dbl
+     * @return
+     */
+    private double transform(double dbl) {
+        return dbl - OFFSET;
     }
 }
