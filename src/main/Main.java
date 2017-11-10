@@ -617,7 +617,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         }
         //</editor-fold>
 
-//        HelpA.err_output_to_file();
+        HelpA.err_output_to_file();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

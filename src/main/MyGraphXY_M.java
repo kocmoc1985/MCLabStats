@@ -58,16 +58,16 @@ public class MyGraphXY_M extends MyGraphXY {
         //
     }
 
-    @Override
-    public void addPointInfo() {
-        //
-        super.addPointInfo(); //To change body of generated methods, choose Tools | Templates.
-        //
-        if (MINUS_VALUES_PRESENT) {
-            MARKER_POINT.addPointInfo("y_Real", "" + (MARKER_POINT.y_Real) + " (" + (Math.abs(Y_MAX) - Math.abs(MARKER_POINT.y_Real)) + ")");
-            MARKER_POINT.addPointInfo("y_Max", "" + (Y_MAX));
-        }
-    }
+//    @Override
+//    public void addPointInfo() {
+//        //
+//        super.addPointInfo(); //To change body of generated methods, choose Tools | Templates.
+//        //
+//        if (MINUS_VALUES_PRESENT) {
+//            MARKER_POINT.addPointInfo("y_Real", "" + (MARKER_POINT.y_Real) + " (" + (Math.abs(Y_MAX) - Math.abs(MARKER_POINT.y_Real)) + ")");
+//            MARKER_POINT.addPointInfo("y_Max", "" + (Y_MAX));
+//        }
+//    }
 
 
     @Override
@@ -111,6 +111,7 @@ public class MyGraphXY_M extends MyGraphXY {
             }
         }
         //
+        //OBS! OBS!
         repaint();
     }
     

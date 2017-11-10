@@ -296,9 +296,9 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     private void connect() {
         try {
-            for (Sql_B sql_B : SQL_ARR) {
-                sql_B.connect_mdb("", "", "c:/test/data.mdb");
-            }
+//            for (Sql_B sql_B : SQL_ARR) {
+//                sql_B.connect_mdb("", "", "c:/test/data.mdb");
+//            }
             //
 //            for (Sql_B sql_B : SQL_ARR) {
 //                sql_B.connect_mdb("", "", "data.mdb");
@@ -309,10 +309,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 //            }
             //
             //
-//            for (Sql_B sql_B : SQL_ARR) {
-//                sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-//                        p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
-//            }
+            for (Sql_B sql_B : SQL_ARR) {
+                sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+                        p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+            }
             //
             OUT.showMessage("Connected");
             //
