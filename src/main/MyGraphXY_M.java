@@ -25,13 +25,10 @@ import java.util.ArrayList;
 public class MyGraphXY_M extends MyGraphXY {
 
     public boolean MINUS_VALUES_PRESENT = false;
-    public boolean RECALC_DONE = false;
     public double OFFSET;
 
     @Override
     public void defineMaxForXYAxis(MyPoint point) {
-        //
-        RECALC_DONE = false;
         //
         if (point.x_Scaled > X_MAX / 1.05) {
             X_MAX = (int) ((point.x_Scaled));//1.2 Note this is important value!
@@ -71,27 +68,10 @@ public class MyGraphXY_M extends MyGraphXY {
             MARKER_POINT.addPointInfo("y_Max", "" + (Y_MAX));
         }
     }
-    private int counter;
-    private Dimension dimensionPrev = new Dimension(0, 0);
 
-    @Override
-    public void componentResized(ComponentEvent e) {
-        System.out.println("" + e.getComponent().getSize());
-        recalc(e.getComponent().getSize());
-    }
 
     @Override
     public synchronized void recalc(Dimension dim) {
-
-//        if (dimensionPrev.equals(dim) == false) {
-//            dimensionPrev = dim;
-//            counter++;
-//        } else {
-//            repaint();
-//            return;
-//        }
-//
-//        System.out.println("RECALC: " + counter);
 
         for (int x = 0; x < SERIES.size(); x++) {
             //
@@ -131,10 +111,10 @@ public class MyGraphXY_M extends MyGraphXY {
             }
         }
         //
-        System.out.println("RECALC: " + counter + "  DONE");
-        //
         repaint();
     }
+    
+    
 
     @Override
     public void countUnit() {
@@ -146,8 +126,6 @@ public class MyGraphXY_M extends MyGraphXY {
         ONE_UNIT_X = (double) (getWidth() / X_MAX);
         //
         ONE_UNIT_Y = Math.round(getHeight() / Y_MAX);
-        //
-        RECALC_DONE = true;
     }
 
     @Override

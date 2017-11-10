@@ -43,13 +43,6 @@ public class MyPoint_M extends MyPoint {
         //
         g2d.setColor(POINT_COLOR);
         //
-        MyGraphXY_M mgxy = (MyGraphXY_M) getSerie().myGraphXY;
-        minusValues = mgxy.MINUS_VALUES_PRESENT;
-        y_max = mgxy.Y_MAX;
-        one_unit_y = mgxy.ONE_UNIT_Y;
-        //
-//        recalc_y();
-        //
         if (DRAW_RECT) {
             g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
         } else {
@@ -63,20 +56,6 @@ public class MyPoint_M extends MyPoint {
         this.setSize(POINT_D, POINT_D);
     }
 
-    public void recalc_y() {
-        //
-//        y = Math.abs(y);
-        //
-        if (minusValues) {
-            if (y_Scaled < 0) {
-                double d = ((y_max / 2) + Math.abs(y_Scaled));
-                y = (int) (one_unit_y * d);
-            } else if (y_Scaled > 0) {
-                double d = ((y_max / 2) - Math.abs(y_Scaled));
-                y = (int) (one_unit_y * d);
-            }
-        }
-    }
 
     public MyPoint getLSL() {
         return LSL;
