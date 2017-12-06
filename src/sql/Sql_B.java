@@ -140,7 +140,7 @@ public class Sql_B implements SqlBasicLocal {
 
     private void logg_connection_string(String url) {
         if (LOGG_CONNECTION_STRING) {
-//            SimpleLoggerLight.logg("connection_string.log", url);
+            SimpleLoggerLight.logg("connection_string.log", url);
         }
     }
 

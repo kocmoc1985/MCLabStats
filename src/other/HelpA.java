@@ -133,8 +133,8 @@ public class HelpA {
      * @param path
      * @return
      */
-    public static boolean runningInNetBeans(String path) {
-        File f = new File(path);
+    public static boolean runningInNetBeans(String pathAndFileName) {
+        File f = new File(pathAndFileName);
         if (f.exists()) {
             return false;
         } else {
@@ -174,7 +174,7 @@ public class HelpA {
             return;
         }
         //
-        if (runningInNetBeans("MCRecipe.jar")) {
+        if (runningInNetBeans("MCLabStats.jar")) {
             if (jc instanceof JComboBox) {//Combo from InvertTable
                 JComboBox box = (JComboBox) jc;
                 box.setRenderer(new MyComboBoxRenderer(text));
@@ -1266,6 +1266,17 @@ public class HelpA {
             return true;
         }
         return false;
+    }
+    
+    public static void hideTabByName(JTabbedPane jtp, String tabName) {
+        for (int i = 0; i < jtp.getTabCount(); i++) {
+            String title = jtp.getTitleAt(i);
+            //
+            if (title.equals(tabName)) {
+                jtp.removeTabAt(i);
+            }
+            //
+        }
     }
 
     private static void requestFocus(final JComponent component) {

@@ -34,10 +34,10 @@ import sql.Sql_B;
  */
 public class Controller implements DiffMarkerAction, BarGraphListener, PointGraphListener, MouseListener, KeyListener {
 
-    private Sql_B sql_common_g = new Sql_B(false, true);
-    private Sql_B sql_histogram_g = new Sql_B(false, true);
-    private Sql_B sql_polygon_g = new Sql_B(false, true);
-    private Sql_B sql_table = new Sql_B(false, true); // obs this one is for building table
+    private Sql_B sql_common_g = new Sql_B(false, Main.LOG_CONNECTION_STRING);
+    private Sql_B sql_histogram_g = new Sql_B(false, Main.LOG_CONNECTION_STRING);
+    private Sql_B sql_polygon_g = new Sql_B(false, Main.LOG_CONNECTION_STRING);
+    private Sql_B sql_table = new Sql_B(false, Main.LOG_CONNECTION_STRING); // obs this one is for building table
     private Sql_B[] SQL_ARR = {sql_common_g, sql_histogram_g, sql_polygon_g, sql_table};
     private BasicGraphListener gg;
     private XyGraph_M xygraph = new XyGraph_M("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
@@ -297,9 +297,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     private void connect() {
         try {
             //
-            for (Sql_B sql_B : SQL_ARR) {
-                sql_B.connect_mdb("", "", "c:/test/data.mdb");
+            if (Main.RUNING_IN_NETBEANS) {
+                for (Sql_B sql_B : SQL_ARR) {
+                    sql_B.connect_mdb("", "", "c:/test/data.mdb");
+                }
             }
+
             //
 //            for (Sql_B sql_B : SQL_ARR) {
 //                sql_B.connect_mdb("", "", "data.mdb");
@@ -310,10 +313,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 //            }
             //
             //
-//            for (Sql_B sql_B : SQL_ARR) {
-//                sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-//                        p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
-//            }
+            if (Main.RUNING_IN_NETBEANS == false) {
+                for (Sql_B sql_B : SQL_ARR) {
+                    sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+                            p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+                }
+            }
             //
             OUT.showMessage("Connected");
             //
@@ -430,6 +435,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     }
 
     private void showCurrTableEntryOnGraph() {
+        //
         if (ALL_ENTRIES_SHOWN_TABLE == false) {
             return;
         }
@@ -475,6 +481,29 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             buildTable(additionalWhere);
         }
     }
+    //==========================================================================
+    //==========================================================================
+
+    public void showTestItemOnBtnClick(boolean next) {
+        //
+        JComboBoxA testName = (JComboBoxA) gui.jComboBoxTestName;
+        //
+        int selectedIndex = testName.getSelectedIndex();
+        //
+        try {
+            //
+            if (next) {
+                testName.setSelectedIndex(selectedIndex + 1);
+            } else {
+                testName.setSelectedIndex(selectedIndex - 1);
+            }
+            //
+            gui.buildGraphs();
+            //
+        } catch (Exception ex) {
+        }
+        //
+    }
 
     //==========================================================================
     //==========================================================================
@@ -485,31 +514,30 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         OUT.showMessage(q);
         //
 //        if(fill(jcbm, (JComboBoxA) gui.jComboBoxTestName)){
-            jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql_common_g));
+        jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql_common_g));
 //        }
         //
         resetFlagsWaitSelective(jcbm);
         //
     }
-    
+
     private boolean fill(JComboBoxA jcbm, JComboBoxA jcomboTestName) {
         //
-        if(jcbm.equals(jcomboTestName)){
+        if (jcbm.equals(jcomboTestName)) {
             return true;
         }
         //
         String jcomboTestNameValue = HelpA.getComboBoxSelectedValue_b(jcomboTestName);
         //
-        String jcbmValue =  HelpA.getComboBoxSelectedValue_b(jcbm);
+        String jcbmValue = HelpA.getComboBoxSelectedValue_b(jcbm);
         //
-        if(jcomboTestNameValue != null && jcbmValue != null){
+        if (jcomboTestNameValue != null && jcbmValue != null) {
             return false;
-        }else{
+        } else {
             return true;
         }
         //
     }
-    
 
     private void resetFlagsWaitSelective(JComboBoxA jcbm) {
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
