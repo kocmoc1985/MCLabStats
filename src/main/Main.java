@@ -35,7 +35,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
     public final static String DATE_FORMAT = "yy/MM/dd";
-    public static final String VERSION = "BETA 1.04";
+    public static final String VERSION = "1.01";
     private boolean BUILD_GRAPH_BTN_CLICKED = false;
 
     /**
@@ -546,13 +546,15 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
     private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindActionPerformed
         if (controller.buildGraphs()) {
+            //
+            jComboBoxQuality.setEnabled(false);
+            jComboBoxTestCode.setEnabled(false);
+            //
             BUILD_GRAPH_BTN_CLICKED = true;
         }
     }//GEN-LAST:event_jButtonFindActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-//        controller.clearComponents();
-//        controller.resetFlagWaits();
         controller.reset();
     }//GEN-LAST:event_jButtonClearActionPerformed
 
@@ -692,10 +694,10 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         if (me.getSource() instanceof JButton) {
             JButton button = (JButton) me.getSource();
             if (button.getParent() instanceof JComboBox) {
-                if (BUILD_GRAPH_BTN_CLICKED) {
-                    controller.reset();
-                    BUILD_GRAPH_BTN_CLICKED = false;
-                }
+//                if (BUILD_GRAPH_BTN_CLICKED) {
+//                    controller.reset();
+//                    BUILD_GRAPH_BTN_CLICKED = false;
+//                }
             }
 
         }
@@ -706,6 +708,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         if (me.getSource() instanceof JButton) {
             JButton button = (JButton) me.getSource();
             if (button.getParent() instanceof JComboBox) {
+                //
                 JComboBox parent = (JComboBox) button.getParent();
                 //
                 controller.fillComboStandard((JComboBoxA) parent);

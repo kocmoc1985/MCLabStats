@@ -296,9 +296,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
     private void connect() {
         try {
-//            for (Sql_B sql_B : SQL_ARR) {
-//                sql_B.connect_mdb("", "", "c:/test/data.mdb");
-//            }
+            //
+            for (Sql_B sql_B : SQL_ARR) {
+                sql_B.connect_mdb("", "", "c:/test/data.mdb");
+            }
             //
 //            for (Sql_B sql_B : SQL_ARR) {
 //                sql_B.connect_mdb("", "", "data.mdb");
@@ -309,10 +310,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 //            }
             //
             //
-            for (Sql_B sql_B : SQL_ARR) {
-                sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-                        p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
-            }
+//            for (Sql_B sql_B : SQL_ARR) {
+//                sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+//                        p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+//            }
             //
             OUT.showMessage("Connected");
             //
@@ -483,10 +484,32 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         OUT.showMessage(q);
         //
-        jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql_common_g));
+//        if(fill(jcbm, (JComboBoxA) gui.jComboBoxTestName)){
+            jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql_common_g));
+//        }
         //
         resetFlagsWaitSelective(jcbm);
+        //
     }
+    
+    private boolean fill(JComboBoxA jcbm, JComboBoxA jcomboTestName) {
+        //
+        if(jcbm.equals(jcomboTestName)){
+            return true;
+        }
+        //
+        String jcomboTestNameValue = HelpA.getComboBoxSelectedValue_b(jcomboTestName);
+        //
+        String jcbmValue =  HelpA.getComboBoxSelectedValue_b(jcbm);
+        //
+        if(jcomboTestNameValue != null && jcbmValue != null){
+            return false;
+        }else{
+            return true;
+        }
+        //
+    }
+    
 
     private void resetFlagsWaitSelective(JComboBoxA jcbm) {
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
@@ -528,6 +551,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         for (JComboBox jComboBox : list) {
             jComboBox.setSelectedItem(null);
             jComboBox.setEditable(false);
+            jComboBox.setEnabled(true);
             jComboBox.setBackground(Main.INITIAL_BG_COLOR_COMBO);
         }
         //

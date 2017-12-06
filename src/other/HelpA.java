@@ -1684,6 +1684,17 @@ public class HelpA {
         //
         return true;
     }
+    
+    public static boolean fillAllowedComboBoxB(long flagWait, JComboBoxA boxA) {
+        //
+        
+        //
+        if ((System.currentTimeMillis() - flagWait) < 15000 && flagWait > 0) {
+            return false;
+        }
+        //
+        return true;
+    }
 
     private static String getValueResultSet(ResultSet rs, int index) {
         try {
