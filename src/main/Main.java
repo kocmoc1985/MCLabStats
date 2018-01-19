@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import other.DemoRunner;
 import other.HelpA;
 import other.JComboBoxA;
 import sql.SQL_Q;
@@ -53,6 +54,25 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         buildObligatoryComboList();
         addJComboListeners();
         setFontJBoxesTitleBorders();
+        //
+        demo();
+    }
+    
+    private void demo(){
+        String quality = "1702860-ST110";
+        jComboBoxQuality.addItem(quality);
+        jComboBoxQuality.setSelectedItem(quality);
+        //
+        String testCode = "10194";
+        jComboBoxTestCode.addItem(testCode);
+        jComboBoxTestCode.setSelectedItem(testCode);
+        //
+        String testName = "ML";
+        jComboBoxTestName.addItem(testName);
+        jComboBoxTestName.setSelectedItem(testName);
+        //
+        Thread x = new Thread(new DemoRunner(this,controller,500));
+        x.start();
     }
 
     private void initOther() {
@@ -685,7 +705,8 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Main().setVisible(true);
+               Main main =  new Main();
+               main.setVisible(true);
             }
         });
     }

@@ -66,7 +66,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         tableHeaders();
         //
         initOther();
+        //
     }
+    
+    
 
     private void initOther() {
         this.gui.jTableMain.addMouseListener(this);
