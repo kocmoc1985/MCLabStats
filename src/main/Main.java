@@ -42,6 +42,8 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public static boolean RUNING_IN_NETBEANS = false;
     public final static String TAB_MAIN = "Main";
     public final static String TAB_LOG = "Log";
+    //
+    public final static boolean DEMO_MODE = true;
 
     /**
      * Creates new form Main
@@ -55,10 +57,16 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         addJComboListeners();
         setFontJBoxesTitleBorders();
         //
-        demo();
+        if(DEMO_MODE){
+             demo();
+        }
+       
     }
     
     private void demo(){
+        //
+        //Dont forget to look at "Controller.connect()" method
+        //
         String quality = "1702860-ST110";
         jComboBoxQuality.addItem(quality);
         jComboBoxQuality.setSelectedItem(quality);
@@ -71,7 +79,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jComboBoxTestName.addItem(testName);
         jComboBoxTestName.setSelectedItem(testName);
         //
-        Thread x = new Thread(new DemoRunner(this,controller,500));
+        Thread x = new Thread(new DemoRunner(this,controller,1000));
         x.start();
     }
 

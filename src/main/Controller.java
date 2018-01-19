@@ -68,8 +68,6 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         initOther();
         //
     }
-    
-    
 
     private void initOther() {
         this.gui.jTableMain.addMouseListener(this);
@@ -300,28 +298,50 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     private void connect() {
         try {
             //
-            if (Main.RUNING_IN_NETBEANS) {
-                for (Sql_B sql_B : SQL_ARR) {
-                    sql_B.connect_mdb("", "", "c:/test/data.mdb");
-                }
-            }
+//            if (Main.RUNING_IN_NETBEANS) {
+//                for (Sql_B sql_B : SQL_ARR) {
+//                    sql_B.connect_mdb("", "", "c:/test/data.mdb");
+//                }
+//            }
 
             //
-//            for (Sql_B sql_B : SQL_ARR) {
-//                sql_B.connect_mdb("", "", "data.mdb");
-//            }
+
+            if (Main.DEMO_MODE) {
+                //
+                for (Sql_B sql_B : SQL_ARR) {
+                    sql_B.connect_mdb("", "", "data.mdb");
+                }
+                //
+            } else {
+                //
+                if (Main.RUNING_IN_NETBEANS) {
+                    for (Sql_B sql_B : SQL_ARR) {
+                        sql_B.connect_mdb("", "", "c:/test/data.mdb");
+                    }
+                }
+                //
+                if (Main.RUNING_IN_NETBEANS == false) {
+                    for (Sql_B sql_B : SQL_ARR) {
+                        sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+                                p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+                    }
+                }
+                //
+            }
+
+
             //
 //            for (Sql_B sql_B : SQL_ARR) {
 //                sql_B.connect_odbc("", "", "MC_LAB");
 //            }
             //
             //
-            if (Main.RUNING_IN_NETBEANS == false) {
-                for (Sql_B sql_B : SQL_ARR) {
-                    sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-                            p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
-                }
-            }
+//            if (Main.RUNING_IN_NETBEANS == false) {
+//                for (Sql_B sql_B : SQL_ARR) {
+//                    sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+//                            p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+//                }
+//            }
             //
             OUT.showMessage("Connected");
             //
