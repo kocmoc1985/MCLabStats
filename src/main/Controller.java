@@ -306,6 +306,14 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
             //
 
+            if (Main.DEMO_MODE && Main.RUNING_IN_NETBEANS) {
+                for (Sql_B sql_B : SQL_ARR) {
+                    sql_B.connect_mdb("", "", "c:/test/data.mdb");
+                }
+                return;
+            }
+
+
             if (Main.DEMO_MODE) {
                 //
                 for (Sql_B sql_B : SQL_ARR) {

@@ -151,6 +151,8 @@ public class SQL_Q {
         String query = "SELECT DISTINCT [" + actualComboParam + "], COUNT(" + actualComboParam + ") as 'ammount'"
                 + " from " + PRIM_TABLE;
         //
+        System.out.println("QUERY: " + query);
+        //
         ArrayList<FillAutoEntry> list = buildList(gui);
         //
         for (FillAutoEntry entry : list) {
