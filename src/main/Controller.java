@@ -300,7 +300,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             //
 //            if (Main.RUNING_IN_NETBEANS) {
 //                for (Sql_B sql_B : SQL_ARR) {
-//                    sql_B.connect_mdb("", "", "c:/test/data.mdb");
+//                    sql_B.connect_mdb_java_8("", "", "data.mdb");
 //                }
 //            }
 
@@ -308,7 +308,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 
             if (Main.DEMO_MODE && Main.RUNING_IN_NETBEANS) {
                 for (Sql_B sql_B : SQL_ARR) {
-                    sql_B.connect_mdb("", "", "c:/test/data.mdb");
+                    sql_B.connect_mdb_java_8("", "", "data.mdb");
                 }
                 return;
             }
@@ -317,14 +317,14 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             if (Main.DEMO_MODE) {
                 //
                 for (Sql_B sql_B : SQL_ARR) {
-                    sql_B.connect_mdb("", "", "data.mdb");
+                    sql_B.connect_mdb_java_8("", "", "data.mdb");
                 }
                 //
             } else {
                 //
                 if (Main.RUNING_IN_NETBEANS) {
                     for (Sql_B sql_B : SQL_ARR) {
-                        sql_B.connect_mdb("", "", "c:/test/data.mdb");
+                        sql_B.connect_mdb_java_8("", "", "data.mdb");
                     }
                 }
                 //
@@ -445,6 +445,20 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
                 HelpA.build_table_common(rs, gui.jTableMain, q);
             }
             //
+            //
+            HelpA.hideColumnByName(gui.jTableMain, SQL_Q.QUALITY);
+            HelpA.hideColumnByName(gui.jTableMain, SQL_Q.ORDER);
+            //
+            //<#GFT-SPECIAL-DEMO>
+//            gui.jButtonClear.setEnabled(false);
+//            gui.jComboBoxOrder.setEnabled(false);
+//            gui.jComboBoxLSL.setEnabled(false);
+//            gui.jComboBoxUSL.setEnabled(false);
+//            gui.jComboBoxDateA.setEnabled(false);
+//            gui.jComboBoxBatch.setEnabled(false);
+//            //
+//            gui.jComboBoxQuality.setSelectedItem(null);
+            //</#GFT-SPECIAL-DEMO>
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

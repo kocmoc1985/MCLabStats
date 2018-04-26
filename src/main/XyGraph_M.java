@@ -162,8 +162,12 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
 //                }
                 //
                 p.addPointInfo("Serie", rs.getString("Name"));
+                //
+                //<#GFT-SPECIAL-DEMO>
                 p.addPointInfo("Quality", rs.getString("Quality"));
                 p.addPointInfo("Order", rs.getString("order"));
+                //</#GFT-SPECIAL-DEMO>
+                //
                 p.addPointInfo("Batch", rs.getString("BatchNo"));
                 p.addPointInfo("Status", rs.getString("Status"));
                 //

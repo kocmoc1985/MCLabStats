@@ -173,6 +173,37 @@ public class Sql_B implements SqlBasicLocal {
         }
         //
     }
+    
+    
+    /**
+     * This one is for having access to .mdb and .accdb files with Java8 OBS!
+     * For libraries look in folder lib -> mdbj8 (5 libraries) For the
+     * distribution this 5 libraries must all be in the "lib" folder!! Skip
+     * "mdbj8" folder!! As properties example see "freeq_mdbj8.properties"
+     *
+     * @param user
+     * @param pass
+     * @param pathToMdbFile
+     * @throws SQLException
+     */
+    public void connect_mdb_java_8(String user, String pass, String pathToMdbFile) throws SQLException {
+        //
+        ODBC_OR_MDB = true;
+        //
+        String connectionUrl = "jdbc:ucanaccess://" + pathToMdbFile;//jdbc:ucanaccess://C:/__tmp/test/zzz.accdb
+        //
+        logg_connection_string(connectionUrl);
+        //
+        connection = DriverManager.getConnection(connectionUrl, user, pass);
+        //
+//        if (CREATE_STATEMENT_SIMPLE == false) { // This can't be used for "jdbc:ucanaccess:"
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            statement_2 = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//        } else {
+//        statement = connection.createStatement();
+//        statement_2 = connection.createStatement();
+//        }
+    }
 
     /**
      * For connecting with ODBC. Fits for ACCESS databases also!! OBS!.
