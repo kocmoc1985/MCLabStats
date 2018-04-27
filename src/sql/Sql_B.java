@@ -173,8 +173,7 @@ public class Sql_B implements SqlBasicLocal {
         }
         //
     }
-    
-    
+
     /**
      * This one is for having access to .mdb and .accdb files with Java8 OBS!
      * For libraries look in folder lib -> mdbj8 (5 libraries) For the
@@ -196,13 +195,8 @@ public class Sql_B implements SqlBasicLocal {
         //
         connection = DriverManager.getConnection(connectionUrl, user, pass);
         //
-//        if (CREATE_STATEMENT_SIMPLE == false) { // This can't be used for "jdbc:ucanaccess:"
-            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            statement_2 = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-//        } else {
-//        statement = connection.createStatement();
-//        statement_2 = connection.createStatement();
-//        }
+        statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);// ResultSet.CONCUR_READ_ONLY
+        statement_2 = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
     }
 
     /**
@@ -301,7 +295,7 @@ public class Sql_B implements SqlBasicLocal {
             SimpleLoggerLight.logg(logFile, "Exeption: " + ex.toString() + "\nQuery: " + query);
         }
     }
-    
+
     @Override
     public ResultSet execute(String sql, ShowMessage sm) throws SQLException {
         //
@@ -340,8 +334,3 @@ public class Sql_B implements SqlBasicLocal {
         connection.close();
     }
 }
-
-
-
-
-
