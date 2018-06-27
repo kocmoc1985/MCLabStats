@@ -330,7 +330,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
                 //
                 if (Main.RUNING_IN_NETBEANS == false) {
                     for (Sql_B sql_B : SQL_ARR) {
-                        sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+//                        sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+//                                p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+                        //
+                         sql_B.connectMySql(p.getProperty("sql_host"), p.getProperty("sql_port"),
                                 p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
                     }
                 }

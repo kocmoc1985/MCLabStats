@@ -74,6 +74,14 @@ public class SQL_Q {
         return " AND [" + TEST_VALUE + "]>=" + quotes("" + firstIndex, true) + ""
                 + " AND [" + TEST_VALUE + "] <=" + quotes("" + lastIndex, true);
     }
+    
+//    public static String tableHeaders(boolean mysql){
+//        String q = "SELECT * from " + PRIM_TABLE + " WHERE [Quality]='xxxxxx-xxxx'";
+//        //
+//        if(){
+//            
+//        }
+//    }
 
     public static String forTest() {
         return "SELECT * from " + PRIM_TABLE + " WHERE [TestCode]='10171' AND [Name]='ML' AND [testdate]='09/12/14'";
