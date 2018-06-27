@@ -44,7 +44,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public final static String TAB_LOG = "Log";
     //
     public static final boolean MY_SQL = true;
-    public final static boolean DEMO_MODE = true;
+    public final static boolean DEMO_MODE = false;
 
     /**
      * Creates new form Main

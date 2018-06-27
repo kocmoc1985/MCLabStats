@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Main;
 import other.SimpleLoggerLight;
 
 /**
@@ -301,6 +302,14 @@ public class Sql_B implements SqlBasicLocal {
         //
         sm.showMessage(sql);
         //
+        if (Main.MY_SQL) {
+            sql = sql.replaceAll("\\[", "`");
+            sql = sql.replaceAll("\\]", "`");
+        }
+        //
+//        SimpleLoggerLight.logg("sql.txt", sql);
+        //
+        //
         if (statement.execute(sql)) {
             return statement.getResultSet();
         }
@@ -310,6 +319,14 @@ public class Sql_B implements SqlBasicLocal {
 
     @Override
     public synchronized ResultSet execute(String sql) throws SQLException {
+        //
+        if (Main.MY_SQL) {
+            sql = sql.replaceAll("\\[", "`");
+            sql = sql.replaceAll("\\]", "`");
+        }
+        //
+//        SimpleLoggerLight.logg("sql.txt", sql);
+        //
         if (statement.execute(sql)) {
             return statement.getResultSet();
         }
