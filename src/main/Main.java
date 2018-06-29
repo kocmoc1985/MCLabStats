@@ -61,7 +61,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         if(DEMO_MODE){
              demo();
         }
-       
+        //
     }
     
     private void demo(){
