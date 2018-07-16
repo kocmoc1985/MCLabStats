@@ -43,6 +43,9 @@ public class MyGraphXY_PG extends MyGraphXY {
             return;
         }
         //
+//        LIMIT_MIN = 0.1;
+//        LIMIT_MAX = 2.2;
+        //
         if (LIMIT_MAX == 0 || LIMIT_MIN == 0) {
             return;
         }

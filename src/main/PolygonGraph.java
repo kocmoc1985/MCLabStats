@@ -115,6 +115,8 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
             //
             while (rs.next()) {
                 //
+//                addLimits(rs);
+                //
                 double val = rs.getDouble(valueColName);
                 //
                 if (val < (filterCoeff)) {

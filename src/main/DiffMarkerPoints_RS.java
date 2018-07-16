@@ -21,6 +21,7 @@ import javax.swing.JTextField;
  */
 public class DiffMarkerPoints_RS extends DiffMarkerPoints {
 
+    public static final String CALC_STD_DEV = "STDEV";
     public static final String CALC_MEDIAN = "MEDIAN";
     public static final String CALC_CP = "CP";
     public static final String CALC_CPU = "CPU";
@@ -31,7 +32,7 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
     public static ArrayList<String> CALC_LIST = new ArrayList<>();
 
     static {
-        CALC_LIST.add(CALC_SUMM);
+        CALC_LIST.add(CALC_STD_DEV);
         CALC_LIST.add(CALC_AVERAGE);
         CALC_LIST.add(CALC_MEDIAN);
         CALC_LIST.add(CALC_CP);
@@ -67,7 +68,7 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
         addProperties();
         //
         if (outPutMap.size() > 0) {
-            calcAndShow(CALC_SUMM);
+            calcAndShow(CALC_STD_DEV);
             calcAndShow(CALC_AVERAGE);
             calcAndShow(CALC_MEDIAN);
             calcAndShow(CALC_CP);
@@ -85,22 +86,24 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
     @Override
     public void calcAndShow(String name) {
         //
-        if (name.equals(CALC_SUMM)) {
-            showOutPut(name, calcSum(), DEFAULT_OUT_PUT_FORMAT);
+        ArrayList<Double> list = getList();
+        //
+        if (name.equals(CALC_STD_DEV)) {
+            showOutPut(name, calcStandardDeviation(list), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_AVERAGE)) {
             showOutPut(name, calcAv(), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_MEDIAN)) {
-            showOutPut(name, calcMedian(getList()), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcMedian(list), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_CP)) {
-            showOutPut(name, calcCP(getList()), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcCP(list), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_CPU)) {
-            showOutPut(name, calcCPU(getList()), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcCPU(list), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_CPL)) {
-            showOutPut(name, calcCPL(getList()), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcCPL(list), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_CPK)) {
-            showOutPut(name, calcCPK(getList()), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcCPK(list), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_SKEW)) {
-            showOutPut(name, calcSkew(getList()), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcSkew(list), DEFAULT_OUT_PUT_FORMAT);
         } else {
             System.out.println("NO SUCH CALC EXIST: " + name);
         }

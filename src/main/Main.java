@@ -182,16 +182,28 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jPanelOutputContainer = new javax.swing.JPanel();
         jPanelSumContainer = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldSumm = new javax.swing.JTextField();
+        jTextFieldStdDev = new javax.swing.JTextField();
         jPanelAverageContainer = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldAverage = new javax.swing.JTextField();
         jPanelMeanContainer = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldMedian = new javax.swing.JTextField();
+        jPanelCPContainer = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldCP = new javax.swing.JTextField();
+        jPanelCPUContainer = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextFieldCPU = new javax.swing.JTextField();
+        jPanelCPLContainer = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextFieldCPL = new javax.swing.JTextField();
         jPanelCPKContainer = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldCPK = new javax.swing.JTextField();
+        jPanelSkewContainer = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextFieldSkew = new javax.swing.JTextField();
         jPanelTableContainer = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableMain = new javax.swing.JTable();
@@ -253,20 +265,20 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jPanelSumContainer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelSumContainer.setLayout(new java.awt.GridLayout(2, 1));
 
-        jLabel1.setLabelFor(jTextFieldSumm);
-        jLabel1.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Sum" + "</h3></p>");
+        jLabel1.setLabelFor(jTextFieldStdDev);
+        jLabel1.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Std. dev." + "</h3></p>");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelSumContainer.add(jLabel1);
 
-        jTextFieldSumm.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelSumContainer.add(jTextFieldSumm);
+        jTextFieldStdDev.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelSumContainer.add(jTextFieldStdDev);
 
         jPanelOutputContainer.add(jPanelSumContainer);
 
         jPanelAverageContainer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelAverageContainer.setLayout(new java.awt.GridLayout(2, 1));
 
-        jLabel3.setLabelFor(jTextFieldSumm);
+        jLabel3.setLabelFor(jTextFieldStdDev);
         jLabel3.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Average" + "</h3></p>");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelAverageContainer.add(jLabel3);
@@ -279,7 +291,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jPanelMeanContainer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelMeanContainer.setLayout(new java.awt.GridLayout(2, 1));
 
-        jLabel4.setLabelFor(jTextFieldSumm);
+        jLabel4.setLabelFor(jTextFieldStdDev);
         jLabel4.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Median" + "</h3></p>");
         jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelMeanContainer.add(jLabel4);
@@ -289,11 +301,49 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
         jPanelOutputContainer.add(jPanelMeanContainer);
 
+        jPanelCPContainer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelCPContainer.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel6.setLabelFor(jTextFieldStdDev);
+        jLabel6.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Cp" + "</h3></p>");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCPContainer.add(jLabel6);
+
+        jTextFieldCP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCPContainer.add(jTextFieldCP);
+
+        jPanelOutputContainer.add(jPanelCPContainer);
+
+        jPanelCPUContainer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelCPUContainer.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel7.setLabelFor(jTextFieldStdDev);
+        jLabel7.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Cpu" + "</h3></p>");
+        jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCPUContainer.add(jLabel7);
+
+        jTextFieldCPU.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCPUContainer.add(jTextFieldCPU);
+
+        jPanelOutputContainer.add(jPanelCPUContainer);
+
+        jPanelCPLContainer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelCPLContainer.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel8.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Cpl" + "</h3></p>");
+        jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCPLContainer.add(jLabel8);
+
+        jTextFieldCPL.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCPLContainer.add(jTextFieldCPL);
+
+        jPanelOutputContainer.add(jPanelCPLContainer);
+
         jPanelCPKContainer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelCPKContainer.setLayout(new java.awt.GridLayout(2, 1));
 
-        jLabel5.setLabelFor(jTextFieldSumm);
-        jLabel5.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "CpK" + "</h3></p>");
+        jLabel5.setLabelFor(jTextFieldStdDev);
+        jLabel5.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Cpk" + "</h3></p>");
         jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelCPKContainer.add(jLabel5);
 
@@ -301,6 +351,18 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jPanelCPKContainer.add(jTextFieldCPK);
 
         jPanelOutputContainer.add(jPanelCPKContainer);
+
+        jPanelSkewContainer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelSkewContainer.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel9.setText("<html><p style='margin-left: 5px;font-weight:bold;'>" + "Skew" + "</h3></p>");
+        jLabel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelSkewContainer.add(jLabel9);
+
+        jTextFieldSkew.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelSkewContainer.add(jTextFieldSkew);
+
+        jPanelOutputContainer.add(jPanelSkewContainer);
 
         jPanelTableContainer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelTableContainer.setLayout(new java.awt.BorderLayout());
@@ -551,7 +613,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
@@ -767,6 +829,10 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCursorHint;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -786,9 +852,13 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelAverageContainer;
+    private javax.swing.JPanel jPanelCPContainer;
     private javax.swing.JPanel jPanelCPKContainer;
+    private javax.swing.JPanel jPanelCPLContainer;
+    private javax.swing.JPanel jPanelCPUContainer;
     private javax.swing.JPanel jPanelMeanContainer;
     private javax.swing.JPanel jPanelOutputContainer;
+    private javax.swing.JPanel jPanelSkewContainer;
     private javax.swing.JPanel jPanelSumContainer;
     private javax.swing.JPanel jPanelTableContainer;
     private javax.swing.JScrollPane jScrollPane1;
@@ -797,9 +867,13 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public javax.swing.JTable jTableMain;
     private javax.swing.JTextArea jTextArea1;
     public static javax.swing.JTextField jTextFieldAverage;
+    public static javax.swing.JTextField jTextFieldCP;
     public static javax.swing.JTextField jTextFieldCPK;
+    public static javax.swing.JTextField jTextFieldCPL;
+    public static javax.swing.JTextField jTextFieldCPU;
     public static javax.swing.JTextField jTextFieldMedian;
-    public static javax.swing.JTextField jTextFieldSumm;
+    public static javax.swing.JTextField jTextFieldSkew;
+    public static javax.swing.JTextField jTextFieldStdDev;
     public static javax.swing.JTextField jTextFieldTest;
     // End of variables declaration//GEN-END:variables
 

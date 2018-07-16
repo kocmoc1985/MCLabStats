@@ -48,10 +48,14 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
 
     private void init() {
         serie.addPointDeletedActionListener(this);
-        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_SUMM, Main.jTextFieldSumm);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_STD_DEV, Main.jTextFieldStdDev);
         addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_AVERAGE, Main.jTextFieldAverage);
         addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_MEDIAN, Main.jTextFieldMedian);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_CP, Main.jTextFieldCP);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_CPU, Main.jTextFieldCPU);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_CPL, Main.jTextFieldCPL);
         addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_CPK, Main.jTextFieldCPK);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_SKEW, Main.jTextFieldSkew);
     }
 
     @Override
@@ -94,14 +98,14 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
         serie.setCurveColor(Color.BLUE);
         serie.setOverallScale(true);
         //
-        this.addSerie(serie,true,this);
+        this.addSerie(serie, true, this);
         //
         PointHighLighter.addSerie(serie);
         //
         serieLimitL = new MySerie("LSL", Color.red);
         serieLimitU = new MySerie("USL", Color.red);
-        this.addSerie(serieLimitL,false,this);
-        this.addSerie(serieLimitU,false,this);
+        this.addSerie(serieLimitL, false, this);
+        this.addSerie(serieLimitU, false, this);
         adjustLimitSeries();
     }
 
@@ -121,7 +125,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
 //        serieLimitU.setLineThickness(1);
     }
 
-    public void addData(Sql_B sql,String q, String valueColName) {
+    public void addData(Sql_B sql, String q, String valueColName) {
         //
         boolean diffMarkerPointsDeleteFlag = true;
         //
@@ -196,7 +200,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
         for (MyPoint p : serie.getPoints()) {
             MyPoint_M pp = (MyPoint_M) p;
             MyPoint_M mph = new MyPoint_M(pp.y_Real, pp.y_Scaled, pp.getLSL(), pp.getUSL());
-            
+
             newList.add(mph);
         }
         //
