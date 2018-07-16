@@ -217,4 +217,11 @@ public class MyGraphXY_M extends MyGraphXY {
     private double transform(double dbl) {
         return dbl - OFFSET;
     }
+
+    @Override
+    public void drawLimits(Graphics g) {
+        // It's correct
+    }
+    
+    
 }

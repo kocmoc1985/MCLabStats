@@ -22,6 +22,11 @@ import javax.swing.JTextField;
 public class DiffMarkerPoints_RS extends DiffMarkerPoints {
 
     public static final String CALC_MEDIAN = "MEDIAN";
+    public static final String CALC_CP = "CP";
+    public static final String CALC_CPU = "CPU";
+    public static final String CALC_CPL = "CPL";
+    public static final String CALC_CPK = "CPK";
+    public static final String CALC_SKEW = "SKEW";
     public static final String OUT_PUT_FORMAT = "%2.2f";
     public static ArrayList<String> CALC_LIST = new ArrayList<>();
 
@@ -29,13 +34,16 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
         CALC_LIST.add(CALC_SUMM);
         CALC_LIST.add(CALC_AVERAGE);
         CALC_LIST.add(CALC_MEDIAN);
+        CALC_LIST.add(CALC_CP);
+        CALC_LIST.add(CALC_CPU);
+        CALC_LIST.add(CALC_CPL);
+        CALC_LIST.add(CALC_CPK);
+        CALC_LIST.add(CALC_SKEW);
     }
 
     public DiffMarkerPoints_RS(MySerie serie, MyGraphXY graphXY) {
         super(serie, graphXY);
     }
-
-    
 
     @Override
     public void markersUnset() {
@@ -62,6 +70,11 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
             calcAndShow(CALC_SUMM);
             calcAndShow(CALC_AVERAGE);
             calcAndShow(CALC_MEDIAN);
+            calcAndShow(CALC_CP);
+            calcAndShow(CALC_CPU);
+            calcAndShow(CALC_CPL);
+            calcAndShow(CALC_CPK);
+            calcAndShow(CALC_SKEW);
         }
         //
         for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
@@ -71,18 +84,29 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
 
     @Override
     public void calcAndShow(String name) {
+        //
         if (name.equals(CALC_SUMM)) {
             showOutPut(name, calcSum(), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_AVERAGE)) {
             showOutPut(name, calcAv(), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_MEDIAN)) {
-            showOutPut(name, calcMedian(), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcMedian(getList()), DEFAULT_OUT_PUT_FORMAT);
+        } else if (name.equals(CALC_CP)) {
+            showOutPut(name, calcCP(getList()), DEFAULT_OUT_PUT_FORMAT);
+        } else if (name.equals(CALC_CPU)) {
+            showOutPut(name, calcCPU(getList()), DEFAULT_OUT_PUT_FORMAT);
+        } else if (name.equals(CALC_CPL)) {
+            showOutPut(name, calcCPL(getList()), DEFAULT_OUT_PUT_FORMAT);
+        } else if (name.equals(CALC_CPK)) {
+            showOutPut(name, calcCPK(getList()), DEFAULT_OUT_PUT_FORMAT);
+        } else if (name.equals(CALC_SKEW)) {
+            showOutPut(name, calcSkew(getList()), DEFAULT_OUT_PUT_FORMAT);
         } else {
             System.out.println("NO SUCH CALC EXIST: " + name);
         }
     }
 
-    public double calcMedian() {
+    public ArrayList<Double> getList() {
         ArrayList<Double> list = new ArrayList<>();
         if (bothExist()) {
             for (int i = MARKER_POINT_A.getPointIndex(); i <= MARKER_POINT_B.getPointIndex(); i++) {
@@ -90,10 +114,68 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
             }
         }
         //
-        return medianCalc(list);
+        return list;
     }
 
-    private double medianCalc(ArrayList<Double> list) {
+    public double calcCP(ArrayList<Double> list) {
+        //
+        MyPoint_M point_a = (MyPoint_M) MARKER_POINT_A;
+        MyPoint_M point_b = (MyPoint_M) MARKER_POINT_B;
+        //
+        double usl = point_a.getUSL().y_Display;
+        double lsl = point_b.getLSL().y_Display;
+        //
+        double sixStdDev = calcStandardDeviation(list) * 6;
+        //
+        return (usl - lsl) * sixStdDev;
+    }
+
+    public double calcCPU(ArrayList<Double> list) {
+        //
+        MyPoint_M point_a = (MyPoint_M) MARKER_POINT_A;
+        //
+        double usl = point_a.getUSL().y_Display;
+        //
+        double mean = calcMean(list);
+        //
+        double threeStdDev = calcStandardDeviation(list) * 3;
+        //
+        return (usl - mean) / threeStdDev;
+    }
+
+    public double calcCPL(ArrayList<Double> list) {
+        //
+        MyPoint_M point_b = (MyPoint_M) MARKER_POINT_B;
+        //
+        double lsl = point_b.getLSL().y_Display;
+        //
+        double mean = calcMean(list);
+        //
+        double threeStdDev = calcStandardDeviation(list) * 3;
+        //
+        return (mean - lsl) / threeStdDev;
+    }
+
+    /**
+     * Skew = SKp
+     *
+     * @param list
+     * @return
+     */
+    public double calcSkew(ArrayList<Double> list) {
+        return 3 * (calcMean(list) - calcMedian(list)) / calcStandardDeviation(list);
+    }
+
+    public double calcCPK(ArrayList<Double> list) {
+        //
+        double cpu = calcCPU(list);
+        //
+        double cpl = calcCPL(list);
+        //
+        return Math.min(cpu, cpl);
+    }
+
+    public double calcMedian(ArrayList<Double> list) {
         Double[] arr = new Double[list.size()];
         list.toArray(arr);
         double median;
@@ -106,4 +188,39 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
 
         return median;
     }
+
+    //==========================================================================
+    public double calcStandardDeviation(ArrayList<Double> list) {
+        return Math.sqrt(calcVariance(list));
+    }
+
+    public double calcVariance(ArrayList<Double> list) {
+        //
+        double mean = calcMean(list);
+        double temp = 0;
+        //
+        for (Double val : list) {
+            temp += (val - mean) * (val - mean);
+        }
+        //
+        return temp / (list.size() - 1);
+    }
+
+    /**
+     * Mean = Average
+     *
+     * @param list
+     * @return
+     */
+    public double calcMean(ArrayList<Double> list) {
+        //
+        double sum = 0.0;
+        //
+        for (Double val : list) {
+            sum += val;
+        }
+        //
+        return sum / list.size();
+    }
+
 }

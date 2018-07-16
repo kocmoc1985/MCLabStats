@@ -51,6 +51,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
         addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_SUMM, Main.jTextFieldSumm);
         addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_AVERAGE, Main.jTextFieldAverage);
         addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_MEDIAN, Main.jTextFieldMedian);
+        addDiffMarkerOutPutComponent(DiffMarkerPoints_RS.CALC_CPK, Main.jTextFieldCPK);
     }
 
     @Override
