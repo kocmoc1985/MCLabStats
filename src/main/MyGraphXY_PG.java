@@ -6,6 +6,7 @@ package main;
 
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
+import XYG_BASIC.MySerie;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 /**
  * MyGraphXY_PG = MyGraphXY for the POLYGON GRAPH
+ *
  * @author KOCMOC
  */
 public class MyGraphXY_PG extends MyGraphXY {
@@ -34,29 +36,65 @@ public class MyGraphXY_PG extends MyGraphXY {
     public void setStepIdentifierX(int x) {
         this.STEP_IDENTIFIER_X_AXIS = x;
     }
+    
+    
+
+    @Override
+    public void defineMaxForXYAxis(MyPoint point) {
+        if (point.x_Scaled > X_MAX / 1.05) {
+            X_MAX = (int) ((point.x_Scaled));//1.2 Note this is important value!
+            X_MAX *= 1.05;
+        }
+        if (point.y_Scaled > Y_MAX / 1.2) {
+            Y_MAX = (point.y_Scaled);
+            Y_MAX *= 1.2;
+        }
+    }
+
+    @Override
+    public void DRAW(Graphics g) {
+        //
+        if (DRAW_MARKER) {
+            drawMarkerWhenPointing(g);
+        }
+        //
+        drawDiffMarkers(g);
+        //
+        if (SCALE_XY_AXIS) {
+            scaleOfXYAxis(g);
+        }
+        //
+        drawLines(g);
+        //
+        drawPointsFixedSize(g);
+        //
+        drawLimits(g);
+    }
 
     @Override
     public void drawLimits(Graphics g) {
+        //
         Graphics2D g2 = (Graphics2D) g;
-
+        //
         if (getHeight() < 50) {//ONE_UNIT_Y < 1.1 || getHeight() < 50 || ONE_UNIT_Y > 20
             return;
         }
         //
-//        LIMIT_MIN = 0.1;
-//        LIMIT_MAX = 2.2;
+        System.out.println("Y_MAX: " + Y_MAX);
+        System.out.println("X_MAX: " + X_MAX);
         //
         if (LIMIT_MAX == 0 || LIMIT_MIN == 0) {
             return;
         }
         //
-        //EXTREAMLY IMPORTANT CALCULATION!!!
+        double unit_y = getWidth() / Y_MAX;
+        //
         double scaled_max = (LIMIT_MAX * ALL_SERIES_COEFF);
-        int pixels_max = (int) Math.round(getHeight() - (ONE_UNIT_X * scaled_max));
+        int pixels_max = (int) Math.round(getWidth() - (unit_y * scaled_max));
         int max = pixels_max;
 
         double scaled_min = (LIMIT_MIN * ALL_SERIES_COEFF);
-        int pixels_min = (int) Math.round(getHeight() - (ONE_UNIT_X * scaled_min));
+        int pixels_min = (int) Math.round(getWidth() - (unit_y * scaled_min));
         int min = pixels_min;
 
         ORDINARY_STROKE = (BasicStroke) g2.getStroke();
@@ -79,6 +117,7 @@ public class MyGraphXY_PG extends MyGraphXY {
     @Override
     public void scaleX(Graphics2D g2) {
         if (SCALE_X_AXIS) {
+            //
             int j = 0; // step identifier
             //
             double vv = (X_MAX);
@@ -100,6 +139,7 @@ public class MyGraphXY_PG extends MyGraphXY {
             }
             //
             int m = 1; // frequency regulator
+            //
             for (int i = 1; i < getWidth(); i++) {
                 double X = i / ONE_UNIT_X; //!!!!!!!!! X = nr of one_unit_x per real pixel
                 if (X > (j * m) && X < (j * m) + ONE_UNIT_X) {
@@ -109,13 +149,13 @@ public class MyGraphXY_PG extends MyGraphXY {
                         //
                         if (SHOW_GRID_AND_SCALE) {
                             g2.drawString("" + (j * m), i - 10, (int) (getHeight() - 3 * COEFF_SMALL_GRID) - 1);
-
                         }
                         //
                         m++;
                     } else {
+                        //
                         g2.setPaint(GRID_COLOR);
-
+                        //
                         if (xValuesList != null) {
                             try {
                                 g2.drawString("" + xValuesList.get((j * m) - 1), i - 10, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 5);
@@ -125,9 +165,10 @@ public class MyGraphXY_PG extends MyGraphXY {
                         } else {
                             g2.drawString("" + (j * m), i - 3, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 5);
                         }
-
+                        //
                         g2.drawRect(i, (int) (getHeight() - 5 * COEFF_SMALL_GRID), 1, (int) (5 * COEFF_SMALL_GRID));
                         m++;
+                        //
                     }
 
                 }

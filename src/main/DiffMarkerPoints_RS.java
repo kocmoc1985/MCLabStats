@@ -7,10 +7,8 @@ package main;
 import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.DiffMarkerPoints;
 import static XYG_BASIC.DiffMarkerPoints.CALC_AVERAGE;
-import static XYG_BASIC.DiffMarkerPoints.CALC_SUMM;
 import static XYG_BASIC.DiffMarkerPoints.DEFAULT_OUT_PUT_FORMAT;
 import XYG_BASIC.MyGraphXY;
-import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import java.util.ArrayList;
 import javax.swing.JTextField;
@@ -52,6 +50,7 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
         super.markersUnset();
         //
         for (String str : CALC_LIST) {
+            //
             JTextField jtf = outPutMap.get(str);
             //
             if (jtf != null) {
@@ -62,25 +61,27 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
         //
     }
 
+    private boolean LIMITS_DONT_CHANGE = true;
+
     @Override
     public void go() {
         //
         addProperties();
         //
+        LIMITS_DONT_CHANGE = true;
+        //
+        LIMITS_DONT_CHANGE = checkLimitsBetweenMarkers();
+        //
         if (outPutMap.size() > 0) {
-            calcAndShow(CALC_STD_DEV);
-            calcAndShow(CALC_AVERAGE);
-            calcAndShow(CALC_MEDIAN);
-            calcAndShow(CALC_CP);
-            calcAndShow(CALC_CPU);
-            calcAndShow(CALC_CPL);
-            calcAndShow(CALC_CPK);
-            calcAndShow(CALC_SKEW);
+            for (String calcName : CALC_LIST) {
+                calcAndShow(calcName);
+            }
         }
         //
         for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
             diffMarkerAction.markersSet(myGraphXY, MARKER_POINT_A, MARKER_POINT_B);
         }
+        //
     }
 
     @Override
@@ -90,27 +91,37 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
         //
         if (name.equals(CALC_STD_DEV)) {
             showOutPut(name, calcStandardDeviation(list), DEFAULT_OUT_PUT_FORMAT);
+            //
         } else if (name.equals(CALC_AVERAGE)) {
             showOutPut(name, calcAv(), DEFAULT_OUT_PUT_FORMAT);
+            //
         } else if (name.equals(CALC_MEDIAN)) {
             showOutPut(name, calcMedian(list), DEFAULT_OUT_PUT_FORMAT);
-        } else if (name.equals(CALC_CP)) {
+            //
+        } else if (name.equals(CALC_CP) && LIMITS_DONT_CHANGE) {
             showOutPut(name, calcCP(list), DEFAULT_OUT_PUT_FORMAT);
-        } else if (name.equals(CALC_CPU)) {
+            //
+        } else if (name.equals(CALC_CPU) && LIMITS_DONT_CHANGE) {
             showOutPut(name, calcCPU(list), DEFAULT_OUT_PUT_FORMAT);
-        } else if (name.equals(CALC_CPL)) {
+            //
+        } else if (name.equals(CALC_CPL) && LIMITS_DONT_CHANGE) {
             showOutPut(name, calcCPL(list), DEFAULT_OUT_PUT_FORMAT);
-        } else if (name.equals(CALC_CPK)) {
+            //
+        } else if (name.equals(CALC_CPK) && LIMITS_DONT_CHANGE) {
             showOutPut(name, calcCPK(list), DEFAULT_OUT_PUT_FORMAT);
+            //
         } else if (name.equals(CALC_SKEW)) {
             showOutPut(name, calcSkew(list), DEFAULT_OUT_PUT_FORMAT);
+            //
         } else {
-            System.out.println("NO SUCH CALC EXIST: " + name);
+//            System.out.println("NO SUCH CALC EXIST: " + name);
         }
     }
 
     public ArrayList<Double> getList() {
+        //
         ArrayList<Double> list = new ArrayList<>();
+        //
         if (bothExist()) {
             for (int i = MARKER_POINT_A.getPointIndex(); i <= MARKER_POINT_B.getPointIndex(); i++) {
                 list.add(serie.getSerie().get(i).y_Display);
@@ -193,6 +204,42 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
     }
 
     //==========================================================================
+    private boolean checkLimitsBetweenMarkers() {
+        //
+        double lsl = -1;
+        double usl = -1;
+        //
+        boolean oneTimeFlag = false;
+        //
+        if (bothExist()) {
+            //
+            for (int i = MARKER_POINT_A.getPointIndex(); i <= MARKER_POINT_B.getPointIndex(); i++) {
+                //
+                MyPoint_M point_lsl = (MyPoint_M) serie.getPoint(i);
+                MyPoint_M point_usl = (MyPoint_M) serie.getPoint(i);
+
+                //
+                if (oneTimeFlag == false) {
+                    lsl = point_lsl.getLSL().y_Display;
+                    usl = point_usl.getUSL().y_Display;
+                    oneTimeFlag = true;
+                    continue;
+                }
+                //
+                if (lsl != point_lsl.getLSL().y_Display || usl != point_usl.getUSL().y_Display) {
+                    System.out.println("lsl = " + lsl + " / " + point_lsl.getLSL().y_Display);
+                    System.out.println("usl = " + usl + " / " + point_usl.getUSL().y_Display);
+//                    HelpA.showNotification("Cannot calculate Cp, Cpu, Cpl,Cpk");
+                    return false;
+                }
+                //
+            }
+            //
+        }
+        //
+        return true;
+    }
+
     public double calcStandardDeviation(ArrayList<Double> list) {
         return Math.sqrt(calcVariance(list));
     }

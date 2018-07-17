@@ -52,7 +52,7 @@ public class MyGraphXY_M extends MyGraphXY {
                 Y_MAX *= 1.2;
             }
             //
-            System.out.println("Y_MAX: " + Y_MAX);
+//            System.out.println("Y_MAX: " + Y_MAX);
             //
         }
         //
