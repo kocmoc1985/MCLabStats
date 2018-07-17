@@ -36,8 +36,6 @@ public class MyGraphXY_PG extends MyGraphXY {
     public void setStepIdentifierX(int x) {
         this.STEP_IDENTIFIER_X_AXIS = x;
     }
-    
-    
 
     @Override
     public void defineMaxForXYAxis(MyPoint point) {
@@ -80,37 +78,69 @@ public class MyGraphXY_PG extends MyGraphXY {
             return;
         }
         //
-        System.out.println("Y_MAX: " + Y_MAX);
-        System.out.println("X_MAX: " + X_MAX);
         //
-        if (LIMIT_MAX == 0 || LIMIT_MIN == 0) {
+        if (LIMIT_MAX == 0 || LIMIT_MIN == 0 || ONE_UNIT_X == 1) {
             return;
         }
         //
-        double unit_y = getWidth() / Y_MAX;
+        System.out.println("Y_MAX: " + Y_MAX);
+        System.out.println("X_MAX: " + X_MAX);
         //
-        double scaled_max = (LIMIT_MAX * ALL_SERIES_COEFF);
-        int pixels_max = (int) Math.round(getWidth() - (unit_y * scaled_max));
-        int max = pixels_max;
+//        double unit_y = getWidth() / Y_MAX;
+//        //
+//        double scaled_max = (LIMIT_MAX * ALL_SERIES_COEFF);
+//        int pixels_max = (int) Math.round(getWidth() - (unit_y * scaled_max));
+//        int max = pixels_max;
+//
+//        double scaled_min = (LIMIT_MIN * ALL_SERIES_COEFF);
+//        int pixels_min = (int) Math.round(getWidth() - (unit_y * scaled_min));
+//        int min = pixels_min;
+//
+//        ORDINARY_STROKE = (BasicStroke) g2.getStroke();
+//
+//        g2.setStroke(GRID_STROKE);
+//
+//        //draw lim max
+//        g2.setPaint(Color.RED);
+////      g2.drawLine(x, max, getWidth(), max);
+//        g2.drawLine(max, 0, max, getHeight());
+//
+//        //draw lim min
+//        g2.setPaint(Color.RED);
+//        g2.drawLine(min, 0, min, getHeight());
+//
+//        g2.setStroke(ORDINARY_STROKE);
+//
+//
+//==============================================================================
+//
+//
+        double coeff = getWidth() / X_MAX;
+        //
+        boolean limit_one_drawn = false;
+        boolean limit_two_drawn = false;
+        //
+        for (int i = 1; i < getWidth(); i++) {
+            //
+            //
+            if (i > LIMIT_MIN * coeff && !limit_one_drawn) {
+                //
+                limit_one_drawn = true;
+                //
+                g2.setPaint(Color.RED);
+                //
+//                g2.drawRect(i, (int) (getHeight() - 5 * COEFF_SMALL_GRID), 1, (int) (5 * COEFF_SMALL_GRID));
+                //
+                g2.drawLine(i, 0, i, getHeight());
+            }
 
-        double scaled_min = (LIMIT_MIN * ALL_SERIES_COEFF);
-        int pixels_min = (int) Math.round(getWidth() - (unit_y * scaled_min));
-        int min = pixels_min;
-
-        ORDINARY_STROKE = (BasicStroke) g2.getStroke();
-
-        g2.setStroke(GRID_STROKE);
-
-        //draw lim max
-        g2.setPaint(Color.RED);
-//      g2.drawLine(x, max, getWidth(), max);
-        g2.drawLine(max, 0, max, getHeight());
-
-        //draw lim min
-        g2.setPaint(Color.RED);
-        g2.drawLine(min, 0, min, getHeight());
-
-        g2.setStroke(ORDINARY_STROKE);
+            if (i > LIMIT_MAX * coeff && !limit_two_drawn) {
+                //
+                limit_two_drawn = true;
+                //
+                g2.drawLine(i, 0, i, getHeight());
+            }
+        }
 
     }
 
