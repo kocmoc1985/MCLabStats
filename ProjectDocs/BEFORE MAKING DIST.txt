@@ -1,0 +1,4 @@
+LOOK AT: Main.class:
+
+public static final boolean MY_SQL = false;
+public final static boolean DEMO_MODE = false;

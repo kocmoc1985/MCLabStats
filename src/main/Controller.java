@@ -305,14 +305,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 //            }
 
             //
-
             if (Main.DEMO_MODE && Main.RUNING_IN_NETBEANS) {
                 for (Sql_B sql_B : SQL_ARR) {
                     sql_B.connect_mdb_java_8("", "", "data.mdb");
                 }
                 return;
             }
-
 
             if (Main.DEMO_MODE) {
                 //
@@ -330,16 +328,17 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
                 //
                 if (Main.RUNING_IN_NETBEANS == false) {
                     for (Sql_B sql_B : SQL_ARR) {
-//                        sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
-//                                p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
-                        //
-                         sql_B.connectMySql(p.getProperty("sql_host"), p.getProperty("sql_port"),
-                                p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+                        if (Main.MY_SQL) {
+                            sql_B.connectMySql(p.getProperty("sql_host"), p.getProperty("sql_port"),
+                                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+                        } else {
+                            sql_B.connect_jdbc(p.getProperty("sql_host"), p.getProperty("sql_port"),
+                                    p.getProperty("sql_db_name"), p.getProperty("sql_user"), p.getProperty("sql_pass"));
+                        }
                     }
                 }
                 //
             }
-
 
             //
 //            for (Sql_B sql_B : SQL_ARR) {

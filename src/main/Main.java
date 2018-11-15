@@ -36,15 +36,15 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
     public final static String DATE_FORMAT = "yy/MM/dd";
-    public static final String VERSION = "1.01";
+    public static final String VERSION = "1.03";
     private boolean BUILD_GRAPH_BTN_CLICKED = false;
     public static boolean LOG_CONNECTION_STRING = false;
     public static boolean RUNING_IN_NETBEANS = false;
     public final static String TAB_MAIN = "Main";
     public final static String TAB_LOG = "Log";
     //
-    public static final boolean MY_SQL = true;
-    public final static boolean DEMO_MODE = true;
+    public static final boolean MY_SQL = false;
+    public final static boolean DEMO_MODE = false;
 
     /**
      * Creates new form Main

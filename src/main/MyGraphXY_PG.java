@@ -168,6 +168,7 @@ public class MyGraphXY_PG extends MyGraphXY {
                 j = STEP_IDENTIFIER_X_AXIS;
             }
             //
+            //
             int m = 1; // frequency regulator
             //
             for (int i = 1; i < getWidth(); i++) {
