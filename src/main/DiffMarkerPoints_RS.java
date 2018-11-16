@@ -87,31 +87,33 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
     @Override
     public void calcAndShow(String name) {
         //
+        String DEFAULT_OUT_PUT_FORMAT__ = "%2.4f";
+        //
         ArrayList<Double> list = getList();
         //
         if (name.equals(CALC_STD_DEV)) {
-            showOutPut(name, calcStandardDeviation(list), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcStandardDeviation(list), DEFAULT_OUT_PUT_FORMAT__); // DEFAULT_OUT_PUT_FORMAT
             //
         } else if (name.equals(CALC_AVERAGE)) {
-            showOutPut(name, calcAv(), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcAv(), DEFAULT_OUT_PUT_FORMAT__);
             //
         } else if (name.equals(CALC_MEDIAN)) {
-            showOutPut(name, calcMedian(list), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcMedian(list), DEFAULT_OUT_PUT_FORMAT__);
             //
         } else if (name.equals(CALC_CP) && LIMITS_DONT_CHANGE) {
-            showOutPut(name, calcCP(list), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcCP(list), DEFAULT_OUT_PUT_FORMAT__);
             //
         } else if (name.equals(CALC_CPU) && LIMITS_DONT_CHANGE) {
-            showOutPut(name, calcCPU(list), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcCPU(list), DEFAULT_OUT_PUT_FORMAT__);
             //
         } else if (name.equals(CALC_CPL) && LIMITS_DONT_CHANGE) {
-            showOutPut(name, calcCPL(list), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcCPL(list), DEFAULT_OUT_PUT_FORMAT__);
             //
         } else if (name.equals(CALC_CPK) && LIMITS_DONT_CHANGE) {
-            showOutPut(name, calcCPK(list), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcCPK(list), DEFAULT_OUT_PUT_FORMAT__);
             //
         } else if (name.equals(CALC_SKEW)) {
-            showOutPut(name, calcSkew(list), DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcSkew(list), DEFAULT_OUT_PUT_FORMAT__);
             //
         } else {
 //            System.out.println("NO SUCH CALC EXIST: " + name);
