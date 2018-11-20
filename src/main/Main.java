@@ -31,11 +31,10 @@ import sql.ShowMessage;
 public class Main extends javax.swing.JFrame implements ShowMessage, MouseListener {
 
     private Controller controller;
-    private Properties p = HelpA.properties_load_properties("main.properties", false);
+    private Properties PROPS_MAIN = HelpA.properties_load_properties("main.properties", false);
     public static Color INITIAL_BG_COLOR_COMBO;
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
-    public final static String DATE_FORMAT = "yy/MM/dd";
     public static final String VERSION = "1.03";
     private boolean BUILD_GRAPH_BTN_CLICKED = false;
     public static boolean LOG_CONNECTION_STRING = false;
@@ -43,15 +42,16 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public final static String TAB_MAIN = "Main";
     public final static String TAB_LOG = "Log";
     //
+    public final static String DATE_FORMAT = "yy/MM/dd";
     public static final boolean MY_SQL = false;
-    public final static boolean DEMO_MODE = false;
+    public final static boolean DEMO_MODE = true;
 
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
-        this.controller = new Controller(this, p);
+        this.controller = new Controller(this, PROPS_MAIN);
         initOther();
         buildComboList();
         buildObligatoryComboList();
@@ -93,6 +93,10 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         this.setIconImage(new ImageIcon(IconUrls.APP_ICON).getImage());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.jLabelCursorHint.setVisible(false);
+        this.jTableMain.setAutoCreateRowSorter(true);
+        //
+//        jComboBoxDateA.setEnabled(false);
+//        datePicker1.setEnabled(false);
         //
         if (RUNING_IN_NETBEANS == false) {
             HelpA.hideTabByName(jTabbedPane1, TAB_LOG);

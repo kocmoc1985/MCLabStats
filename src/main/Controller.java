@@ -365,7 +365,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         xygraph.getSerie().resetPointsColorAndForm();
         //
-        String q = getQ();
+        String q = getQuery();
         //
         if (gg instanceof HistogramGraph) {
             gg.addData(sql_histogram_g, q, "value");
@@ -374,7 +374,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         }
     }
 
-    private String getQ() {
+    private String getQuery() {
         return SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
     }
 
@@ -386,7 +386,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         buildTableByThread(null);
         //
-        String q = getQ();
+        String q = getQuery();
 //        String q = SQL_Q.forTestC();
         //
         if (q == null) {
