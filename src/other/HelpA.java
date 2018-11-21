@@ -7,6 +7,7 @@ package other;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
+import com.michaelbaranov.microba.calendar.DatePicker;
 import images.IconUrls;
 import java.awt.AWTException;
 import java.awt.Color;
@@ -21,6 +22,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyVetoException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -77,6 +79,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import static main.Main.DATE_FORMAT;
 import sql.SqlBasicLocal;
 
 /**
@@ -115,6 +118,34 @@ public class HelpA {
         for (String string : list) {
             jta.append(string + "\n");
         }
+    }
+
+    public static void resetDatePickers(DatePicker dpA, DatePicker dpB) {
+        try {
+            dpA.setDate(null);
+            dpA.updateUI();
+            dpB.setDate(null);
+            dpB.updateUI();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static boolean bothDatesPresent(String dateA, String dateB) {
+        if ((dateA != null && dateA.isEmpty() == false) && (dateB != null && dateB.isEmpty() == false)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static String datePickerGetDate(DatePicker dp) {
+        if (dp.getDate() == null) {
+            return "";
+        }
+        //
+        return HelpA.millisToDateConverter("" + dp.getDate().getTime(), DATE_FORMAT);
+        //
     }
 
 //    public static void console_output_to_jtextpane(JTextPane jTextPane) {
@@ -980,7 +1011,6 @@ public class HelpA {
 //                columnNames.add(getColumnNameByIndex(table, ind));
 //            }
 //        }
-
         return columnNames;
     }
 
@@ -1267,7 +1297,7 @@ public class HelpA {
         }
         return false;
     }
-    
+
     public static void hideTabByName(JTabbedPane jtp, String tabName) {
         for (int i = 0; i < jtp.getTabCount(); i++) {
             String title = jtp.getTitleAt(i);
@@ -1695,10 +1725,10 @@ public class HelpA {
         //
         return true;
     }
-    
+
     public static boolean fillAllowedComboBoxB(long flagWait, JComboBoxA boxA) {
         //
-        
+
         //
         if ((System.currentTimeMillis() - flagWait) < 15000 && flagWait > 0) {
             return false;

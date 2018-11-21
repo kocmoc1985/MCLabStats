@@ -122,10 +122,10 @@ public class SQL_Q {
         //======================================================================
         String date_ = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDate);
         //
-        String dateA = datePickerGetDate(gui.datePickerA);
-        String dateB = datePickerGetDate(gui.datePickerB);
+        String dateA = HelpA.datePickerGetDate(gui.datePickerA);
+        String dateB = HelpA.datePickerGetDate(gui.datePickerB);
         //
-        if ((dateA != null && dateA.isEmpty() == false) && (dateB != null && dateB.isEmpty() == false)) {
+        if (HelpA.bothDatesPresent(dateA, dateB)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
             query += " AND [" + TEST_DATE + "] <=" + quotes(dateB, false);
         } else {
@@ -179,10 +179,10 @@ public class SQL_Q {
         //======================================================================
         String date_ = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDate);
         //
-        String dateA = datePickerGetDate(gui.datePickerA);
-        String dateB = datePickerGetDate(gui.datePickerB);
+        String dateA = HelpA.datePickerGetDate(gui.datePickerA);
+        String dateB = HelpA.datePickerGetDate(gui.datePickerB);
         //
-        if ((dateA != null && dateA.isEmpty() == false) && (dateB != null && dateB.isEmpty() == false)) {
+        if (HelpA.bothDatesPresent(dateA, dateB)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
             query += " AND [" + TEST_DATE + "] <=" + quotes(dateB, false);
         } else {
@@ -209,13 +209,7 @@ public class SQL_Q {
         return query;
     }
 
-    private static String datePickerGetDate(DatePicker dp) {
-        if (dp.getDate() == null) {
-            return "";
-        }
-
-        return HelpA.millisToDateConverter("" + dp.getDate().getTime(), DATE_FORMAT);
-    }
+    
 
     public static String quotes(String str, boolean number) {
         //

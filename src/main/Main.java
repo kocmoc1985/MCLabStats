@@ -452,6 +452,11 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             e1.printStackTrace();
         }
         datePickerA.setShowNoneButton(false);
+        datePickerA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datePickerAActionPerformed(evt);
+            }
+        });
         jPanel9.add(datePickerA);
 
         jPanel12.add(jPanel9);
@@ -776,6 +781,9 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         controller.showTestItemOnBtnClick(true);
     }//GEN-LAST:event_jButton_Next_test_nameActionPerformed
 
+    private void datePickerAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePickerAActionPerformed
+    }//GEN-LAST:event_datePickerAActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -936,17 +944,19 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public void mousePressed(MouseEvent me) {
         if (me.getSource() instanceof JButton) {
             JButton button = (JButton) me.getSource();
-            if (button.getParent() instanceof JComboBox) {
+            if (button.getParent() instanceof JComboBoxA) {
                 //
-                JComboBox parent = (JComboBox) button.getParent();
+                JComboBoxA parent = (JComboBoxA)button.getParent();
+                //
+                if(parent.getPARAMETER().equals(SQL_Q.TEST_DATE)){
+                    HelpA.resetDatePickers(datePickerA, datePickerB);
+                }
+                //
                 //
                 parent.setBackground(Color.orange);
                 //
                 parent.hidePopup(); // OBS! IMPORTANT
                 //
-//                parent.invalidate();
-//                parent.repaint();
-//                parent.updateUI();
             }
         }
     }
