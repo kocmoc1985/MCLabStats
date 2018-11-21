@@ -106,6 +106,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     
     public void switchToHistogramBarGraph() {
         //
+        if(MAIN_GRAPH_BUILD == false){
+            return;
+        }
+        //
         MyGraphXY_HG mgxyhm = new MyGraphXY_HG();
         mgxyhm.addBarGraphListener(this);//        mgxyhm triggers event which is processed in this class
         gg = new HistogramGraph("Histogram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
@@ -124,6 +128,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     }
     
     public void switchToFrequencyPolygonGraph() {
+        //
+        if(MAIN_GRAPH_BUILD == false){
+            return;
+        }
         //
         MyGraphXY_PG mgxyh = new MyGraphXY_PG();
         mgxyh.addPointGraphListener(this);
@@ -407,12 +415,15 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
     }
     
+    private static boolean MAIN_GRAPH_BUILD = false;
+    
     public boolean buildGraphs() {
         //
         String q = getQuery();
         // String q = SQL_Q.forTestC();
         //
         if (gui.obligatoryBoxesFilled() == false) {
+            MAIN_GRAPH_BUILD = false;
             return false;
         }
         //
@@ -421,8 +432,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         }
         //
         if (checkIfQueryReturnsEnyResult(q) == false) {
+            MAIN_GRAPH_BUILD = false;
             return false;
         }
+        //
+        MAIN_GRAPH_BUILD = true;
         //
         buildTableByThread(null);
         //

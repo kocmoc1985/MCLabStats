@@ -1,0 +1,15 @@
+OBS! LOOK AT LINE 4 -> FORMAT(dbo.Result.TestDate, 'yyyy-mm-dd') AS testdate
+
+SELECT        TOP (100) PERCENT dbo.Limits.Quality, dbo.LimitTest.LSL, dbo.LimitTest.USL, dbo.Result.OrderCode AS [order], dbo.Result.BatchNo, dbo.Result.TestNo, dbo.Result.Status, dbo.[Procedure].Description, 
+                         dbo.[Procedure].TestCode, dbo.ResultTest.Result AS value, dbo.ProcTest.Line, dbo.ResultTest.[Check], FORMAT(dbo.Result.TestDate, 'yyyy-MM-dd') AS testdate, dbo.Recipe.RecDescription, CONVERT(varchar(2), 
+                         dbo.ProcTest.Line) + '  ' + CONVERT(varchar(10), dbo.TAG.Name) AS linNam, CONVERT(nchar, dbo.Result.TestDate, 111) AS testdate1, dbo.TAG.Name
+FROM            dbo.ProcTest INNER JOIN
+                         dbo.LimitTest ON dbo.ProcTest.ID = dbo.LimitTest.ProctestID INNER JOIN
+                         dbo.[Procedure] ON dbo.ProcTest.ProcID = dbo.[Procedure].ID INNER JOIN
+                         dbo.Limits INNER JOIN
+                         dbo.Result ON dbo.Limits.ID = dbo.Result.LimitID ON dbo.[Procedure].ID = dbo.Limits.ProcID INNER JOIN
+                         dbo.ResultTest ON dbo.LimitTest.ID = dbo.ResultTest.LimitTestID AND dbo.Result.ID = dbo.ResultTest.ResultID INNER JOIN
+                         dbo.TAG ON dbo.ProcTest.TagID = dbo.TAG.ID INNER JOIN
+                         dbo.Recipe ON dbo.Limits.Quality = dbo.Recipe.Quality
+WHERE        (dbo.TAG.Condition <> 'C') OR
+                         (dbo.TAG.Condition IS NULL)

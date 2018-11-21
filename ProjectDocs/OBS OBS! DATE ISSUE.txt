@@ -1,0 +1,7 @@
+Take a look at the "ResultN" view it's very important in which format it works with the field "test" testdate.
+
+Example from Fedmog:
+First in "ResultN" view we had it like: CONVERT(nchar, dbo.Result.TestDate, 104) AS testdate - which made that it was processed as a "String" and not as "Datetime"
+Then it was changed to: FORMAT(dbo.Result.TestDate, 'yyyy-MM-dd') AS testdate - this is correct, but remember that it works for MSSQL older then 2012
+
+Also remember that you have to change the date format in the Java application to. Look in Main.class -> DATE_FORMAT.variable

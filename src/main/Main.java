@@ -4,6 +4,7 @@
  */
 package main;
 
+import com.jezhumble.javasysmon.JavaSysMon;
 import images.IconUrls;
 import java.awt.Color;
 import java.awt.Font;
@@ -18,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import other.CONSTANTS;
 import other.DemoRunner;
 import other.HelpA;
 import other.JComboBoxA;
@@ -30,29 +32,40 @@ import sql.ShowMessage;
  */
 public class Main extends javax.swing.JFrame implements ShowMessage, MouseListener {
 
+    private final JavaSysMon monitor = new JavaSysMon();
     private Controller controller;
     private Properties PROPS_MAIN = HelpA.properties_load_properties("main.properties", false);
     public static Color INITIAL_BG_COLOR_COMBO;
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
-    public static final String VERSION = "1.03";
     private boolean BUILD_GRAPH_BTN_CLICKED = false;
     public static boolean LOG_CONNECTION_STRING = false;
     public static boolean RUNING_IN_NETBEANS = false;
     public final static String TAB_MAIN = "Main";
     public final static String TAB_LOG = "Log";
     //
-    private final static boolean HIDE_LOG_TAB = true;
-    public final static String DATE_FORMAT = "yy/MM/dd";
-    public final static boolean MY_SQL = false;
+    public static String DATE_FORMAT = "yy/MM/dd";
+    public static boolean MY_SQL = false;
+    //
+    public final static String COMPANY_NAME = CONSTANTS.COMPANY_NAME_FEDERALMOGUL;
+    public final static String VERSION = "1.04";
+    private final static boolean HIDE_LOG_TAB = false;
     public final static boolean DEMO_MODE = false;
 
     /**
      * Creates new form Main
      */
     public Main() {
+        //
         initComponents();
         this.controller = new Controller(this, PROPS_MAIN);
+        //
+        if (DEMO_MODE) {
+            demo();
+        } else {
+            companySettings();
+        }
+        //
         initOther();
         buildComboList();
         buildObligatoryComboList();
@@ -60,15 +73,26 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         setFontJBoxesTitleBorders();
         //
         if (DEMO_MODE) {
-            demo();
-        }
+            demoAutoStart();
+        } 
         //
+    }
+
+    private void companySettings() {
+        if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_FEDERALMOGUL)) {
+            MY_SQL = false;
+            DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
+        } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_GOTTFERT)) {
+            MY_SQL = true;
+        }
     }
 
     private void demo() {
         //
         //Dont forget to look at "Controller.connect()" method
         //
+        MY_SQL = false;
+        DATE_FORMAT = "yy/MM/dd";
         String quality = "1702860-ST110";
         jComboBoxQuality.addItem(quality);
         jComboBoxQuality.setSelectedItem(quality);
@@ -83,6 +107,10 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jComboBoxTestName.addItem(testName);
         jComboBoxTestName.setSelectedItem(testName);
         //
+
+    }
+
+    private void demoAutoStart() {
         Thread x = new Thread(new DemoRunner(this, controller, 1000));
         x.start();
     }
@@ -91,7 +119,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         //
         datePickerA.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
         datePickerB.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
-        this.setTitle("MCLabStats " + VERSION);
+        this.setTitle("MCLabStats " + VERSION + "  (" + monitor.currentPid() + ")");
         this.setIconImage(new ImageIcon(IconUrls.APP_ICON).getImage());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.jLabelCursorHint.setVisible(false);
@@ -223,6 +251,9 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jComboBoxTestCode = new other.JComboBoxA(SQL_Q.TEST_CODE,false);
         jPanel1 = new javax.swing.JPanel();
         jComboBoxTestName = new other.JComboBoxA(SQL_Q.TEST_NAME,false);
+        jPanel17 = new javax.swing.JPanel();
+        jButton_Prev_test_name = new javax.swing.JButton();
+        jButton_Next_test_name = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jComboBoxLSL = new other.JComboBoxA(SQL_Q.LSL,true);
         jPanel11 = new javax.swing.JPanel();
@@ -233,9 +264,6 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         datePickerA = new com.michaelbaranov.microba.calendar.DatePicker();
         jPanel18 = new javax.swing.JPanel();
         datePickerB = new com.michaelbaranov.microba.calendar.DatePicker();
-        jPanel17 = new javax.swing.JPanel();
-        jButton_Prev_test_name = new javax.swing.JButton();
-        jButton_Next_test_name = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jButtonFind = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -423,6 +451,29 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
         jPanel12.add(jPanel1);
 
+        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "NAVIGATION", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), java.awt.Color.black)); // NOI18N
+        jPanel17.setLayout(new java.awt.GridLayout(1, 1));
+
+        jButton_Prev_test_name.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jButton_Prev_test_name.setText("<");
+        jButton_Prev_test_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Prev_test_nameActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jButton_Prev_test_name);
+
+        jButton_Next_test_name.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jButton_Next_test_name.setText(">");
+        jButton_Next_test_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Next_test_nameActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jButton_Next_test_name);
+
+        jPanel12.add(jPanel17);
+
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LSL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), java.awt.Color.black)); // NOI18N
         jPanel10.setLayout(new java.awt.GridLayout(1, 0));
         jPanel10.add(jComboBoxLSL);
@@ -471,29 +522,6 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jPanel18.add(datePickerB);
 
         jPanel12.add(jPanel18);
-
-        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "NAVIGATION", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), java.awt.Color.black)); // NOI18N
-        jPanel17.setLayout(new java.awt.GridLayout(1, 1));
-
-        jButton_Prev_test_name.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jButton_Prev_test_name.setText("<");
-        jButton_Prev_test_name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Prev_test_nameActionPerformed(evt);
-            }
-        });
-        jPanel17.add(jButton_Prev_test_name);
-
-        jButton_Next_test_name.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jButton_Next_test_name.setText(">");
-        jButton_Next_test_name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Next_test_nameActionPerformed(evt);
-            }
-        });
-        jPanel17.add(jButton_Next_test_name);
-
-        jPanel12.add(jPanel17);
 
         jPanel13.setLayout(new java.awt.GridLayout(1, 0, 2, 0));
 
@@ -681,7 +709,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addContainerGap(406, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

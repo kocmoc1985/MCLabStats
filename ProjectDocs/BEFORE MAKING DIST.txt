@@ -2,3 +2,8 @@ LOOK AT: Main.class:
 
 public static final boolean MY_SQL = false;
 public final static boolean DEMO_MODE = false;
+
+DONT FORGET "javasysmon-0.3.3.jar" it is used now -> 2018-11-21
+
+OBS! OBS! ALSO Check "ResultN" View -> CONVERT(nchar, dbo.Result.TestDate, 104) AS testdate -> having it like that makes that comparing dates fails.
+This is correct: "dbo.Result.TestDate AS testdate"
