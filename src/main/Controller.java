@@ -631,7 +631,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         }
         //
         try {
-            gui.datePicker1.setDate(null);
+            gui.datePickerA.setDate(null);
+             gui.datePickerB.setDate(null);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

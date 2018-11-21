@@ -119,19 +119,21 @@ public class SQL_Q {
         if (nullCounter == list.size()) {
             return null;
         }
+        //======================================================================
+        String date_ = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDate);
         //
-        String dateA = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateA);
-        String dateB = datePickerGetDate(gui.datePicker1);
+        String dateA = datePickerGetDate(gui.datePickerA);
+        String dateB = datePickerGetDate(gui.datePickerB);
         //
-        if ((dateB != null && dateB.isEmpty() == false) && (dateA != null && dateA.isEmpty() == false)) {
+        if ((dateA != null && dateA.isEmpty() == false) && (dateB != null && dateB.isEmpty() == false)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
             query += " AND [" + TEST_DATE + "] <=" + quotes(dateB, false);
         } else {
-            if (dateA != null && dateA.isEmpty() == false) {
-                query += " AND [" + TEST_DATE + "]=" + quotes(dateA, false);
+            if (date_ != null && date_.isEmpty() == false) {
+                query += " AND [" + TEST_DATE + "]=" + quotes(date_, false);
             }
         }
-        //
+        //======================================================================
         //
         if (additionalWhere != null && additionalWhere.isEmpty() == false) {
             query += additionalWhere;
@@ -174,18 +176,21 @@ public class SQL_Q {
             }
         }
         //
+        //======================================================================
+        String date_ = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDate);
         //
-        String dateA = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDateA);
-        String dateB = datePickerGetDate(gui.datePicker1);
+        String dateA = datePickerGetDate(gui.datePickerA);
+        String dateB = datePickerGetDate(gui.datePickerB);
         //
-        if ((dateB != null && dateB.isEmpty() == false) && (dateA != null && dateA.isEmpty() == false)) {
+        if ((dateA != null && dateA.isEmpty() == false) && (dateB != null && dateB.isEmpty() == false)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
             query += " AND [" + TEST_DATE + "] <=" + quotes(dateB, false);
         } else {
-            if (dateA != null && dateA.isEmpty() == false) {
-                query += " AND [" + TEST_DATE + "]=" + quotes(dateA, false);
+            if (date_ != null && date_.isEmpty() == false) {
+                query += " AND [" + TEST_DATE + "]=" + quotes(date_, false);
             }
         }
+        //======================================================================
         //
         if (query.contains("WHERE") == false) {
             query = query.replaceFirst("AND", "WHERE");
@@ -252,7 +257,7 @@ public class SQL_Q {
 //        String testName = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxTestName);
 //        String lsl = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxLSL);
 //        String usl = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxUSL);
-//        String dateA = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateA);
+//        String date_ = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateA);
 //        String dateB = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateB);
 //        //
 //        if (quality != null && quality.isEmpty() == false) {
@@ -277,12 +282,12 @@ public class SQL_Q {
 //            query += " AND [" + USL + "]=" + quotes(usl, true);
 //        }
 //        //
-//        if ((dateB != null && dateB.isEmpty() == false) && (dateA != null && dateA.isEmpty() == false)) {
-//            query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
+//        if ((dateB != null && dateB.isEmpty() == false) && (date_ != null && date_.isEmpty() == false)) {
+//            query += " AND [" + TEST_DATE + "] >=" + quotes(date_, false);
 //            query += " AND [" + TEST_DATE + "] <=" + quotes(dateB, false);
 //        } else {
-//            if (dateA != null && dateA.isEmpty() == false) {
-//                query += " AND [" + TEST_DATE + "]=" + quotes(dateA, false);
+//            if (date_ != null && date_.isEmpty() == false) {
+//                query += " AND [" + TEST_DATE + "]=" + quotes(date_, false);
 //            }
 //        }
 //        //
@@ -309,7 +314,7 @@ public class SQL_Q {
 //        String testName = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxTestName);
 //        String lsl = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxLSL);
 //        String usl = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxUSL);
-//        String dateA = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateA);
+//        String date_ = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateA);
 //        String dateB = HelpA.getComboBoxSelectedValue_b(Main.jComboBoxDateB);
 //        //
 //        if (quality != null && quality.isEmpty() == false && actualComboParam.equals(QUALITY) == false) {
@@ -334,17 +339,17 @@ public class SQL_Q {
 //            query += " AND [" + USL + "]=" + quotes(usl, true);
 //        }
 //
-//        if ((dateB != null && dateB.isEmpty() == false) && (dateA != null && dateA.isEmpty() == false)) {
-//            query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
+//        if ((dateB != null && dateB.isEmpty() == false) && (date_ != null && date_.isEmpty() == false)) {
+//            query += " AND [" + TEST_DATE + "] >=" + quotes(date_, false);
 //            query += " AND [" + TEST_DATE + "] <=" + quotes(dateB, false);
 //        } else {
-//            if (dateA != null && dateA.isEmpty() == false) {
-//                query += " AND [" + TEST_DATE + "]=" + quotes(dateA, false);
+//            if (date_ != null && date_.isEmpty() == false) {
+//                query += " AND [" + TEST_DATE + "]=" + quotes(date_, false);
 //            }
 //        }
 //
-////        if (dateA != null && dateA.isEmpty() == false && actualComboParam.equals(TEST_DATE) == false) {
-////            query += " AND [" + TEST_DATE + "]=" + quotes(dateA, false);
+////        if (date_ != null && date_.isEmpty() == false && actualComboParam.equals(TEST_DATE) == false) {
+////            query += " AND [" + TEST_DATE + "]=" + quotes(date_, false);
 ////        }
 //        //
 //
