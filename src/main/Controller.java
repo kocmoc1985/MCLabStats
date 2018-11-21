@@ -387,10 +387,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             }
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            HelpA.showNotification("No results found for current search criteria");
+            HelpA.showNotification("No results found for current search criteria. Please try again.");
             return false;
         }
-        HelpA.showNotification("No results found for current search criteria");
+        HelpA.showNotification("No results found for current search criteria. Please try again.");
         return false;
     }
     
