@@ -47,7 +47,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public static String DATE_FORMAT = "yy/MM/dd";
     public static boolean MY_SQL = false;
     //
-    public final static String COMPANY_NAME = CONSTANTS.COMPANY_NAME_FEDERALMOGUL;
+    public final static String COMPANY_NAME = CONSTANTS.COMPANY_NAME_IGT_IT;
     public final static String VERSION = "1.04";
     private final static boolean HIDE_LOG_TAB = false;
     public final static boolean DEMO_MODE = false;
@@ -57,14 +57,15 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
      */
     public Main() {
         //
-        initComponents();
-        this.controller = new Controller(this, PROPS_MAIN);
-        //
         if (DEMO_MODE) {
             demo();
         } else {
             companySettings();
         }
+        //
+        initComponents();
+        //
+        this.controller = new Controller(this, PROPS_MAIN);
         //
         initOther();
         buildComboList();
@@ -74,7 +75,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         //
         if (DEMO_MODE) {
             demoAutoStart();
-        } 
+        }
         //
     }
 
@@ -84,6 +85,19 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
         } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_GOTTFERT)) {
             MY_SQL = true;
+        } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_IGT_IT)) {
+            MY_SQL = false;
+            DATE_FORMAT = "dd/MM/yyyy";
+            //
+            SQL_Q.PRIM_TABLE = "dbagb3.fnMC04V3()";
+            SQL_Q.QUALITY = "Recipe";
+            SQL_Q.ORDER = "Order";
+            SQL_Q.BATCH = "Batch";
+            SQL_Q.TEST_CODE = "TestProcedure";
+            SQL_Q.TEST_NAME = "TestTag";
+            SQL_Q.TEST_DATE = "TestDate";
+            SQL_Q.TEST_VALUE = "TestResult";
+            SQL_Q.TEST_STATUS = "TestStatus";
         }
     }
 
@@ -824,17 +838,15 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        //
         if (HelpA.runningInNetBeans("MCLabStats.jar")) {
             RUNING_IN_NETBEANS = true;
             LOG_CONNECTION_STRING = true;
         } else {
             HelpA.err_output_to_file();
             RUNING_IN_NETBEANS = false;
-
         }
-
-
+        //
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override

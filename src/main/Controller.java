@@ -33,7 +33,7 @@ import sql.Sql_B;
  * @author KOCMOC
  */
 public class Controller implements DiffMarkerAction, BarGraphListener, PointGraphListener, MouseListener, KeyListener {
-    
+
     private Sql_B sql_common_g = new Sql_B(false, Main.LOG_CONNECTION_STRING);
     private Sql_B sql_histogram_g = new Sql_B(false, Main.LOG_CONNECTION_STRING);
     private Sql_B sql_polygon_g = new Sql_B(false, Main.LOG_CONNECTION_STRING);
@@ -50,7 +50,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     private String ORDER_ASC_DESC = "ASC";
     private boolean MARKERS_SET = false;
     private boolean ALL_ENTRIES_SHOWN_TABLE = false;
-    
+
     public Controller(ShowMessage OUT, Properties p) {
         //
         this.OUT = OUT;
@@ -68,12 +68,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         initOther();
         //
     }
-    
+
     private void initOther() {
         this.gui.jTableMain.addMouseListener(this);
         this.gui.jTableMain.addKeyListener(this);
     }
-    
+
     private void defineInitialGraph() {
         //===
         MyGraphXY_PG mgxyh = new MyGraphXY_PG();
@@ -91,22 +91,23 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         }
         //
     }
-    
+
     private synchronized void tableHeaders() {
         //
         ResultSet rs;
         //
         try {
-            rs = sql_table.execute("SELECT * from " + SQL_Q.PRIM_TABLE + " WHERE [Quality]='xxxxxx-xxxx'");
+//            rs = sql_table.execute("SELECT * from " + SQL_Q.PRIM_TABLE + " WHERE [Quality]='xxxxxx-xxxx'");
+            rs = sql_table.execute("SELECT * from " + SQL_Q.PRIM_TABLE + " WHERE [" + SQL_Q.QUALITY + "]='xxxxxx-xxxx'");
             HelpA.build_table_common_return(rs, gui.jTableMain);
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void switchToHistogramBarGraph() {
         //
-        if(MAIN_GRAPH_BUILD == false){
+        if (MAIN_GRAPH_BUILD == false) {
             return;
         }
         //
@@ -126,10 +127,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         resetGraphs();
     }
-    
+
     public void switchToFrequencyPolygonGraph() {
         //
-        if(MAIN_GRAPH_BUILD == false){
+        if (MAIN_GRAPH_BUILD == false) {
             return;
         }
         //
@@ -153,34 +154,34 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         resetGraphs();
     }
-    
+
     public void deleteFromBarGraph() {
         HistogramGraph ggm = (HistogramGraph) gg;
         ggm.myGraphXY.deleteAllPointsFromSerie(ggm.serie);
     }
-    
+
     @Override
     public void pointGraphHoverEvent(MouseEvent e, MyPoint point) {
         if (MARKERS_SET == false) {
             highLightPointsByValue(point.x_Display, point.x_Display, false);
         }
     }
-    
+
     @Override
     public void pointGraphHoverOutEvent(MouseEvent e) {
         if (MARKERS_SET == false) {
             xygraph.getSerie().resetPointsColorAndForm();
         }
-        
+
     }
-    
+
     @Override
     public void barGraphHoverOutEvent(MouseEvent e) {
         if (MARKERS_SET == false) {
             xygraph.getSerie().resetPointsColorAndForm();
         }
     }
-    
+
     @Override
     public void barGraphHoverEvent(MouseEvent e, MyPoint_HG point) {
         if (e.getSource() instanceof MyPoint_HG) {
@@ -189,7 +190,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             }
         }
     }
-    
+
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
         //
@@ -223,7 +224,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             //
         }
     }
-    
+
     @Override
     public void markersUnset(MyGraphXY mgxy) {
         //
@@ -231,7 +232,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         xygraph.getSerie().resetPointsColorAndForm();
     }
-    
+
     private void highLightPointByIndex(int index) {
         //
         MySerie serie = xygraph.getSerie();
@@ -249,7 +250,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         xygraph.getGraph().revalidate();
         xygraph.getGraph().repaint();
     }
-    
+
     private void highLightPointsByValue(double min, double max, boolean barGraph) {
         //
         MySerie serie = xygraph.getSerie();
@@ -272,14 +273,14 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         xygraph.getGraph().repaint();
 //        xygraph.getGraph().updateUI();
     }
-    
+
     public void addDiffMarkerPointsPolygonGraph() {
         if (gg instanceof PolygonGraph && gg instanceof HistogramGraph == false) {
             PolygonGraph pg = (PolygonGraph) gg;
             pg.addDiffMarkerPoints();
         }
     }
-    
+
     public void removeDiffMarkerPointsPolygonGraph() {
         if (gg instanceof PolygonGraph && gg instanceof HistogramGraph == false) {
             PolygonGraph pg = (PolygonGraph) gg;
@@ -290,11 +291,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             buildTableByThread(null);
         }
     }
-    
+
     public void addDiffMarkerPointsCommonGraph() {
         xygraph.addDiffMarkerPoints();
     }
-    
+
     public void removeDiffMarkerPointsCommonGraph() {
         xygraph.removeDiffMarkerPoints();
         xygraph.getSerie().resetPointsColorAndForm();
@@ -302,7 +303,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         resetGraphs();
         buildTableByThread(null);
     }
-    
+
     private void connect() {
         try {
             //
@@ -319,7 +320,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
                 }
                 return;
             }
-            
+
             if (Main.DEMO_MODE) {
                 //
                 for (Sql_B sql_B : SQL_ARR) {
@@ -367,7 +368,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public synchronized void resetGraphs() {
         xygraph.removeDiffMarkerPoints();
         //
@@ -376,16 +377,16 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         String q = getQuery();
         //
         if (gg instanceof HistogramGraph) {
-            gg.addData(sql_histogram_g, q, "value");
+            gg.addData(sql_histogram_g, q, SQL_Q.TEST_VALUE);
         } else if (gg instanceof PolygonGraph) {
-            gg.addData(sql_polygon_g, q, "value");
+            gg.addData(sql_polygon_g, q, SQL_Q.TEST_VALUE);
         }
     }
-    
+
     private String getQuery() {
         return SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
     }
-    
+
     private boolean checkIfQueryReturnsEnyResult(String q) {
         try {
             ResultSet rs = sql_common_g.execute(q, OUT);
@@ -401,7 +402,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         HelpA.showNotification("No results found for current search criteria. Please try again.");
         return false;
     }
-    
+
     private boolean checkIfDateRangesAreInUse() {
         //
         String dateA = HelpA.datePickerGetDate(gui.datePickerA);
@@ -414,9 +415,9 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         }
         //
     }
-    
+
     private static boolean MAIN_GRAPH_BUILD = false;
-    
+
     public boolean buildGraphs() {
         //
         String q = getQuery();
@@ -427,7 +428,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             return false;
         }
         //
-        if(checkIfDateRangesAreInUse() == true){
+        if (checkIfDateRangesAreInUse() == true) {
             resetComboBox(gui.jComboBoxDate);
         }
         //
@@ -447,19 +448,19 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         xygraph.deleteAllPointsFromAllSeries();
         //
-        xygraph.addData(sql_common_g, q, "value");
+        xygraph.addData(sql_common_g, q, SQL_Q.TEST_VALUE);
         //
 //            gg.addLimits(rs);
         //
         if (gg instanceof HistogramGraph) {
-            gg.addData(sql_histogram_g, q, "value");
+            gg.addData(sql_histogram_g, q, SQL_Q.TEST_VALUE);
         } else if (gg instanceof PolygonGraph) {
-            gg.addData(sql_polygon_g, q, "value");
+            gg.addData(sql_polygon_g, q, SQL_Q.TEST_VALUE);
         }
         //
         return true;
     }
-    
+
     public synchronized void buildTableByThread(String addditionalWhere) {
         Thread x = new Thread(new BuildTableThread(addditionalWhere));
         x.start();
@@ -516,23 +517,23 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     @Override
     public void keyReleased(KeyEvent ke) {
         if (ke.getSource() == gui.jTableMain) {
             showCurrTableEntryOnGraph();
         }
     }
-    
+
     @Override
     public void mouseClicked(MouseEvent me) {
         if (me.getSource() == gui.jTableMain) {
             showCurrTableEntryOnGraph();
         }
     }
-    
+
     private void showCurrTableEntryOnGraph() {
         //
         if (ALL_ENTRIES_SHOWN_TABLE == false) {
@@ -542,39 +543,39 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         int row = gui.jTableMain.getSelectedRow();
         highLightPointByIndex(row);
     }
-    
+
     @Override
     public void keyTyped(KeyEvent ke) {
     }
-    
+
     @Override
     public void mousePressed(MouseEvent me) {
     }
-    
+
     @Override
     public void mouseReleased(MouseEvent me) {
     }
-    
+
     @Override
     public void mouseEntered(MouseEvent me) {
     }
-    
+
     @Override
     public void mouseExited(MouseEvent me) {
     }
-    
+
     @Override
     public void keyPressed(KeyEvent ke) {
     }
-    
+
     class BuildTableThread implements Runnable {
-        
+
         private final String additionalWhere;
-        
+
         public BuildTableThread(String additionalWhere) {
             this.additionalWhere = additionalWhere;
         }
-        
+
         @Override
         public void run() {
             buildTable(additionalWhere);
@@ -619,7 +620,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         resetFlagsWaitSelective(jcbm);
         //
     }
-    
+
     private boolean fill(JComboBoxA jcbm, JComboBoxA jcomboTestName) {
         //
         if (jcbm.equals(jcomboTestName)) {
@@ -637,7 +638,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         }
         //
     }
-    
+
     private void resetFlagsWaitSelective(JComboBoxA jcbm) {
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
         //
@@ -651,13 +652,13 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             //
         }
     }
-    
+
     public void reset() {
         clearComponents();
         resetFlagWaits();
         clearEntriesFromCBoxes();
     }
-    
+
     private void clearEntriesFromCBoxes() {
         //
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
@@ -670,14 +671,14 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             //
         }
     }
-    
+
     private void resetComboBox(JComboBox jComboBox) {
         jComboBox.setSelectedItem(null);
         jComboBox.setEditable(false);
         jComboBox.setEnabled(true);
         jComboBox.setBackground(Main.INITIAL_BG_COLOR_COMBO);
     }
-    
+
     private void clearComponents() {
         //
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
@@ -690,7 +691,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         gui.repaint();
     }
-    
+
     private void resetFlagWaits() {
         ArrayList<JComboBox> list = gui.getJCOMBO_LIST();
         //

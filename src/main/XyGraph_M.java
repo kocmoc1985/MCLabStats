@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import other.HelpA;
+import sql.SQL_Q;
 import sql.Sql_B;
 
 /**
@@ -145,10 +146,10 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 //
                 double val = processValue(rs.getString(valueColName));
                 //
-                double lsl = rs.getDouble("LSL");
+                double lsl = rs.getDouble(SQL_Q.LSL);
                 MyPoint LSL = new MyPoint((int) lsl, lsl);
                 //
-                double usl = rs.getDouble("USL");
+                double usl = rs.getDouble(SQL_Q.USL);
                 MyPoint USL = new MyPoint((int) usl, usl);
                 //
                 addPointBySerie(LSL, serieLimitL);
@@ -166,15 +167,15 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 p = new MyPoint_M(val, val, LSL, USL);
 //                }
                 //
-                p.addPointInfo("Serie", rs.getString("Name"));
+                p.addPointInfo("Serie", rs.getString(SQL_Q.TEST_NAME));
                 //
                 //<#GFT-SPECIAL-DEMO>
-                p.addPointInfo("Quality", rs.getString("Quality"));
-                p.addPointInfo("Order", rs.getString("order"));
+                p.addPointInfo("Quality", rs.getString(SQL_Q.QUALITY));
+                p.addPointInfo("Order", rs.getString(SQL_Q.ORDER));
                 //</#GFT-SPECIAL-DEMO>
                 //
-                p.addPointInfo("Batch", rs.getString("BatchNo"));
-                p.addPointInfo("Status", rs.getString("Status"));
+                p.addPointInfo("Batch", rs.getString(SQL_Q.BATCH));
+                p.addPointInfo("Status", rs.getString(SQL_Q.TEST_STATUS));
                 //
                 if (Math.abs(val) < (filterCoeff)) {
                     addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);

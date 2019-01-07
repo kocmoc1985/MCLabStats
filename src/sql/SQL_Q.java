@@ -19,16 +19,29 @@ import other.JComboBoxA;
  */
 public class SQL_Q {
 
-    public static final String PRIM_TABLE = loadFromProps();
-    public static final String QUALITY = "Quality";
-    public static final String ORDER = "order";
-    public static final String BATCH = "BatchNo";
-    public static final String TEST_CODE = "TestCode";
-    public static final String TEST_NAME = "Name";
-    public static final String LSL = "LSL";
-    public static final String USL = "USL";
-    public static final String TEST_DATE = "testdate";
-    public static final String TEST_VALUE = "value";
+    public static  String PRIM_TABLE = loadFromProps();
+    public static  String QUALITY = "Quality";
+    public static  String ORDER = "order";
+    public static  String BATCH = "BatchNo";
+    public static  String TEST_CODE = "TestCode";
+    public static  String TEST_NAME = "Name";
+    public static  String LSL = "LSL";
+    public static  String USL = "USL";
+    public static  String TEST_DATE = "testdate";
+    public static  String TEST_VALUE = "value";
+    public static  String TEST_STATUS = "Status";
+    //
+//    public static final String PRIM_TABLE = "dbagb3.fnMC04V3()";
+//    public static final String QUALITY = "Recipe";
+//    public static final String ORDER = "Order";
+//    public static final String BATCH = "Batch";
+//    public static final String TEST_CODE = "TestProcedure";
+//    public static final String TEST_NAME = "TestTag";
+//    public static final String LSL = "LSL";
+//    public static final String USL = "USL";
+//    public static final String TEST_DATE = "TestDate";
+//    public static final String TEST_VALUE = "TestResult";
+//    public static final String TEST_STATUS = "TestStatus";
 
     private static String loadFromProps() {
         Properties p = HelpA.properties_load_properties("main.properties", false);
@@ -36,19 +49,21 @@ public class SQL_Q {
     }
 
     private static ArrayList<FillAutoEntry> buildList(Main gui) {
+        //
         ArrayList<FillAutoEntry> list = new ArrayList<>();
         //
-
         for (JComboBox box : gui.getJCOMBO_LIST()) {
+            //
             JComboBoxA boxM = (JComboBoxA) box;
             //
             if (boxM.getPARAMETER().equals(TEST_DATE) == false) {
                 list.add(new FillAutoEntry(boxM.getPARAMETER(), HelpA.getComboBoxSelectedValue_b(boxM), boxM.isNUMBER()));
             }
-
+            //
         }
         //
         return list;
+        //
     }
 
     private static ArrayList<FillAutoEntry> buildListB(Main gui) {
