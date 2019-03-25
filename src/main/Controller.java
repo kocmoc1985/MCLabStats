@@ -10,6 +10,7 @@ import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MySerie;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -505,14 +506,19 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             HelpA.hideColumnByName(gui.jTableMain, SQL_Q.ORDER);
             //
             //<#GFT-SPECIAL-DEMO>
-//            gui.jButtonClear.setEnabled(false);
-//            gui.jComboBoxOrder.setEnabled(false);
-//            gui.jComboBoxLSL.setEnabled(false);
-//            gui.jComboBoxUSL.setEnabled(false);
-//            gui.jComboBoxDateA.setEnabled(false);
-//            gui.jComboBoxBatch.setEnabled(false);
-//            //
-//            gui.jComboBoxQuality.setSelectedItem(null);
+            if (Main.DEMO_MODE_GOTTFERT) {
+                gui.jButtonClear.setEnabled(false);
+                gui.jComboBoxOrder.setEnabled(false);
+                gui.jComboBoxTestCode.setFont(new Font("Arial", Font.PLAIN, 0));
+                gui.jComboBoxLSL.setEnabled(false);
+                gui.jComboBoxUSL.setEnabled(false);
+                gui.jComboBoxBatch.setEnabled(false);
+//                gui.jComboBoxQuality.setSelectedItem(null);
+                gui.jComboBoxQuality.setFont(new Font("Arial", Font.PLAIN, 0));
+                gui.jComboBoxDate.setEnabled(false);
+                gui.datePickerA.setEnabled(false);
+                gui.datePickerB.setEnabled(false);
+            }
             //</#GFT-SPECIAL-DEMO>
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);

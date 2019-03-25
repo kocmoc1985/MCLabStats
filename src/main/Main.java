@@ -34,7 +34,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
     private final JavaSysMon monitor = new JavaSysMon();
     private Controller controller;
-    private Properties PROPS_MAIN = HelpA.properties_load_properties("main.properties", false);
+    private static final Properties PROPS_MAIN = HelpA.properties_load_properties("main.properties", false);
     public static Color INITIAL_BG_COLOR_COMBO;
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
@@ -48,22 +48,25 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public static boolean MY_SQL = false;
     //
     public final static String COMPANY_NAME = CONSTANTS.COMPANY_NAME_FEDERALMOGUL;
-    public final static String VERSION = "1.04";
-    private final static boolean HIDE_LOG_TAB = false;
-    public final static boolean DEMO_MODE = false;
+    public final static String VERSION = "1.05";
+    private final static boolean HIDE_LOG_TAB = true;
+    public final static boolean DEMO_MODE = true;
+    public final static boolean DEMO_MODE_GOTTFERT = Boolean.parseBoolean(PROPS_MAIN.getProperty("gottfert_demo", "false"));
 
     /**
      * Creates new form Main
      */
     public Main() {
         //
-        if (DEMO_MODE) {
-            demo();
-        } else {
+        if (DEMO_MODE == false) {
             companySettings();
-        }
+        } 
         //
         initComponents();
+        //
+        if(DEMO_MODE){
+            demo();
+        }
         //
         this.controller = new Controller(this, PROPS_MAIN);
         //
@@ -110,9 +113,6 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         String quality = "1702860-ST110";
         jComboBoxQuality.addItem(quality);
         jComboBoxQuality.setSelectedItem(quality);
-        //<#GFT-SPECIAL-DEMO>
-//        jComboBoxQuality.setBackground(Color.BLACK);
-        //</#GFT-SPECIAL-DEMO>
         String testCode = "10194";
         jComboBoxTestCode.addItem(testCode);
         jComboBoxTestCode.setSelectedItem(testCode);
@@ -121,7 +121,6 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jComboBoxTestName.addItem(testName);
         jComboBoxTestName.setSelectedItem(testName);
         //
-
     }
 
     private void demoAutoStart() {
