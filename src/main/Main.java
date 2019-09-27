@@ -47,10 +47,10 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public static String DATE_FORMAT = "yy/MM/dd";
     public static boolean MY_SQL = false;
     //
-    public final static String COMPANY_NAME = CONSTANTS.COMPANY_NAME_FEDERALMOGUL;
+    public final static String COMPANY_NAME = CONSTANTS.COMPANY_NAME_TRELLEBORG;
     public final static String VERSION = "1.05";
     private final static boolean HIDE_LOG_TAB = true;
-    public final static boolean DEMO_MODE = true;
+    public final static boolean DEMO_MODE = false;
     public final static boolean DEMO_MODE_GOTTFERT = Boolean.parseBoolean(PROPS_MAIN.getProperty("gottfert_demo", "false"));
 
     /**

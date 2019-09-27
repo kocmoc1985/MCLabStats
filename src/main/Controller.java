@@ -363,6 +363,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 //                }
 //            }
             //
+            System.out.println("Connected to DB");
             OUT.showMessage("Connected");
             //
         } catch (SQLException | ClassNotFoundException ex) {
@@ -422,7 +423,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     public boolean buildGraphs() {
         //
         String q = getQuery();
-        // String q = SQL_Q.forTestC();
+//         String q = SQL_Q.forTestC(); // OBS!!! NICE FOR DEBUG
         //
         if (gui.obligatoryBoxesFilled() == false) {
             MAIN_GRAPH_BUILD = false;
