@@ -152,7 +152,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public boolean obligatoryBoxesFilled() {
         for (JComboBox jComboBox : JCOMBO_OBLIGATORY_LIST) {
             if (HelpA.getComboBoxSelectedValue_b(jComboBox) == null) {
-                HelpA.showNotification("Obligatory fields not filled");
+                HelpA.showNotification("Obligatory fields not filled (QUALITY, TEST CODE, TEST NAME)");
                 return false;
             }
         }
