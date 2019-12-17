@@ -80,6 +80,19 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             demoAutoStart();
         }
         //
+        hideTemporaryUntilFixed();
+        //
+    }
+    
+    /**
+     * This functionality of this buttons are not working properly so i 
+     * hide them untill it's fixed
+     */
+    private void hideTemporaryUntilFixed(){
+        //
+        jButton8.setVisible(false);
+        jButton9.setVisible(false);
+        //
     }
 
     private void companySettings() {
