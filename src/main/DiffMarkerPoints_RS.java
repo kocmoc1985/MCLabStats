@@ -217,6 +217,10 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
             //
             for (int i = MARKER_POINT_A.getPointIndex(); i <= MARKER_POINT_B.getPointIndex(); i++) {
                 //
+                // This fix was implemented on [2019-12-23]
+                // The problem was that when having cursors for the graph on the right
+                // An exception was thrown due to "serie.getPoint(i)" returned "MyPoint"
+                // and not "MyPoint_M"
                 if(serie.getPoint(i) instanceof MyPoint_M == false){ 
                     return true;
                 }

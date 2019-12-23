@@ -25,6 +25,19 @@ public class MyGraphXY_HG extends MyGraphXY_PG {
         MARKER_POINT.addPointInfo("x", "" + m.getRangeStart() + " -> " + m.getRangeEnd());
     }
 
+    @Override
+    public void addAdditionalControlsPopups() {
+         if (MARKER_POINT.isDiffMarkerPoint() == false) {
+            popup.add(menu_item_diff_marker_add);
+        } else if (MARKER_POINT.isDiffMarkerPoint()) {
+            popup.add(menu_item_diff_marker_remove);
+        }
+        //
+//        popup.add(menu_item_delete_point);
+    }
+    
+    
+
     public void addBarGraphListener(BarGraphListener bgl) {
         bg_listener_list.add(bgl);
     }

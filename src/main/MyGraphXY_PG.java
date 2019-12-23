@@ -77,7 +77,9 @@ public class MyGraphXY_PG extends MyGraphXY {
         if (getHeight() < 50) {//ONE_UNIT_Y < 1.1 || getHeight() < 50 || ONE_UNIT_Y > 20
             return;
         }
-        //
+        // #TEST-DRAW-LIMITS-PG
+//        LIMIT_MIN = 1.1;
+//        LIMIT_MAX = 2.2;
         //
         if (LIMIT_MAX == 0 || LIMIT_MIN == 0 || ONE_UNIT_X == 1) {
             return;
