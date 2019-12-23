@@ -90,8 +90,8 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
      */
     private void hideTemporaryUntilFixed(){
         //
-        jButton8.setVisible(false);// Add cursors button (cursors for the graph to the right)
-        jButton9.setVisible(false);// Remove cursors button (cursors for the graph to the right)
+//        jButton8.setVisible(false);// Add cursors button (cursors for the graph to the right)
+//        jButton9.setVisible(false);// Remove cursors button (cursors for the graph to the right)
         //
     }
 

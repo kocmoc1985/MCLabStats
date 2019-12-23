@@ -217,9 +217,12 @@ public class DiffMarkerPoints_RS extends DiffMarkerPoints {
             //
             for (int i = MARKER_POINT_A.getPointIndex(); i <= MARKER_POINT_B.getPointIndex(); i++) {
                 //
+                if(serie.getPoint(i) instanceof MyPoint_M == false){ 
+                    return true;
+                }
+                //
                 MyPoint_M point_lsl = (MyPoint_M) serie.getPoint(i);
                 MyPoint_M point_usl = (MyPoint_M) serie.getPoint(i);
-
                 //
                 if (oneTimeFlag == false) {
                     lsl = point_lsl.getLSL().y_Display;

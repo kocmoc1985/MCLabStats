@@ -2,10 +2,9 @@ _M = means a Class adopted and/or used for "MCLabStats" project only
 
 _RS = Should replace the Super Class in future
 
-_HG = Histogram Graph
+_HG = Histogram Graph (is the "bar" graph)
 
-_PG = Polygon Graph
-
+_PG = Polygon Graph (is the graph with the points)
 
 
 DEMO -> Look in "Main" -> Constructor
