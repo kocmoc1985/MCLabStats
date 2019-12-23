@@ -680,10 +680,18 @@ public class HelpA {
         //
         HelpA.setTrackingToolTip(jTable, q);
         //
+        //
         try {
             String[] headers = getHeaders(rs);
             Object[][] content = getContent(rs, indexFirst, indexLast);
-            jTable.setModel(new DefaultTableModel(content, headers));
+            //
+            if(jTable.getModel() != null){
+                DefaultTableModel dtm = (DefaultTableModel)jTable.getModel();
+                dtm.setDataVector(content, headers);
+            }else{
+              jTable.setModel(new DefaultTableModel(content, headers));  
+            }
+            //
         } catch (SQLException ex) {
             Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -18,7 +18,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.DimensionUIResource;
 import other.CONSTANTS;
 import other.DemoRunner;
 import other.HelpA;
@@ -837,6 +839,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.put("ScrollBar.minimumThumbSize", new DimensionUIResource(35, 35));
                     break;
                 }
             }
@@ -850,6 +853,8 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //
+        
         //
         if (HelpA.runningInNetBeans("MCLabStats.jar")) {
             RUNING_IN_NETBEANS = true;
