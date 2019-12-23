@@ -126,6 +126,7 @@ public class HistogramGraph extends PolygonGraph {
         //
         Collections.sort(list);
         double min = list.get(0);
+//        double min = 0.5;
         double step = calcStep(list, min, steps);
         stepList = defineSteps(min, step, steps, list);
         //

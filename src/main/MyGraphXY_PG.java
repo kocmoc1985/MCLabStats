@@ -173,6 +173,8 @@ public class MyGraphXY_PG extends MyGraphXY {
             //
             int m = 1; // frequency regulator
             //
+            System.out.println("getWidth(): " + getWidth());
+            //
             for (int i = 1; i < getWidth(); i++) {
                 double X = i / ONE_UNIT_X; //!!!!!!!!! X = nr of one_unit_x per real pixel
                 if (X > (j * m) && X < (j * m) + ONE_UNIT_X) {
@@ -191,7 +193,13 @@ public class MyGraphXY_PG extends MyGraphXY {
                         //
                         if (xValuesList != null) {
                             try {
-                                g2.drawString("" + xValuesList.get((j * m) - 1), i - 10, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 5);
+                                String val = xValuesList.get((j * m) - 1);
+                                g2.drawString("" + val, i - 10, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 5);
+                                //
+                                //FOR TEST DRAW LIMITS
+//                                double cc = Double.parseDouble(xValuesList.get((j * m) - 1)) / i;
+//                                System.out.println("CALC_PG_A: " + val + " /i: " + i + " /X: " + X);
+                                //
                             } catch (IndexOutOfBoundsException ex) {
                                 g2.drawString("" + (j * m), i - 3, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 5);
                             }
@@ -206,6 +214,7 @@ public class MyGraphXY_PG extends MyGraphXY {
 
                 }
             }
+            System.out.println("======================================");
         }
     }
 
