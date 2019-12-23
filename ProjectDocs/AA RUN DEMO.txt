@@ -1,0 +1,5 @@
+1.USE PROPERTIES FROM: "J:\MyDocs\src\MCLabStats\ProjectDocs\Properties backup\WORK MDB\main.properties"
+
+2.IN CLASS: "Main.java" set "DEMO_MODE = true"
+
+3.No more changes are required

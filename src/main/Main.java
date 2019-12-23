@@ -50,7 +50,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public final static String COMPANY_NAME = CONSTANTS.COMPANY_NAME_COMPOUNDS;
     public final static String VERSION = "1.05";
     private final static boolean HIDE_LOG_TAB = true;
-    public final static boolean DEMO_MODE = false;
+    public final static boolean DEMO_MODE = true;
     public final static boolean DEMO_MODE_GOTTFERT = Boolean.parseBoolean(PROPS_MAIN.getProperty("gottfert_demo", "false"));
 
     /**
@@ -90,8 +90,8 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
      */
     private void hideTemporaryUntilFixed(){
         //
-        jButton8.setVisible(false);
-        jButton9.setVisible(false);
+        jButton8.setVisible(false);// Add cursors button (cursors for the graph to the right)
+        jButton9.setVisible(false);// Remove cursors button (cursors for the graph to the right)
         //
     }
 
