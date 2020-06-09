@@ -49,11 +49,16 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public static String DATE_FORMAT = "yy/MM/dd";
     public static boolean MY_SQL = false;
     //
-    public final static String COMPANY_NAME = CONSTANTS.COMPANY_NAME_COMPOUNDS;
-    public final static String VERSION = "1.05";
-    private final static boolean HIDE_LOG_TAB = true;
-    public final static boolean DEMO_MODE = true;
+    public final static String COMPANY_NAME = PROPS_MAIN.getProperty("company_name", "compounds");
+    public final static String VERSION = "1.07"; // Changed on [2020-06-09]
+    private final static boolean HIDE_LOG_TAB = Boolean.parseBoolean(PROPS_MAIN.getProperty("hide_log_tab", "true"));
+    public final static boolean DEMO_MODE = Boolean.parseBoolean(PROPS_MAIN.getProperty("demo_mode", "false"));
     public final static boolean DEMO_MODE_GOTTFERT = Boolean.parseBoolean(PROPS_MAIN.getProperty("gottfert_demo", "false"));
+    //
+    public final static boolean SHOW_AT_START = Boolean.parseBoolean(PROPS_MAIN.getProperty("show_at_start", "false"));// [2020-06-09]
+    public final static String SHOW_AT_START_QUALITY = PROPS_MAIN.getProperty("show_at_start_quality", "");// [2020-06-09]
+    public final static String SHOW_AT_START_TEST_CODE = PROPS_MAIN.getProperty("show_at_start_testcode", "");// [2020-06-09]
+    public final static String SHOW_AT_START_TEST_NAME = PROPS_MAIN.getProperty("show_at_start_testname", "");// [2020-06-09]
 
     /**
      * Creates new form Main
@@ -62,12 +67,16 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         //
         if (DEMO_MODE == false) {
             companySettings();
-        } 
+        }
         //
         initComponents();
         //
-        if(DEMO_MODE){
-            demo();
+        if (DEMO_MODE) {
+            prefil_demo_values();
+        }
+        //
+        if (SHOW_AT_START) { // [2020-06-09]
+            prefil_show_at_start_values();
         }
         //
         this.controller = new Controller(this, PROPS_MAIN);
@@ -78,19 +87,23 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         addJComboListeners();
         setFontJBoxesTitleBorders();
         //
-        if (DEMO_MODE) {
+        if (DEMO_MODE || (SHOW_AT_START && start_up_parameters_not_empty())) {
             demoAutoStart();
         }
         //
         hideTemporaryUntilFixed();
         //
     }
-    
+
+    private boolean start_up_parameters_not_empty() {
+        return !(SHOW_AT_START_QUALITY.isEmpty() || SHOW_AT_START_TEST_CODE.isEmpty() || SHOW_AT_START_TEST_NAME.isEmpty());
+    }
+
     /**
-     * This functionality of this buttons are not working properly so i 
-     * hide them untill it's fixed
+     * This functionality of this buttons are not working properly so i hide
+     * them untill it's fixed
      */
-    private void hideTemporaryUntilFixed(){
+    private void hideTemporaryUntilFixed() {
         //
 //        jButton8.setVisible(false);// Add cursors button (cursors for the graph to the right)
 //        jButton9.setVisible(false);// Remove cursors button (cursors for the graph to the right)
@@ -103,6 +116,9 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
         } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_GOTTFERT)) {
             MY_SQL = true;
+        } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_QEW)) {
+            MY_SQL = false;
+            DATE_FORMAT = "yy/MM/dd";
         } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_IGT_IT)) {
             MY_SQL = false;
             DATE_FORMAT = "dd/MM/yyyy";
@@ -119,7 +135,26 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         }
     }
 
-    private void demo() {
+    private void prefil_show_at_start_values() {
+        //[2020-06-09]
+        if (start_up_parameters_not_empty()) {
+            //
+            String quality = SHOW_AT_START_QUALITY;
+            jComboBoxQuality.addItem(quality);
+            jComboBoxQuality.setSelectedItem(quality);
+            String testCode = SHOW_AT_START_TEST_CODE;
+            jComboBoxTestCode.addItem(testCode);
+            jComboBoxTestCode.setSelectedItem(testCode);
+            //
+            String testName = SHOW_AT_START_TEST_NAME;
+            jComboBoxTestName.addItem(testName);
+            jComboBoxTestName.setSelectedItem(testName);
+            //   
+        }
+
+    }
+
+    private void prefil_demo_values() {
         //
         //Dont forget to look at "Controller.connect()" method
         //
@@ -854,15 +889,17 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         }
         //</editor-fold>
         //
-        
-        //
-        if (HelpA.runningInNetBeans("MCLabStats.jar")) {
-            RUNING_IN_NETBEANS = true;
-            LOG_CONNECTION_STRING = true;
-        } else {
+        if (HelpA.runningInNetBeans() == false) {
             HelpA.err_output_to_file();
-            RUNING_IN_NETBEANS = false;
         }
+        //
+//        if (HelpA.runningInNetBeans("MCLabStats.jar")) {
+//            RUNING_IN_NETBEANS = true;
+//            LOG_CONNECTION_STRING = true;
+//        } else {
+//            HelpA.err_output_to_file();
+//            RUNING_IN_NETBEANS = false;
+//        }
         //
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

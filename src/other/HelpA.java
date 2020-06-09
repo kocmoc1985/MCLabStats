@@ -38,6 +38,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.URISyntaxException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -91,6 +92,34 @@ public class HelpA {
     private static HashMap<String, String> properties_to_use_map = new HashMap();
     private static int nr_properties;
     private static String LAST_ERR_OUT_PUT_FILE_PATH;
+    
+    /**
+     * SUPER GOOD Introduced [2020-04-29]
+     *
+     * @return
+     */
+    public static boolean runningInNetBeans() {
+        //
+        File currentJar = null;
+        //
+        try {
+            currentJar = new File(HelpA.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        if (currentJar == null) {
+            return false; // As it was running from ".jar" to make output to file
+        }
+        //
+        /* is it a jar file? */
+        if (!currentJar.getName().endsWith(".jar")) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     public static boolean getVersion(String path, String prefix, JLabel label) {
         File f = new File(path);
