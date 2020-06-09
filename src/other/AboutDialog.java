@@ -21,7 +21,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 /**
- *
+ * IF you plan to use it for another project, take the example from "MyCommons.myDialogs" [2020-06-09]
  * @author
  */
 public class AboutDialog extends javax.swing.JDialog implements HyperlinkListener {
@@ -128,10 +128,8 @@ public class AboutDialog extends javax.swing.JDialog implements HyperlinkListene
     }
     
     /**
-     * Example[2020-06-09]:
-     * String img_a = getImageIconURL("..", "undo_2.png").toString(); --> This was working in NetBeans but not when distributed
-     * String img_a = getImageIconURL("", "undo_2.png").toString(); --> This was when distributed
-     * @param path - path to images folder, example: ".." (step out)
+     * 
+     * @param path - path to image folder, play around to get the path working
      * @param picName
      * @return 
      */
