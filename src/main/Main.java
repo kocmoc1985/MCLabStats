@@ -8,6 +8,7 @@ import com.jezhumble.javasysmon.JavaSysMon;
 import images.IconUrls;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.DimensionUIResource;
+import other.AboutDialog;
 import other.CONSTANTS;
 import other.DemoRunner;
 import other.HelpA;
@@ -248,11 +250,16 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 //            border.setTitleColor(Color.GRAY);
         }
         //
-        TitledBorder border = (TitledBorder) jPanel9.getBorder();
-        border.setTitleFont(font);
+        TitledBorder border_a = (TitledBorder) jPanel9.getBorder(); // DATE FROM
+        border_a.setTitleFont(font);
         //
-//        TitledBorder border1 = (TitledBorder) jPanel17.getBorder();
-//        border1.setTitleFont(font);
+        TitledBorder border_b = (TitledBorder) jPanel18.getBorder(); // DATE TO
+        border_b.setTitleFont(font);
+        //
+        TitledBorder border_c = (TitledBorder) jPanel17.getBorder(); // NAVIGATION
+        border_c.setTitleFont(font);
+        //
+        
     }
 
     @Override
@@ -299,6 +306,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jPanelSkewContainer = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jTextFieldSkew = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
         jPanelTableContainer = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableMain = new javax.swing.JTable();
@@ -459,6 +467,16 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jPanelSkewContainer.add(jTextFieldSkew);
 
         jPanelOutputContainer.add(jPanelSkewContainer);
+
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/help.png"))); // NOI18N
+        jButton7.setText("HELP");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanelOutputContainer.add(jButton7);
 
         jPanelTableContainer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelTableContainer.setLayout(new java.awt.BorderLayout());
@@ -723,7 +741,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanelOutputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
@@ -861,6 +879,14 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private void datePickerAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePickerAActionPerformed
     }//GEN-LAST:event_datePickerAActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        AboutDialog aboutDialog = new AboutDialog(this, true,"Help");
+        Point p = aboutDialog.position_window_in_center_of_the_screen(aboutDialog);
+
+        aboutDialog.setLocation(p);
+        aboutDialog.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -921,6 +947,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     public javax.swing.JButton jButtonClear;

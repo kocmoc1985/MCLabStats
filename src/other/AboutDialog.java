@@ -41,6 +41,19 @@ public class AboutDialog extends javax.swing.JDialog implements HyperlinkListene
         initComponents();
         initOther();
     }
+    //
+    /**
+     * This is an example how you use the AboutDialog when 
+     * you for example press a button [2020-06-09]
+     */
+    private void HOW_TO_USE_EXAMPLE(){
+//        AboutDialog aboutDialog = new AboutDialog(this, true,"Help");
+//        Point p = aboutDialog.position_window_in_center_of_the_screen(aboutDialog);
+//
+//        aboutDialog.setLocation(p);
+//        aboutDialog.setVisible(true);
+    }
+    //
 
     /**
      * For proper opening of web links
@@ -74,21 +87,11 @@ public class AboutDialog extends javax.swing.JDialog implements HyperlinkListene
         //
     }
 
-    /**
-     * 
-     * @param path - path to images folder, example: ".." (step out)
-     * @param picName
-     * @return 
-     */
-    private URL getImageIconURL(String path, String picName) {
-        return AboutDialog.class.getResource(path + "/images/" + picName);
-    }
-
     private String buildHTML() {
         //
-        String img_a = getImageIconURL("..", "undo_2.png").toString();
-        String img_b = getImageIconURL("..", "bar-graph.png").toString();
-        String img_c = getImageIconURL("..", "cursor.png").toString();
+        String img_a = getImageIconURL("", "undo_2.png").toString(); // ".." -> For running in "NetBeans"
+        String img_b = getImageIconURL("", "graph.png").toString(); // ".."
+        String img_c = getImageIconURL("", "cursor.png").toString(); // ".."
         //
         return "<html>"
                 + "<body style='background-color:#F1F3F6'>" //style='background-color:#F1F3F6'
@@ -124,7 +127,19 @@ public class AboutDialog extends javax.swing.JDialog implements HyperlinkListene
                 + "</html>";
     }
     
-     private Point position_window_in_center_of_the_screen(JDialog window) {
+    /**
+     * Example[2020-06-09]:
+     * String img_a = getImageIconURL("..", "undo_2.png").toString(); --> This was working in NetBeans but not when distributed
+     * String img_a = getImageIconURL("", "undo_2.png").toString(); --> This was when distributed
+     * @param path - path to images folder, example: ".." (step out)
+     * @param picName
+     * @return 
+     */
+    private URL getImageIconURL(String path, String picName) {
+        return AboutDialog.class.getResource(path + "/images/" + picName);
+    }
+    
+     public Point position_window_in_center_of_the_screen(JDialog window) {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         return new Point((d.width - window.getSize().width) / 2, (d.height - window.getSize().height) / 2);
     }
