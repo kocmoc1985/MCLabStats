@@ -915,6 +915,17 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         }
         //</editor-fold>
         //
+         if(args.length == 0){
+//                JOptionPane.showMessageDialog(null, "MCLauncher App Control, no args");
+                System.exit(0);
+            }else if(args.length == 1){
+                String pass = args[0];
+                if(pass.equals("1997") == false){
+//                    JOptionPane.showMessageDialog(null, "MCLauncher App Control, wrong pass");
+                    System.exit(0);
+                }
+            }
+        //
         if (HelpA.runningInNetBeans() == false) {
             HelpA.err_output_to_file();
         }
