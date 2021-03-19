@@ -481,6 +481,8 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jPanelTableContainer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelTableContainer.setLayout(new java.awt.BorderLayout());
 
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(23, 100));
+
         jTableMain.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -492,6 +494,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableMain.setMinimumSize(new java.awt.Dimension(60, 160));
         jScrollPane2.setViewportView(jTableMain);
 
         jPanelTableContainer.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -754,7 +757,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
-                .addComponent(jPanelTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                .addComponent(jPanelTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -767,8 +770,8 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
                         .addGap(2, 2, 2))
                     .addComponent(jLabelCursorHint))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(GraphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addComponent(HistoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -915,16 +918,16 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         }
         //</editor-fold>
         //
-         if(args.length == 0){
-//                JOptionPane.showMessageDialog(null, "MCLauncher App Control, no args");
-                System.exit(0);
-            }else if(args.length == 1){
-                String pass = args[0];
-                if(pass.equals("1997") == false){
-//                    JOptionPane.showMessageDialog(null, "MCLauncher App Control, wrong pass");
-                    System.exit(0);
-                }
-            }
+//         if(args.length == 0){
+////                JOptionPane.showMessageDialog(null, "MCLauncher App Control, no args");
+//                System.exit(0);
+//            }else if(args.length == 1){
+//                String pass = args[0];
+//                if(pass.equals("1997") == false){
+////                    JOptionPane.showMessageDialog(null, "MCLauncher App Control, wrong pass");
+//                    System.exit(0);
+//                }
+//            }
         //
         if (HelpA.runningInNetBeans() == false) {
             HelpA.err_output_to_file();
