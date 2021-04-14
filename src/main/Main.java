@@ -259,7 +259,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         TitledBorder border_c = (TitledBorder) jPanel17.getBorder(); // NAVIGATION
         border_c.setTitleFont(font);
         //
-        
+
     }
 
     @Override
@@ -883,7 +883,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     }//GEN-LAST:event_datePickerAActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        AboutDialog aboutDialog = new AboutDialog(this, true,"Help");
+        AboutDialog aboutDialog = new AboutDialog(this, true, "Help");
         Point p = aboutDialog.position_window_in_center_of_the_screen(aboutDialog);
 
         aboutDialog.setLocation(p);
@@ -918,21 +918,20 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         }
         //</editor-fold>
         //
-         if(args.length == 0){
-//                JOptionPane.showMessageDialog(null, "MCLauncher App Control, no args");
+        if (HelpA.runningInNetBeans() == false) {
+            //
+            HelpA.err_output_to_file();
+            //
+            if (args.length == 0) {
                 System.exit(0);
-            }else if(args.length == 1){
+            } else if (args.length == 1) {
                 String pass = args[0];
-                if(pass.equals("1997") == false){
-//                    JOptionPane.showMessageDialog(null, "MCLauncher App Control, wrong pass");
+                if (pass.equals("1997") == false) {
                     System.exit(0);
                 }
             }
-        //
-        if (HelpA.runningInNetBeans() == false) {
-            HelpA.err_output_to_file();
         }
-        //
+
 //        if (HelpA.runningInNetBeans("MCLabStats.jar")) {
 //            RUNING_IN_NETBEANS = true;
 //            LOG_CONNECTION_STRING = true;

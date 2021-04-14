@@ -21,7 +21,7 @@ import sql.SQL_Q;
 import sql.Sql_B;
 
 /**
- *
+ * The main graph for displaying one of following: "ML","MH","t10","t90"
  * @author KOCMOC
  */
 public class XyGraph_M extends MyXYGB implements PointDeletedAction {
@@ -113,15 +113,15 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
     private void adjustLimitSeries() {
         PointHighLighter.addSerie(serieLimitL);
         PointHighLighter.addSerie(serieLimitU);
-
+        //
         serieLimitL.setLineThickness(1);
         serieLimitL.setPointThickness(0.5);
         serieLimitL.setPointColor(Color.red);
-
+        //
         serieLimitU.setLineThickness(1);
         serieLimitU.setPointThickness(0.5);
         serieLimitU.setPointColor(Color.red);
-
+        //
 //        serieLimitU.setDrawPoints(false);
 //        serieLimitU.setLineThickness(1);
     }
