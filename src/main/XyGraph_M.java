@@ -77,7 +77,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
         //
 //        this.setBackgroundColorOfGraph(Color.BLACK);
 
-        this.setDrawMarker(false);
+        this.setDrawMarker(true);
         this.setMarkerDotted(true);
         this.setMarkerInfo(1);
         this.setMarkerAutoReset(false);

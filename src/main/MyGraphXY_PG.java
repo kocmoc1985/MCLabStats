@@ -218,7 +218,7 @@ public class MyGraphXY_PG extends MyGraphXY {
         }
     }
 
-    @Override
+   
     public void addPointInfo() {
         MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
         MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
