@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MyGraphXY_M = MyGraphXY for the Common Point Graph which can display minus
@@ -75,7 +76,7 @@ public class MyGraphXY_M extends MyGraphXY {
 
         for (int x = 0; x < SERIES.size(); x++) {
             //
-            ArrayList<MyPoint> act_serie = SERIES.get(x).getSerie();
+            List<MyPoint> act_serie = SERIES.get(x).getSerie();
             //
             for (int i = 0; i < act_serie.size(); i++) {
                 //

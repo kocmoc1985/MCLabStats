@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -170,7 +171,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
     }
 
     @Override
-    public void rebuildData(ArrayList<MyPoint> points, String round) {
+    public void rebuildData(List<MyPoint> points, String round) {
         //
 //        getSerie().deleteAllPoints();
         deleteAllPointsFromSerie(serie);
