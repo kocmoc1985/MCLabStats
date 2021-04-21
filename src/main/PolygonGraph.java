@@ -62,9 +62,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         }
     }
 
-    
-
-    class RebuildDataThread implements Runnable{
+    class RebuildDataThread implements Runnable {
 
         private int markerAPointIndex;
         private int markerBPointIndex;
@@ -78,8 +76,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         public void run() {
             rebuildData(valueColName, round, markerAPointIndex, markerBPointIndex);
         }
-        
-        
+
     }
 
     public void reset() {
@@ -91,9 +88,8 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         getGraph().repaint();
     }
 
-  
     @Override
-    public void addData(Sql_B sql,String q, String valueColName) {
+    public void addData(Sql_B sql, String q, String valueColName) {
         //
         this.valueColName = valueColName;
         //

@@ -113,7 +113,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         }
         //
         MyGraphXY_HG mgxyhm = new MyGraphXY_HG();
-        mgxyhm.addBarGraphListener(this);//        mgxyhm triggers event which is processed in this class
+        mgxyhm.addBarGraphListener(this);// mgxyhm triggers event which is processed in this class
         gg = new HistogramGraph("Histogram", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         xygraph.setGistoGraph(gg);
