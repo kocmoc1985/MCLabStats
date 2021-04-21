@@ -184,10 +184,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     }
 
     @Override
-    public void barGraphHoverEvent(MouseEvent e, MyPoint_HG point) {
+    public void barGraphHoverEvent(MouseEvent e, MyPoint point) {
         if (e.getSource() instanceof MyPoint_HG) {
             if (MARKERS_SET == false) {
-                highLightPointsByValue(point.getRangeStart(), point.getRangeEnd(), true);
+                MyPoint_HG p = (MyPoint_HG) point;
+                highLightPointsByValue(p.getRangeStart(), p.getRangeEnd(), true);
             }
         }
     }

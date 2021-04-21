@@ -6,8 +6,6 @@ package main;
 
 import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.MyPoint;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
 import sql.Sql_B;

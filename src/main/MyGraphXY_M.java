@@ -9,8 +9,6 @@ import XYG_BASIC.MyPoint;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ComponentEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +38,7 @@ public class MyGraphXY_M extends MyGraphXY {
         //
         if (point.y_Scaled < 0 && MINUS_VALUES_PRESENT == false) {
             MINUS_VALUES_PRESENT = true;
-            System.out.println("minus");
+//            System.out.println("minus");
         }
         //
         if (Math.abs(point.y_Scaled) > Y_MAX / 1.2) {

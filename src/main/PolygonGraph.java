@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -128,6 +129,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
             addPoints();
         }
     }
+
 
     public void addData(double[] values, String round) {
         for (double val : values) {
@@ -247,7 +249,6 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
 
     @Override
     public void initializeA() {
-        this.setTitleSize(20, true);
         this.setTitleSize(20, true);
         this.setTitleColor(Color.black);
 //        this.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));

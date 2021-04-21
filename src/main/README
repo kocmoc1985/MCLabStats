@@ -1,3 +1,11 @@
+
+OBS! UPDATED MANUALLY ALL CLASSES FROM "MyGraphProj->XYG_STATS" on [2021-04-21]
+So manually means - i copied from "MyGraphProj->XYG_STATS" and placed in "MCLabStats->main"
+and then manually corrected wrong imports etc..
+IT SEEMS THAT BY [2021-04-21] the "MyGraphProj->XYG_STATS" and "MCLabStats->main" are almost
+perfectly suited to each other - so copying can be done without problems
+
+
 _M = means a Class adopted and/or used for "MCLabStats" project only
 
 _RS = Should replace the Super Class in future

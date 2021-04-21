@@ -41,8 +41,8 @@ public class HistogramGraph extends PolygonGraph {
 
     class RebuildDataThread implements Runnable {
 
-        private int markerAPointIndex;
-        private int markerBPointIndex;
+        private final int markerAPointIndex;
+        private final int markerBPointIndex;
 
         public RebuildDataThread(int markerAPointIndex, int markerBPointIndex) {
             this.markerAPointIndex = markerAPointIndex;
@@ -84,6 +84,7 @@ public class HistogramGraph extends PolygonGraph {
         addDataH(list);
         //
     }
+    
 
     @Override
     public void addData(Sql_B sql, String q, String valueColName) {
@@ -120,13 +121,14 @@ public class HistogramGraph extends PolygonGraph {
         //
     }
 
-    private void addDataH(ArrayList<Double> list) {
+    public void addDataH(ArrayList<Double> list) {
+        //
         int steps = Integer.parseInt(Main.jTextFieldTest.getText());
+        //
         stepList = new ArrayList<>();
         //
         Collections.sort(list);
         double min = list.get(0);
-//        double min = 0.5;
         double step = calcStep(list, min, steps);
         stepList = defineSteps(min, step, steps, list);
         //

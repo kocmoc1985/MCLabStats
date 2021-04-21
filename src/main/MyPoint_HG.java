@@ -5,6 +5,7 @@
 package main;
 
 import XYG_BASIC.MyPoint;
+import XYG_BASIC.MyPoint;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,8 +16,8 @@ import java.awt.Graphics2D;
  */
 public class MyPoint_HG extends MyPoint {
 
-    private double rangeStart;
-    private double rangeEnd;
+    private final double rangeStart;
+    private final double rangeEnd;
 
     public MyPoint_HG(double y, double y_, double rangeStart, double rangeEnd) {
         super(y, y_);
