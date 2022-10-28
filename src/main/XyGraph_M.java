@@ -30,8 +30,8 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
     private MySerie serieLimitU;
     private BasicGraphListener gistoGraph;
 
-    public XyGraph_M(String title, int displayMode) {
-        super(title, new MyGraphXY_M(), displayMode);
+    public XyGraph_M(String title, int displayMode, Controller controller) {
+        super(title, new MyGraphXY_M(controller), displayMode);
         init();
     }
 
@@ -166,7 +166,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
 //                } else {
                 p = new MyPoint_M(val, val, LSL, USL);
 //                }
-                //
+                //#TAG-TEMP-A-01#
                 p.addPointInfo("Serie", rs.getString(SQL_Q.TEST_NAME));
                 //
                 //<#GFT-SPECIAL-DEMO>

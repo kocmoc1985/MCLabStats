@@ -9,7 +9,12 @@ import XYG_BASIC.MyPoint;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import other.HelpA;
+import sql.SQL_Q;
+import udp.Client_UDP;
 
 /**
  * MyGraphXY_M = MyGraphXY for the Common Point Graph which can display minus
@@ -23,8 +28,49 @@ import java.util.List;
  */
 public class MyGraphXY_M extends MyGraphXY {
 
+    public MenuItem menu_show_in_table = new MenuItem("Show in table");
+    public MenuItem menu_item_open_in_browser = new MenuItem("Open in browser");
     public boolean MINUS_VALUES_PRESENT = false;
     public double OFFSET;
+    private Client_UDP cudp = new Client_UDP("127.0.0.1", 10001);
+    private Controller cont;
+
+    public MyGraphXY_M(Controller controller) {
+        this.cont = controller;
+    }
+
+    @Override
+    public void addAdditionalControlsPopups() {
+        super.addAdditionalControlsPopups(); //To change body of generated methods, choose Tools | Templates.
+        //#TAG-TEMP-A-01#
+        menu_item_open_in_browser.addActionListener(this);
+        menu_show_in_table.addActionListener(this);
+        popup.add(menu_item_open_in_browser);
+        popup.add(menu_show_in_table);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        super.actionPerformed(ae); //To change body of generated methods, choose Tools | Templates.
+        //#TAG-TEMP-A-01#
+        //
+
+        //
+        if (ae.getSource() == menu_item_open_in_browser) {
+            String batch = MARKER_POINT.getPointInfo().getOrDefault("Batch", "0");
+            String order = MARKER_POINT.getPointInfo().getOrDefault("Order", "A");
+//            System.out.println("Open in Browser");
+//            System.out.println("Batch: " + batch);
+//            System.out.println("Order: " + order);
+            //#MC-LAB-STATS-OPEN-BATCH-IN-BROWSER#
+            cudp.prepareAndSendDatagram("#showbatch#" + order + ";" + batch.replace(".0", ""));
+//            cudp.prepareAndSendDatagram("#showbatch#" + "WO16102022_MIX002_131" + ";" + "10");
+        } else if (ae.getSource() == menu_show_in_table) {
+            HelpA.markGivenRow(Main.jTableMain, MARKER_POINT.getPointIndex());
+            this.cont.showCurrTableEntryOnGraph();
+        }
+
+    }
 
     @Override
     public void defineMaxForXYAxis(MyPoint point) {
@@ -67,8 +113,6 @@ public class MyGraphXY_M extends MyGraphXY {
 //            MARKER_POINT.addPointInfo("y_Max", "" + (Y_MAX));
 //        }
 //    }
-
-
     @Override
     public synchronized void recalc(Dimension dim) {
 
@@ -113,8 +157,6 @@ public class MyGraphXY_M extends MyGraphXY {
         //OBS! OBS!
         repaint();
     }
-    
-    
 
     @Override
     public void countUnit() {
@@ -221,6 +263,5 @@ public class MyGraphXY_M extends MyGraphXY {
     public void drawLimits(Graphics g) {
         // It's correct
     }
-    
-    
+
 }

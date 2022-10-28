@@ -1019,7 +1019,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    public javax.swing.JTable jTableMain;
+    public static javax.swing.JTable jTableMain;
     private javax.swing.JTextArea jTextArea1;
     public static javax.swing.JTextField jTextFieldAverage;
     public static javax.swing.JTextField jTextFieldCP;
