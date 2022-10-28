@@ -116,6 +116,9 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_FEDERALMOGUL)) {
             MY_SQL = false;
             DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
+        }else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
+            MY_SQL = false;
+            DATE_FORMAT = "dd/MM/yyyy";//
         } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_GOTTFERT)) {
             MY_SQL = true;
         } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_QEW)) {

@@ -24,6 +24,7 @@ public class CONSTANTS {
     public static final String COMPANY_NAME_CONTI_HUNGARY = "conti_hung";
     public static final String COMPANY_NAME_IGT_IT = "igt";
     public static final String COMPANY_NAME_GOTTFERT = "gtft";
+    public static final String COMPANY_NAME_CEAT = "ceat";
     //
     public static final String COMPANY_NAME_PHOENIX_1 = "phoenix1";
     public static final String COMPANY_NAME_PHOENIX_2 = "phoenix2";

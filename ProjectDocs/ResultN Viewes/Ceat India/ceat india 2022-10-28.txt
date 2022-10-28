@@ -1,0 +1,4 @@
+SELECT        TOP (100) PERCENT Material AS Quality, LOW_SPEC AS LSL, HIGH_SPEC AS USL, OrderNumber AS [order], Batch AS BatchNo, '1' AS TestNo, 
+                         ParameterStatus AS Status, TestParameter AS Description, TestParameter AS TestCode, ActualValue AS value, '1' AS Line, ParameterStatus AS [Check], 
+                         LEFT(SampleDate, 10) AS testdate, Material AS RecDescription, '1' AS linNam, SampleDate AS testdate1, TestParameter AS Name
+FROM            dbo.lab_results
