@@ -105,7 +105,7 @@ public class AboutDialog extends javax.swing.JDialog implements HyperlinkListene
                 + "</tr>"
                 //
                 + "<tr>"
-                + "<td><h3>" + "2.Fill obligatory parameters QUALITY, TEST CODE, TEST NAME" + "</h3></td>"
+                + "<td><h3>" + "2.Fill obligatory parameters marked with *" + "</h3></td>"
                 + "</tr>"
                 //
                 + "<tr>"

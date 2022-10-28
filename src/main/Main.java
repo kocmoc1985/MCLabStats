@@ -42,6 +42,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public static Color INITIAL_BG_COLOR_COMBO;
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
+    private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST__B = new ArrayList<>();
     private boolean BUILD_GRAPH_BTN_CLICKED = false;
     public static boolean LOG_CONNECTION_STRING = false;
     public static boolean RUNING_IN_NETBEANS = false;
@@ -52,7 +53,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public static boolean MY_SQL = false;
     //
     public final static String COMPANY_NAME = PROPS_MAIN.getProperty("company_name", "compounds");
-    public final static String VERSION = "1.07"; // Changed on [2020-06-09]
+    public final static String VERSION = "1.08"; // Changed on [2022-10-28]
     private final static boolean HIDE_LOG_TAB = Boolean.parseBoolean(PROPS_MAIN.getProperty("hide_log_tab", "true"));
     public final static boolean DEMO_MODE = Boolean.parseBoolean(PROPS_MAIN.getProperty("demo_mode", "false"));
     public final static boolean DEMO_MODE_GOTTFERT = Boolean.parseBoolean(PROPS_MAIN.getProperty("gottfert_demo", "false"));
@@ -93,6 +94,18 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             demoAutoStart();
         }
         //
+        if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
+            //This because "TEST NAME" is not obligatory for CEAT and therefore i remove the "*" from "TEST NAME*"
+            TitledBorder b = (TitledBorder) jPanel5.getBorder();
+            Font f = b.getTitleFont();
+            TitledBorder b_ = (TitledBorder) jPanel1.getBorder();
+            b_.setTitleFont(f);
+            b_.setTitle("TEST NAME");
+            //
+            jComboBoxTestName.setEnabled(false);
+            //
+        }
+        //
         hideTemporaryUntilFixed();
         //
     }
@@ -116,7 +129,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_FEDERALMOGUL)) {
             MY_SQL = false;
             DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
-        }else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
+        } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
             MY_SQL = false;
             DATE_FORMAT = "dd/MM/yyyy";//
         } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_GOTTFERT)) {
@@ -205,12 +218,25 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     }
 
     public boolean obligatoryBoxesFilled() {
-        for (JComboBox jComboBox : JCOMBO_OBLIGATORY_LIST) {
-            if (HelpA.getComboBoxSelectedValue_b(jComboBox) == null) {
-                HelpA.showNotification("Obligatory fields not filled (QUALITY, TEST CODE, TEST NAME)");
-                return false;
+        //
+        if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
+            for (JComboBox jComboBox : JCOMBO_OBLIGATORY_LIST__B) {
+                if (HelpA.getComboBoxSelectedValue_b(jComboBox) == null) {
+
+                    HelpA.showNotification("Obligatory fields not filled (QUALITY, TEST CODE)");
+                    return false;
+                }
+            }
+        } else {
+            for (JComboBox jComboBox : JCOMBO_OBLIGATORY_LIST) {
+                if (HelpA.getComboBoxSelectedValue_b(jComboBox) == null) {
+                    HelpA.showNotification("Obligatory fields not filled (QUALITY, TEST CODE, TEST NAME)");
+                    return false;
+                }
             }
         }
+        //
+
         return true;
     }
 
@@ -218,6 +244,9 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         JCOMBO_OBLIGATORY_LIST.add(jComboBoxQuality);
         JCOMBO_OBLIGATORY_LIST.add(jComboBoxTestCode);
         JCOMBO_OBLIGATORY_LIST.add(jComboBoxTestName);
+        //
+        JCOMBO_OBLIGATORY_LIST__B.add(jComboBoxQuality);
+        JCOMBO_OBLIGATORY_LIST__B.add(jComboBoxTestCode);
     }
 
     private void buildComboList() {

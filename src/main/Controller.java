@@ -23,6 +23,8 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import static main.Main.COMPANY_NAME;
+import other.CONSTANTS;
 import other.HelpA;
 import other.JComboBoxA;
 import sql.SQL_Q;
@@ -696,6 +698,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         }
         //
         HelpA.resetDatePickers(gui.datePickerA, gui.datePickerB);
+        //
+        if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
+            gui.jComboBoxTestName.setEnabled(false);
+        }
         //
         gui.repaint();
     }

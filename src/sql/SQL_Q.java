@@ -173,7 +173,7 @@ public class SQL_Q {
 
     public static String fillAuto(String actualComboParam, Main gui) {
         //
-        String query = "SELECT DISTINCT [" + actualComboParam + "], COUNT(" + actualComboParam + ") as ammount"
+        String query = "SELECT DISTINCT [" + actualComboParam + "], COUNT([" + actualComboParam + "]) as ammount"
                 + " from " + PRIM_TABLE;
         //
         System.out.println("QUERY: " + query);
