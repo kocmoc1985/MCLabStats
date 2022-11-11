@@ -103,6 +103,11 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             b_.setTitle("TEST NAME");
             //
             jComboBoxTestName.setEnabled(false);
+            jComboBoxBatch.setEnabled(false);
+            //
+            Font currentFont = jComboBoxOrder.getFont();
+            Font newFont = currentFont.deriveFont(currentFont.getSize() * 0.75F);
+            jComboBoxOrder.setFont(newFont);
             //
         }
         //

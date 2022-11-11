@@ -43,7 +43,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     private Sql_B sql_table = new Sql_B(false, Main.LOG_CONNECTION_STRING); // obs this one is for building table
     private Sql_B[] SQL_ARR = {sql_common_g, sql_histogram_g, sql_polygon_g, sql_table};
     private BasicGraphListener gg;
-    private XyGraph_M xygraph = new XyGraph_M("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN,this);
+    private XyGraph_M xygraph = new XyGraph_M("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN, this);
     private ShowMessage OUT;
     private Main gui;
     private Properties p;
@@ -700,7 +700,11 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         HelpA.resetDatePickers(gui.datePickerA, gui.datePickerB);
         //
         if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
+            //
             gui.jComboBoxTestName.setEnabled(false);
+            //
+            gui.jComboBoxBatch.setEnabled(false);
+            //
         }
         //
         gui.repaint();
