@@ -20,7 +20,6 @@ import other.JComboBoxA;
 public class SQL_Q {
 
     public static String PRIM_TABLE = loadFromProps();
-    public static Boolean USE_VIEW = true;
     public static String QUALITY = "Quality";
     public static String ORDER = "order";
     public static String BATCH = "BatchNo";
