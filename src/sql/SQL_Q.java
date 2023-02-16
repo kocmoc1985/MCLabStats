@@ -19,17 +19,18 @@ import other.JComboBoxA;
  */
 public class SQL_Q {
 
-    public static  String PRIM_TABLE = loadFromProps();
-    public static  String QUALITY = "Quality";
-    public static  String ORDER = "order";
-    public static  String BATCH = "BatchNo";
-    public static  String TEST_CODE = "TestCode";
-    public static  String TEST_NAME = "Name";
-    public static  String LSL = "LSL";
-    public static  String USL = "USL";
-    public static  String TEST_DATE = "testdate";
-    public static  String TEST_VALUE = "value";
-    public static  String TEST_STATUS = "Status";
+    public static String PRIM_TABLE = loadFromProps();
+    public static Boolean USE_VIEW = true;
+    public static String QUALITY = "Quality";
+    public static String ORDER = "order";
+    public static String BATCH = "BatchNo";
+    public static String TEST_CODE = "TestCode";
+    public static String TEST_NAME = "Name";
+    public static String LSL = "LSL";
+    public static String USL = "USL";
+    public static String TEST_DATE = "testdate";
+    public static String TEST_VALUE = "value";
+    public static String TEST_STATUS = "Status";
     //
 //    public static final String PRIM_TABLE = "dbagb3.fnMC04V3()";
 //    public static final String QUALITY = "Recipe";
@@ -89,7 +90,7 @@ public class SQL_Q {
         return " AND [" + TEST_VALUE + "]>=" + quotes("" + firstIndex, true) + ""
                 + " AND [" + TEST_VALUE + "] <=" + quotes("" + lastIndex, true);
     }
-    
+
 //    public static String tableHeaders(boolean mysql){
 //        String q = "SELECT * from " + PRIM_TABLE + " WHERE [Quality]='xxxxxx-xxxx'";
 //        //
@@ -97,7 +98,6 @@ public class SQL_Q {
 //            
 //        }
 //    }
-
     public static String forTest() {
         return "SELECT * from " + PRIM_TABLE + " WHERE [TestCode]='10171' AND [Name]='ML' AND [testdate]='09/12/14'";
     }
@@ -216,15 +216,13 @@ public class SQL_Q {
         //
         if (actualComboParam.equals(TEST_DATE)) {
             query += " ORDER BY [" + actualComboParam + "] desc";
-        }else if(actualComboParam.equals(QUALITY) && Sql_B.MDB_CONNECTION == false){
+        } else if (actualComboParam.equals(QUALITY) && Sql_B.MDB_CONNECTION == false) {
 //            query += " ORDER BY [ammount] desc";
         }
         //
 //        System.out.println("query: " + query);
         return query;
     }
-
-    
 
     public static String quotes(String str, boolean number) {
         //
