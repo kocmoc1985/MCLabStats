@@ -10,6 +10,7 @@ import java.util.Properties;
 import javax.swing.JComboBox;
 import main.Main;
 import static main.Main.DATE_FORMAT;
+import other.CONSTANTS;
 import other.HelpA;
 import other.JComboBoxA;
 
@@ -170,10 +171,17 @@ public class SQL_Q {
         return query;
     }
 
+
     public static String fillAuto(String actualComboParam, Main gui) {
         //
-        String query = "SELECT DISTINCT [" + actualComboParam + "], COUNT([" + actualComboParam + "]) as ammount"
-                + " from " + PRIM_TABLE;
+        String query;
+        //
+        if (Main.COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
+            query = "SELECT DISTINCT [" + actualComboParam + "] from " + PRIM_TABLE;
+        } else {
+            query = "SELECT DISTINCT [" + actualComboParam + "], COUNT([" + actualComboParam + "]) as ammount"
+                    + " from " + PRIM_TABLE;
+        }
         //
         System.out.println("QUERY: " + query);
         //
