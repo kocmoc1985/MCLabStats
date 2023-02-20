@@ -11,9 +11,13 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,9 +29,9 @@ import javax.swing.plaf.DimensionUIResource;
 import other.AboutDialog;
 import other.CONSTANTS;
 import other.DemoRunner;
-import other.HelpA;
+import other.HelpAB;
 import other.JComboBoxA;
-import sql.SQL_Q;
+import sql.SQL_QQ;
 import sql.ShowMessage;
 
 /**
@@ -38,7 +42,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
     private final JavaSysMon monitor = new JavaSysMon();
     private Controller controller;
-    private static final Properties PROPS_MAIN = HelpA.properties_load_properties("main.properties", false);
+    private static final Properties PROPS_MAIN = HelpAB.properties_load_properties("main.properties", false);
     public static Color INITIAL_BG_COLOR_COMBO;
     private ArrayList<JComboBox> JCOMBO_LIST = new ArrayList<>();
     private ArrayList<JComboBox> JCOMBO_OBLIGATORY_LIST = new ArrayList<>();
@@ -137,7 +141,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
             MY_SQL = false;
 //            DATE_FORMAT = "dd/MM/yyyy";//
-           DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
+            DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
         } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_GOTTFERT)) {
             MY_SQL = true;
         } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_QEW)) {
@@ -147,15 +151,15 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             MY_SQL = false;
             DATE_FORMAT = "dd/MM/yyyy";
             //
-            SQL_Q.PRIM_TABLE = "dbagb3.fnMC04V3()";
-            SQL_Q.QUALITY = "Recipe";
-            SQL_Q.ORDER = "Order";
-            SQL_Q.BATCH = "Batch";
-            SQL_Q.TEST_CODE = "TestProcedure";
-            SQL_Q.TEST_NAME = "TestTag";
-            SQL_Q.TEST_DATE = "TestDate";
-            SQL_Q.TEST_VALUE = "TestResult";
-            SQL_Q.TEST_STATUS = "TestStatus";
+            SQL_QQ.PRIM_TABLE = "dbagb3.fnMC04V3()";
+            SQL_QQ.QUALITY = "Recipe";
+            SQL_QQ.ORDER = "Order";
+            SQL_QQ.BATCH = "Batch";
+            SQL_QQ.TEST_CODE = "TestProcedure";
+            SQL_QQ.TEST_NAME = "TestTag";
+            SQL_QQ.TEST_DATE = "TestDate";
+            SQL_QQ.TEST_VALUE = "TestResult";
+            SQL_QQ.TEST_STATUS = "TestStatus";
         }
     }
 
@@ -214,7 +218,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         //
         //
         if (RUNING_IN_NETBEANS == false && HIDE_LOG_TAB == true) {
-            HelpA.hideTabByName(jTabbedPane1, TAB_LOG);
+            HelpAB.hideTabByName(jTabbedPane1, TAB_LOG);
         }
         //
     }
@@ -227,16 +231,16 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         //
         if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
             for (JComboBox jComboBox : JCOMBO_OBLIGATORY_LIST__B) {
-                if (HelpA.getComboBoxSelectedValue_b(jComboBox) == null) {
+                if (HelpAB.getComboBoxSelectedValue_bb(jComboBox) == null) {
 
-                    HelpA.showNotification("Obligatory fields not filled (QUALITY, TEST CODE)");
+                    HelpAB.showNotification("Obligatory fields not filled (QUALITY, TEST CODE)");
                     return false;
                 }
             }
         } else {
             for (JComboBox jComboBox : JCOMBO_OBLIGATORY_LIST) {
-                if (HelpA.getComboBoxSelectedValue_b(jComboBox) == null) {
-                    HelpA.showNotification("Obligatory fields not filled (QUALITY, TEST CODE, TEST NAME)");
+                if (HelpAB.getComboBoxSelectedValue_bb(jComboBox) == null) {
+                    HelpAB.showNotification("Obligatory fields not filled (QUALITY, TEST CODE, TEST NAME)");
                     return false;
                 }
             }
@@ -271,7 +275,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         INITIAL_BG_COLOR_COMBO = jComboBoxQuality.getBackground();
         //
         for (JComboBox jComboBox : JCOMBO_LIST) {
-            HelpA.addMouseListenerJComboBox(jComboBox, this);
+            HelpAB.addMouseListenerJComboBox(jComboBox, this);
             //
             JComboBoxA boxM = (JComboBoxA) jComboBox;
             boxM.setName(boxM.getPARAMETER());
@@ -303,7 +307,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     @Override
     public void showMessage(String str) {
 //        System.out.println("" + str);
-        jTextArea1.append(HelpA.get_proper_date_time_same_format_on_all_computers() + "  " + str + "\n");
+        jTextArea1.append(HelpAB.get_proper_date_time_same_format_on_all_computers() + "  " + str + "\n");
     }
 
     /**
@@ -351,24 +355,24 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jTextFieldTest = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jComboBoxQuality = new other.JComboBoxA(SQL_Q.QUALITY,false);
+        jComboBoxQuality = new other.JComboBoxA(SQL_QQ.QUALITY,false);
         jPanel4 = new javax.swing.JPanel();
-        jComboBoxOrder = new other.JComboBoxA(SQL_Q.ORDER,false);
+        jComboBoxOrder = new other.JComboBoxA(SQL_QQ.ORDER,false);
         jPanel8 = new javax.swing.JPanel();
-        jComboBoxBatch = new other.JComboBoxA(SQL_Q.BATCH,true);
+        jComboBoxBatch = new other.JComboBoxA(SQL_QQ.BATCH,true);
         jPanel5 = new javax.swing.JPanel();
-        jComboBoxTestCode = new other.JComboBoxA(SQL_Q.TEST_CODE,false);
+        jComboBoxTestCode = new other.JComboBoxA(SQL_QQ.TEST_CODE,false);
         jPanel1 = new javax.swing.JPanel();
-        jComboBoxTestName = new other.JComboBoxA(SQL_Q.TEST_NAME,false);
+        jComboBoxTestName = new other.JComboBoxA(SQL_QQ.TEST_NAME,false);
         jPanel17 = new javax.swing.JPanel();
         jButton_Prev_test_name = new javax.swing.JButton();
         jButton_Next_test_name = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
-        jComboBoxLSL = new other.JComboBoxA(SQL_Q.LSL,true);
+        jComboBoxLSL = new other.JComboBoxA(SQL_QQ.LSL,true);
         jPanel11 = new javax.swing.JPanel();
-        jComboBoxUSL = new other.JComboBoxA(SQL_Q.USL,true);
+        jComboBoxUSL = new other.JComboBoxA(SQL_QQ.USL,true);
         jPanel6 = new javax.swing.JPanel();
-        jComboBoxDate = new other.JComboBoxA(SQL_Q.TEST_DATE,false);
+        jComboBoxDate = new other.JComboBoxA(SQL_QQ.TEST_DATE,false);
         jPanel9 = new javax.swing.JPanel();
         datePickerA = new com.michaelbaranov.microba.calendar.DatePicker();
         jPanel18 = new javax.swing.JPanel();
@@ -865,7 +869,15 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         if (controller.buildGraphs()) {
             //
             jComboBoxQuality.setEnabled(false);
-            jComboBoxTestCode.setEnabled(false);
+            //
+            if (Main.COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT) == false) {
+                jComboBoxTestCode.setEnabled(false);
+            }
+            //
+            if (Main.COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT) == true) {
+                jButton_Prev_test_name.setEnabled(false);
+                jButton_Next_test_name.setEnabled(false);
+            }
             //
             BUILD_GRAPH_BTN_CLICKED = true;
         }
@@ -927,6 +939,28 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         aboutDialog.setLocation(p);
         aboutDialog.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+    public static boolean runningInNetBeans__() {
+        //
+        File currentJar = null;
+        //
+        try {
+            currentJar = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        if (currentJar == null) {
+            return false; // As it was running from ".jar" to make output to file
+        }
+        //
+        /* is it a jar file? */
+        if (!currentJar.getName().endsWith(".jar")) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     /**
      * @param args the command line arguments
@@ -956,9 +990,9 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         }
         //</editor-fold>
         //
-        if (HelpA.runningInNetBeans() == false) {
+        if (runningInNetBeans__() == false) {
             //
-            HelpA.err_output_to_file();
+            HelpAB.err_output_to_file();
             //
             if (args.length == 0) {
                 System.exit(0);
@@ -1105,8 +1139,8 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
                 //
                 JComboBoxA parent = (JComboBoxA) button.getParent();
                 //
-                if (parent.getPARAMETER().equals(SQL_Q.TEST_DATE)) {
-                    HelpA.resetDatePickers(datePickerA, datePickerB);
+                if (parent.getPARAMETER().equals(SQL_QQ.TEST_DATE)) {
+                    HelpAB.resetDatePickers(datePickerA, datePickerB);
                 }
                 //
                 //

@@ -25,9 +25,9 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import static main.Main.COMPANY_NAME;
 import other.CONSTANTS;
-import other.HelpA;
+import other.HelpAB;
 import other.JComboBoxA;
-import sql.SQL_Q;
+import sql.SQL_QQ;
 import sql.ShowMessage;
 import sql.Sql_B;
 
@@ -49,7 +49,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     private Properties p;
     private int MARKERS_SET_P_INDEX_FIRST = -1;
     private int MARKERS_SET_P_INDEX_LAST = -1;
-    private String ORDER_BY_PARAM = SQL_Q.TEST_DATE;
+    private String ORDER_BY_PARAM = SQL_QQ.TEST_DATE;
     private String ORDER_ASC_DESC = "ASC";
     private boolean MARKERS_SET = false;
     private boolean ALL_ENTRIES_SHOWN_TABLE = false;
@@ -101,8 +101,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         try {
 //            rs = sql_table.execute("SELECT * from " + SQL_Q.PRIM_TABLE + " WHERE [Quality]='xxxxxx-xxxx'");
-            rs = sql_table.execute("SELECT * from " + SQL_Q.PRIM_TABLE + " WHERE [" + SQL_Q.QUALITY + "]='xxxxxx-xxxx'");
-            HelpA.build_table_common_return(rs, gui.jTableMain);
+            rs = sql_table.execute("SELECT * from " + SQL_QQ.PRIM_TABLE + " WHERE [" + SQL_QQ.QUALITY + "]='xxxxxx-xxxx'");
+            HelpAB.build_table_common_return(rs, gui.jTableMain);
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -208,7 +208,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             highLightPointsByValue(min, max, false);
             //
             //
-            String where = SQL_Q.buildAdditionalWhereGistoGram("" + min, "" + max);
+            String where = SQL_QQ.buildAdditionalWhereGistoGram("" + min, "" + max);
             //
 //            Thread x = new Thread(new BuildTableThread(where));
 //            x.start();
@@ -382,14 +382,14 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         String q = getQuery();
         //
         if (gg instanceof HistogramGraph) {
-            gg.addData(sql_histogram_g, q, SQL_Q.TEST_VALUE);
+            gg.addData(sql_histogram_g, q, SQL_QQ.TEST_VALUE);
         } else if (gg instanceof PolygonGraph) {
-            gg.addData(sql_polygon_g, q, SQL_Q.TEST_VALUE);
+            gg.addData(sql_polygon_g, q, SQL_QQ.TEST_VALUE);
         }
     }
 
     private String getQuery() {
-        return SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
+        return SQL_QQ.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, null);
     }
 
     private boolean checkIfQueryReturnsEnyResult(String q) {
@@ -401,19 +401,19 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             }
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            HelpA.showNotification("No results found for current search criteria. Please try again.");
+            HelpAB.showNotification("No results found for current search criteria. Please try again.");
             return false;
         }
-        HelpA.showNotification("No results found for current search criteria. Please try again.");
+        HelpAB.showNotification("No results found for current search criteria. Please try again.");
         return false;
     }
 
     private boolean checkIfDateRangesAreInUse() {
         //
-        String dateA = HelpA.datePickerGetDate(gui.datePickerA);
-        String dateB = HelpA.datePickerGetDate(gui.datePickerB);
+        String dateA = HelpAB.datePickerGetDate(gui.datePickerA);
+        String dateB = HelpAB.datePickerGetDate(gui.datePickerB);
         //
-        if (HelpA.bothDatesPresent(dateA, dateB)) {
+        if (HelpAB.bothDatesPresent(dateA, dateB)) {
             return true;
         } else {
             return false;
@@ -447,6 +447,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
 //        buildTableByThread(null);
         ResultSet rs = buildTable(null);
         //
+        System.out.println("BUILD TABLE DONE -----------------------");      
+        //
         //
         if (q == null) {
             return false;
@@ -454,16 +456,22 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         xygraph.deleteAllPointsFromAllSeries();
         //
+        System.out.println("DELETE ALL POINTS DONE -----------------------");
+        //
 //        ResultSet rs = xygraph.addData(sql_common_g, q, SQL_Q.TEST_VALUE);
-        xygraph.addData(sql_common_g, rs, SQL_Q.TEST_VALUE);
+        xygraph.addData(sql_common_g, rs, SQL_QQ.TEST_VALUE);
+        //
+        System.out.println("ADD DATA MAIN GRAPH DONE -----------------------");
         //
 //            gg.addLimits(rs);
         //
         //
         if (gg instanceof HistogramGraph) {
-            gg.addData(sql_histogram_g, rs, SQL_Q.TEST_VALUE);
+            gg.addData(sql_histogram_g, rs, SQL_QQ.TEST_VALUE);
+            System.out.println("ADD DATA HISTOGRAM DONE -----------------------");
         } else if (gg instanceof PolygonGraph) {
-            gg.addData(sql_polygon_g, rs, SQL_Q.TEST_VALUE);
+            gg.addData(sql_polygon_g, rs, SQL_QQ.TEST_VALUE);
+            System.out.println("ADD DATA POLYGON DONE -----------------------");
         }
         //
         return true;
@@ -488,7 +496,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             ALL_ENTRIES_SHOWN_TABLE = false;
         }
         //
-        String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, addditionalWhere);
+        String q = SQL_QQ.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, addditionalWhere);
         //
         if (q == null) {
             return null;
@@ -501,15 +509,15 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             rs.beforeFirst();
             //
             if (MARKERS_SET_P_INDEX_FIRST != -1 && MARKERS_SET_P_INDEX_LAST != -1) {
-                HelpA.build_table_common(rs, gui.jTableMain, q, MARKERS_SET_P_INDEX_FIRST, MARKERS_SET_P_INDEX_LAST);
+                HelpAB.build_table_common(rs, gui.jTableMain, q, MARKERS_SET_P_INDEX_FIRST, MARKERS_SET_P_INDEX_LAST);
                 MARKERS_SET_P_INDEX_FIRST = -1;
                 MARKERS_SET_P_INDEX_LAST = -1;
             } else {
-                HelpA.build_table_common(rs, gui.jTableMain, q);
+                HelpAB.build_table_common(rs, gui.jTableMain, q);
             }
             //
             //
-            HelpA.hideColumnByName(gui.jTableMain, SQL_Q.QUALITY);
+            HelpAB.hideColumnByName(gui.jTableMain, SQL_QQ.QUALITY);
 //            HelpA.hideColumnByName(gui.jTableMain, SQL_Q.ORDER);
             //
             //<#GFT-SPECIAL-DEMO>
@@ -624,12 +632,12 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
     //==========================================================================
     public void fillComboStandard(JComboBoxA jcbm) {
         //
-        String q = SQL_Q.fillAuto(jcbm.getPARAMETER(), gui);
+        String q = SQL_QQ.fillAuto(jcbm.getPARAMETER(), gui);
         //
         OUT.showMessage(q);
         //
 //        if(fill(jcbm, (JComboBoxA) gui.jComboBoxTestName)){
-        jcbm.setFLAG_WAIT(HelpA.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql_common_g));
+        jcbm.setFLAG_WAIT(HelpAB.fillComboBox_with_wait(jcbm, jcbm.getFLAG_WAIT(), q, sql_common_g));
 //        }
         //
         resetFlagsWaitSelective(jcbm);
@@ -642,9 +650,9 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             return true;
         }
         //
-        String jcomboTestNameValue = HelpA.getComboBoxSelectedValue_b(jcomboTestName);
+        String jcomboTestNameValue = HelpAB.getComboBoxSelectedValue_bb(jcomboTestName);
         //
-        String jcbmValue = HelpA.getComboBoxSelectedValue_b(jcbm);
+        String jcbmValue = HelpAB.getComboBoxSelectedValue_bb(jcbm);
         //
         if (jcomboTestNameValue != null && jcbmValue != null) {
             return false;
@@ -702,7 +710,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
             resetComboBox(jComboBox);
         }
         //
-        HelpA.resetDatePickers(gui.datePickerA, gui.datePickerB);
+        HelpAB.resetDatePickers(gui.datePickerA, gui.datePickerB);
         //
         if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
             //

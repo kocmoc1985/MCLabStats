@@ -630,7 +630,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="jComboBoxQuality">
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(SQL_Q.QUALITY,false)"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.QUALITY,false)"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
                     </Component>
@@ -657,7 +657,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="jComboBoxOrder">
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(SQL_Q.ORDER,false)"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.ORDER,false)"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
                     </Component>
@@ -683,7 +683,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="jComboBoxBatch">
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(SQL_Q.BATCH,true)"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.BATCH,true)"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
                     </Component>
@@ -709,7 +709,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="jComboBoxTestCode">
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(SQL_Q.TEST_CODE,false)"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.TEST_CODE,false)"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
                     </Component>
@@ -735,7 +735,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="jComboBoxTestName">
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(SQL_Q.TEST_NAME,false)"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.TEST_NAME,false)"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
                     </Component>
@@ -803,7 +803,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="jComboBoxLSL">
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(SQL_Q.LSL,true)"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.LSL,true)"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
                     </Component>
@@ -829,7 +829,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="jComboBoxUSL">
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(SQL_Q.USL,true)"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.USL,true)"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
                     </Component>
@@ -855,7 +855,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="jComboBoxDate">
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(SQL_Q.TEST_DATE,false)"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.TEST_DATE,false)"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
                     </Component>

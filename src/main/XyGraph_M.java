@@ -16,12 +16,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import other.HelpA;
-import sql.SQL_Q;
+import other.HelpAB;
+import sql.SQL_QQ;
 import sql.Sql_B;
 
 /**
  * The main graph for displaying one of following: "ML","MH","t10","t90"
+ *
  * @author KOCMOC
  */
 public class XyGraph_M extends MyXYGB implements PointDeletedAction {
@@ -125,8 +126,8 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
 //        serieLimitU.setDrawPoints(false);
 //        serieLimitU.setLineThickness(1);
     }
-    
-     public void addData(Sql_B sql, ResultSet rs, String valueColName) {
+
+    public void addData(Sql_B sql, ResultSet rs, String valueColName) {
         //
         boolean diffMarkerPointsDeleteFlag = true;
         //
@@ -134,7 +135,9 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
             //
             rs.beforeFirst();
             //
-            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            double filterCoeff = HelpAB.calc_Filter_Coeff(rs, valueColName);
+            //
+            System.out.println("CALC FILTER COEFF DONE -----------------------");
             //
             rs.beforeFirst();
             //
@@ -144,10 +147,10 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 //
                 double val = processValue(rs.getString(valueColName));
                 //
-                double lsl = rs.getDouble(SQL_Q.LSL);
+                double lsl = rs.getDouble(SQL_QQ.LSL);
                 MyPoint LSL = new MyPoint((int) lsl, lsl);
                 //
-                double usl = rs.getDouble(SQL_Q.USL);
+                double usl = rs.getDouble(SQL_QQ.USL);
                 MyPoint USL = new MyPoint((int) usl, usl);
                 //
                 addPointBySerie(LSL, serieLimitL);
@@ -165,15 +168,15 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 p = new MyPoint_M(val, val, LSL, USL);
 //                }
                 //#TAG-TEMP-A-01#
-                p.addPointInfo("Serie", rs.getString(SQL_Q.TEST_NAME));
+                p.addPointInfo("Serie", rs.getString(SQL_QQ.TEST_NAME));
                 //
                 //<#GFT-SPECIAL-DEMO>
-                p.addPointInfo("Quality", rs.getString(SQL_Q.QUALITY));
-                p.addPointInfo("Order", rs.getString(SQL_Q.ORDER));
+                p.addPointInfo("Quality", rs.getString(SQL_QQ.QUALITY));
+                p.addPointInfo("Order", rs.getString(SQL_QQ.ORDER));
                 //</#GFT-SPECIAL-DEMO>
                 //
-                p.addPointInfo("Batch", rs.getString(SQL_Q.BATCH));
-                p.addPointInfo("Status", rs.getString(SQL_Q.TEST_STATUS));
+                p.addPointInfo("Batch", rs.getString(SQL_QQ.BATCH));
+                p.addPointInfo("Status", rs.getString(SQL_QQ.TEST_STATUS));
                 //
                 if (Math.abs(val) < (filterCoeff)) {
                     addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
@@ -183,6 +186,10 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 }
                 //
             }
+
+            //
+            getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+            getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
             //
 //            System.out.println("Filtered batches: " + filtered);
             //
@@ -202,7 +209,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
             //
             rs.beforeFirst();
             //
-            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            double filterCoeff = HelpAB.calc_Filter_Coeff(rs, valueColName);
             //
             rs.beforeFirst();
             //
@@ -212,10 +219,10 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 //
                 double val = processValue(rs.getString(valueColName));
                 //
-                double lsl = rs.getDouble(SQL_Q.LSL);
+                double lsl = rs.getDouble(SQL_QQ.LSL);
                 MyPoint LSL = new MyPoint((int) lsl, lsl);
                 //
-                double usl = rs.getDouble(SQL_Q.USL);
+                double usl = rs.getDouble(SQL_QQ.USL);
                 MyPoint USL = new MyPoint((int) usl, usl);
                 //
                 addPointBySerie(LSL, serieLimitL);
@@ -233,15 +240,15 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 p = new MyPoint_M(val, val, LSL, USL);
 //                }
                 //#TAG-TEMP-A-01#
-                p.addPointInfo("Serie", rs.getString(SQL_Q.TEST_NAME));
+                p.addPointInfo("Serie", rs.getString(SQL_QQ.TEST_NAME));
                 //
                 //<#GFT-SPECIAL-DEMO>
-                p.addPointInfo("Quality", rs.getString(SQL_Q.QUALITY));
-                p.addPointInfo("Order", rs.getString(SQL_Q.ORDER));
+                p.addPointInfo("Quality", rs.getString(SQL_QQ.QUALITY));
+                p.addPointInfo("Order", rs.getString(SQL_QQ.ORDER));
                 //</#GFT-SPECIAL-DEMO>
                 //
-                p.addPointInfo("Batch", rs.getString(SQL_Q.BATCH));
-                p.addPointInfo("Status", rs.getString(SQL_Q.TEST_STATUS));
+                p.addPointInfo("Batch", rs.getString(SQL_QQ.BATCH));
+                p.addPointInfo("Status", rs.getString(SQL_QQ.TEST_STATUS));
                 //
                 if (Math.abs(val) < (filterCoeff)) {
                     addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
@@ -251,6 +258,9 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 }
                 //
             }
+            //
+            getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+            getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
             //
             System.out.println("Filtered batches: " + filtered);
             //

@@ -11,14 +11,14 @@ import javax.swing.JComboBox;
 import main.Main;
 import static main.Main.DATE_FORMAT;
 import other.CONSTANTS;
-import other.HelpA;
+import other.HelpAB;
 import other.JComboBoxA;
 
 /**
  *
  * @author KOCMOC
  */
-public class SQL_Q {
+public class SQL_QQ {
 
     public static String PRIM_TABLE = loadFromProps();
     public static String QUALITY = "Quality";
@@ -45,7 +45,7 @@ public class SQL_Q {
 //    public static final String TEST_STATUS = "TestStatus";
 
     private static String loadFromProps() {
-        Properties p = HelpA.properties_load_properties("main.properties", false);
+        Properties p = HelpAB.properties_load_properties("main.properties", false);
         return p.getProperty("resultsn_name", "REsultsN");
     }
 
@@ -58,7 +58,7 @@ public class SQL_Q {
             JComboBoxA boxM = (JComboBoxA) box;
             //
             if (boxM.getPARAMETER().equals(TEST_DATE) == false) {
-                list.add(new FillAutoEntry(boxM.getPARAMETER(), HelpA.getComboBoxSelectedValue_b(boxM), boxM.isNUMBER()));
+                list.add(new FillAutoEntry(boxM.getPARAMETER(), HelpAB.getComboBoxSelectedValue_bb(boxM), boxM.isNUMBER()));
             }
             //
         }
@@ -70,13 +70,13 @@ public class SQL_Q {
     private static ArrayList<FillAutoEntry> buildListB(Main gui) {
         ArrayList<FillAutoEntry> list = new ArrayList<>();
         //
-        list.add(new FillAutoEntry(QUALITY, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxQuality), false));
-        list.add(new FillAutoEntry(ORDER, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxOrder), false));
-        list.add(new FillAutoEntry(BATCH, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxBatch), true));
-        list.add(new FillAutoEntry(TEST_CODE, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxTestCode), false));
-        list.add(new FillAutoEntry(TEST_NAME, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxTestName), false));
-        list.add(new FillAutoEntry(LSL, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxLSL), true));
-        list.add(new FillAutoEntry(USL, HelpA.getComboBoxSelectedValue_b(gui.jComboBoxUSL), true));
+        list.add(new FillAutoEntry(QUALITY, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxQuality), false));
+        list.add(new FillAutoEntry(ORDER, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxOrder), false));
+        list.add(new FillAutoEntry(BATCH, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxBatch), true));
+        list.add(new FillAutoEntry(TEST_CODE, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxTestCode), false));
+        list.add(new FillAutoEntry(TEST_NAME, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxTestName), false));
+        list.add(new FillAutoEntry(LSL, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxLSL), true));
+        list.add(new FillAutoEntry(USL, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxUSL), true));
         //
         return list;
     }
@@ -103,11 +103,11 @@ public class SQL_Q {
     }
 
     public static String forTestB() {
-        return "SELECT * from " + PRIM_TABLE + " WHERE [" + SQL_Q.QUALITY + "] = '1802860-ST220' AND [" + SQL_Q.TEST_CODE + "]='10194' AND [" + SQL_Q.TEST_NAME + "]='ML'";
+        return "SELECT * from " + PRIM_TABLE + " WHERE [" + SQL_QQ.QUALITY + "] = '1802860-ST220' AND [" + SQL_QQ.TEST_CODE + "]='10194' AND [" + SQL_QQ.TEST_NAME + "]='ML'";
     }
 
     public static String forTestC() {
-        return "SELECT * from " + PRIM_TABLE + " WHERE [" + SQL_Q.QUALITY + "] = '9401696-ST59' AND [" + SQL_Q.TEST_CODE + "]='30001' AND [" + SQL_Q.TEST_NAME + "]='HHMedian'";
+        return "SELECT * from " + PRIM_TABLE + " WHERE [" + SQL_QQ.QUALITY + "] = '9401696-ST59' AND [" + SQL_QQ.TEST_CODE + "]='30001' AND [" + SQL_QQ.TEST_NAME + "]='HHMedian'";
     }
 
     public static String showResult(Main gui, String orderBy, String ascOrDesc, String additionalWhere) {
@@ -135,12 +135,12 @@ public class SQL_Q {
             return null;
         }
         //======================================================================
-        String date_ = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDate);
+        String date_ = HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxDate);
         //
-        String dateA = HelpA.datePickerGetDate(gui.datePickerA);
-        String dateB = HelpA.datePickerGetDate(gui.datePickerB);
+        String dateA = HelpAB.datePickerGetDate(gui.datePickerA);
+        String dateB = HelpAB.datePickerGetDate(gui.datePickerB);
         //
-        if (HelpA.bothDatesPresent(dateA, dateB)) {
+        if (HelpAB.bothDatesPresent(dateA, dateB)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
             query += " AND [" + TEST_DATE + "] <=" + quotes(dateB, false);
         } else {
@@ -199,12 +199,12 @@ public class SQL_Q {
         }
         //
         //======================================================================
-        String date_ = HelpA.getComboBoxSelectedValue_b(gui.jComboBoxDate);
+        String date_ = HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxDate);
         //
-        String dateA = HelpA.datePickerGetDate(gui.datePickerA);
-        String dateB = HelpA.datePickerGetDate(gui.datePickerB);
+        String dateA = HelpAB.datePickerGetDate(gui.datePickerA);
+        String dateB = HelpAB.datePickerGetDate(gui.datePickerB);
         //
-        if (HelpA.bothDatesPresent(dateA, dateB)) {
+        if (HelpAB.bothDatesPresent(dateA, dateB)) {
             query += " AND [" + TEST_DATE + "] >=" + quotes(dateA, false);
             query += " AND [" + TEST_DATE + "] <=" + quotes(dateB, false);
         } else {

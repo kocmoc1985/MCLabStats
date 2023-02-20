@@ -5,7 +5,6 @@
 package main;
 
 import XYG_BASIC.DiffMarkerAction;
-import XYG_BASIC.HelpAA;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MyXYGB;
@@ -21,7 +20,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import other.HelpA;
+import other.HelpAB;
 import sql.Sql_B;
 
 /**
@@ -89,7 +88,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
     public void refresh() {
         getGraph().repaint();
     }
-    
+
     @Override
     public void addData(Sql_B sql, ResultSet rs, String valueColName) {
         //
@@ -104,7 +103,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
             //
             rs.beforeFirst();
             //
-            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            double filterCoeff = HelpAB.calc_Filter_Coeff(rs, valueColName);
             //
             rs.beforeFirst();
             //
@@ -121,9 +120,15 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
             //
             addPoints();
             //
+            getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+            getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
+            //
         } catch (SQLException ex) {
             Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
             addPoints();
+            //
+            getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+            getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
         }
     }
 
@@ -144,7 +149,8 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
             //
             rs.beforeFirst();
             //
-            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            double filterCoeff = HelpAB.calc_Filter_Coeff(rs, valueColName);
+
             //
             rs.beforeFirst();
             //
@@ -161,12 +167,17 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
             //
             addPoints();
             //
+            getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+            getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
+            //
         } catch (SQLException ex) {
             Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
             addPoints();
+            //
+            getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+            getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
         }
     }
-
 
     public void addData(double[] values, String round) {
         for (double val : values) {
@@ -252,7 +263,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
 
     public void buildHistogramDataSet(double key, TreeMap map, String round) {
         if (round != null) {
-            key = HelpAA.roundDouble(key, round);
+            key = (double) HelpAB.roundDouble(key, round);
         }
         if (map.containsKey(key)) {
             int val = (Integer) map.get(key);

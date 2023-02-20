@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import other.HelpA;
+import other.HelpAB;
 import sql.Sql_B;
 
 /**
@@ -84,8 +84,8 @@ public class HistogramGraph extends PolygonGraph {
         addDataH(list);
         //
     }
-    
-     @Override
+
+    @Override
     public void addData(Sql_B sql, ResultSet rs, String valueColName) {
         //
         this.valueColName = valueColName;
@@ -96,7 +96,7 @@ public class HistogramGraph extends PolygonGraph {
             //
             this.sql = sql;
             //
-            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            double filterCoeff = HelpAB.calc_Filter_Coeff(rs, valueColName);
             //
             rs.beforeFirst();
             //
@@ -116,7 +116,6 @@ public class HistogramGraph extends PolygonGraph {
         addDataH(list);
         //
     }
-    
 
     @Override
     public void addData(Sql_B sql, String q, String valueColName) {
@@ -132,7 +131,7 @@ public class HistogramGraph extends PolygonGraph {
             //
             ResultSet rs = sql.execute(q);
             //
-            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            double filterCoeff = HelpAB.calc_Filter_Coeff(rs, valueColName);
             //
             rs.beforeFirst();
             //
@@ -148,6 +147,9 @@ public class HistogramGraph extends PolygonGraph {
         } catch (SQLException ex) {
             Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //
+        getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+        getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
         //
         addDataH(list);
         //
@@ -188,6 +190,9 @@ public class HistogramGraph extends PolygonGraph {
             diffMarkerPointsDeleteFlag = false;
             //
         }
+        //
+        getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+        getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
         //
         MyGraphXY_PG h = (MyGraphXY_PG) myGraphXY;
         h.setXValues(xValuesList);
@@ -236,12 +241,12 @@ public class HistogramGraph extends PolygonGraph {
         double min_ = 0;
         for (int i = 0; i < steps; i++) {
             if (i == 0) {
-                min_ = HelpA.roundDouble_(min + step, rounding);
+                min_ = HelpAB.roundDouble_(min + step, rounding);
                 step_ = new Step(min, min_, list);
             } else {
-                double lh = HelpA.roundDouble_(min_ + step, rounding);
+                double lh = HelpAB.roundDouble_(min_ + step, rounding);
                 step_ = new Step(min_, lh, list);
-                min_ = HelpA.roundDouble_(min_ + step, rounding);
+                min_ = HelpAB.roundDouble_(min_ + step, rounding);
             }
             lst.add(step_);
         }
@@ -257,7 +262,7 @@ public class HistogramGraph extends PolygonGraph {
 
         public Step(double limLow, double limHigh, ArrayList<Double> list) {
             this.limLow = limLow;
-            this.limHigh = HelpA.roundDouble_(limHigh, rounding);
+            this.limHigh = HelpAB.roundDouble_(limHigh, rounding);
             this.list = list;
             count();
         }

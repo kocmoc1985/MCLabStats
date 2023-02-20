@@ -12,8 +12,8 @@ import java.awt.Graphics2D;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.util.List;
-import other.HelpA;
-import sql.SQL_Q;
+import other.HelpAB;
+import sql.SQL_QQ;
 import udp.Client_UDP;
 
 /**
@@ -66,7 +66,7 @@ public class MyGraphXY_M extends MyGraphXY {
             cudp.prepareAndSendDatagram("#showbatch#" + order + ";" + batch.replace(".0", ""));
 //            cudp.prepareAndSendDatagram("#showbatch#" + "WO16102022_MIX002_131" + ";" + "10");
         } else if (ae.getSource() == menu_show_in_table) {
-            HelpA.markGivenRow(Main.jTableMain, MARKER_POINT.getPointIndex());
+            HelpAB.markGivenRow(Main.jTableMain, MARKER_POINT.getPointIndex());
             this.cont.showCurrTableEntryOnGraph();
         }
 
