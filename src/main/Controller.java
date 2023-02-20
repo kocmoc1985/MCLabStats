@@ -457,6 +457,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
 //            gg.addLimits(rs);
         //
+        //
         if (gg instanceof HistogramGraph) {
             gg.addData(sql_histogram_g, q, SQL_Q.TEST_VALUE);
         } else if (gg instanceof PolygonGraph) {
