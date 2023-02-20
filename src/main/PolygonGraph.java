@@ -89,6 +89,43 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
     public void refresh() {
         getGraph().repaint();
     }
+    
+    @Override
+    public void addData(Sql_B sql, ResultSet rs, String valueColName) {
+        //
+        this.valueColName = valueColName;
+        //
+        reset();
+        refresh();
+        //
+        try {
+            //
+            this.sql = sql;
+            //
+            rs.beforeFirst();
+            //
+            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            //
+            rs.beforeFirst();
+            //
+            while (rs.next()) {
+                //
+//                addLimits(rs);
+                //
+                double val = rs.getDouble(valueColName);
+                //
+                if (val < (filterCoeff)) {
+                    buildHistogramDataSet(val, histoMap, round);
+                }
+            }
+            //
+            addPoints();
+            //
+        } catch (SQLException ex) {
+            Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
+            addPoints();
+        }
+    }
 
     @Override
     public void addData(Sql_B sql, String q, String valueColName) {

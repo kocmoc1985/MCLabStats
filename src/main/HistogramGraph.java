@@ -85,6 +85,38 @@ public class HistogramGraph extends PolygonGraph {
         //
     }
     
+     @Override
+    public void addData(Sql_B sql, ResultSet rs, String valueColName) {
+        //
+        this.valueColName = valueColName;
+        //
+        ArrayList<Double> list = new ArrayList<>();
+        //
+        try {
+            //
+            this.sql = sql;
+            //
+            double filterCoeff = HelpA.calc_Filter_Coeff(rs, valueColName);
+            //
+            rs.beforeFirst();
+            //
+            while (rs.next()) {
+                //
+                double val = rs.getDouble(valueColName);
+                //
+                if (val < (filterCoeff)) {
+                    list.add(val);
+                }
+            }
+            //
+        } catch (SQLException ex) {
+            Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        addDataH(list);
+        //
+    }
+    
 
     @Override
     public void addData(Sql_B sql, String q, String valueColName) {

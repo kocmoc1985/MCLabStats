@@ -126,7 +126,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
 //        serieLimitU.setLineThickness(1);
     }
 
-    public void addData(Sql_B sql, String q, String valueColName) {
+    public ResultSet addData(Sql_B sql, String q, String valueColName) {
         //
         boolean diffMarkerPointsDeleteFlag = true;
         //
@@ -188,8 +188,11 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
             //
             System.out.println("Filtered batches: " + filtered);
             //
+            return rs;
+            //
         } catch (SQLException ex) {
             Logger.getLogger(XyGraph_M.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
 
     }

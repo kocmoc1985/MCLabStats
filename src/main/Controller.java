@@ -453,15 +453,15 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         xygraph.deleteAllPointsFromAllSeries();
         //
-        xygraph.addData(sql_common_g, q, SQL_Q.TEST_VALUE);
+        ResultSet rs = xygraph.addData(sql_common_g, q, SQL_Q.TEST_VALUE);
         //
 //            gg.addLimits(rs);
         //
         //
         if (gg instanceof HistogramGraph) {
-            gg.addData(sql_histogram_g, q, SQL_Q.TEST_VALUE);
+            gg.addData(sql_histogram_g, rs, SQL_Q.TEST_VALUE);
         } else if (gg instanceof PolygonGraph) {
-            gg.addData(sql_polygon_g, q, SQL_Q.TEST_VALUE);
+            gg.addData(sql_polygon_g, rs, SQL_Q.TEST_VALUE);
         }
         //
         return true;
