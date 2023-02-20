@@ -444,7 +444,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         MAIN_GRAPH_BUILD = true;
         //
-        buildTableByThread(null);
+//        buildTableByThread(null);
+        ResultSet rs = buildTable(null);
         //
         //
         if (q == null) {
@@ -453,7 +454,8 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         xygraph.deleteAllPointsFromAllSeries();
         //
-        ResultSet rs = xygraph.addData(sql_common_g, q, SQL_Q.TEST_VALUE);
+//        ResultSet rs = xygraph.addData(sql_common_g, q, SQL_Q.TEST_VALUE);
+        xygraph.addData(sql_common_g, rs, SQL_Q.TEST_VALUE);
         //
 //            gg.addLimits(rs);
         //
@@ -476,7 +478,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
      * @deprecated - shall only be called by the TableBuilderThread
      * @param addditionalWhere
      */
-    private synchronized void buildTable(String addditionalWhere) {
+    private synchronized ResultSet buildTable(String addditionalWhere) {
         //
         tableHeaders();
         //
@@ -489,7 +491,7 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         String q = SQL_Q.showResult(gui, ORDER_BY_PARAM, ORDER_ASC_DESC, addditionalWhere);
         //
         if (q == null) {
-            return;
+            return null;
         }
         //
         try {
@@ -525,8 +527,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
                 gui.datePickerB.setEnabled(false);
             }
             //</#GFT-SPECIAL-DEMO>
+            return rs;
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
 
     }

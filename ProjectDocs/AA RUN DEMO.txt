@@ -2,4 +2,4 @@
 
 2.IN CLASS: "Main.java" set "DEMO_MODE = true"
 
-3.No more changes are required
+3. In properties set: resultsn_name=ResultN
