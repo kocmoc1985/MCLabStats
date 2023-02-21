@@ -2077,6 +2077,12 @@ public class HelpAB {
         int devide_with = 0;
         //
         try {
+            rs.beforeFirst();
+        } catch (SQLException ex) {
+            Logger.getLogger(HelpAB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        try {
             while (rs.next()) {
                 //
                 double act_value = parseDouble(rs.getString(valueColName));

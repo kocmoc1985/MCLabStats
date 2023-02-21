@@ -467,10 +467,10 @@ public class Controller implements DiffMarkerAction, BarGraphListener, PointGrap
         //
         //
         if (gg instanceof HistogramGraph) {
-            gg.addData(sql_histogram_g, rs, SQL_QQ.TEST_VALUE);
+            gg.addData(sql_histogram_g, rs,q, SQL_QQ.TEST_VALUE);
             System.out.println("ADD DATA HISTOGRAM DONE -----------------------");
         } else if (gg instanceof PolygonGraph) {
-            gg.addData(sql_polygon_g, rs, SQL_QQ.TEST_VALUE);
+            gg.addData(sql_polygon_g, rs,q, SQL_QQ.TEST_VALUE);
             System.out.println("ADD DATA POLYGON DONE -----------------------");
         }
         //

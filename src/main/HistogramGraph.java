@@ -33,9 +33,9 @@ public class HistogramGraph extends PolygonGraph {
     @Override
     public void markersSet(MyGraphXY trigerInstance, MyPoint markerA, MyPoint markerB) {
         if (trigerInstance instanceof MyGraphXY_PG == false) {
-//            rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
-            Thread x = new Thread(new PolygonGraph.RebuildDataThread(markerA.getPointIndex(), markerB.getPointIndex()));
-            x.start();
+            rebuildData(valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
+//            Thread x = new Thread(new PolygonGraph.RebuildDataThread(markerA.getPointIndex(), markerB.getPointIndex()));
+//            x.start();
         }
     }
 
@@ -83,16 +83,20 @@ public class HistogramGraph extends PolygonGraph {
         //
         addDataH(list);
         //
+        getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+        getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
     }
 
     @Override
-    public void addData(Sql_B sql, ResultSet rs, String valueColName) {
+    public void addData(Sql_B sql, ResultSet rs, String q, String valueColName) {
         //
         this.valueColName = valueColName;
         //
         ArrayList<Double> list = new ArrayList<>();
         //
         try {
+            //
+            this.query = q;
             //
             this.sql = sql;
             //
@@ -112,6 +116,9 @@ public class HistogramGraph extends PolygonGraph {
         } catch (SQLException ex) {
             Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //
+        getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+        getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
         //
         addDataH(list);
         //
@@ -148,11 +155,10 @@ public class HistogramGraph extends PolygonGraph {
             Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
         }
         //
-        getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
-        getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
-        //
         addDataH(list);
         //
+        getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+        getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
     }
 
     public void addDataH(ArrayList<Double> list) {

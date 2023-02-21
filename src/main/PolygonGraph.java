@@ -90,7 +90,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
     }
 
     @Override
-    public void addData(Sql_B sql, ResultSet rs, String valueColName) {
+    public void addData(Sql_B sql, ResultSet rs, String q, String valueColName) {
         //
         this.valueColName = valueColName;
         //
@@ -98,6 +98,8 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         refresh();
         //
         try {
+            //
+            this.query = q;
             //
             this.sql = sql;
             //
@@ -203,6 +205,8 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         //
         try {
             //
+            System.out.println("Polygon graph query: " + query);
+            //
             ResultSet rs = sql.execute_2(query);
             //
             while (rs.next()) {
@@ -214,6 +218,9 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
             }
             //
             addPoints();
+            //
+            getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+            getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
             //
         } catch (SQLException ex) {
             Logger.getLogger(PolygonGraph.class.getName()).log(Level.SEVERE, null, ex);
@@ -232,6 +239,9 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         }
         //
         addPoints();
+        //
+        getGraph2().setSize(getGraph2().getWidth() - 1, getGraph2().getHeight() - 1);
+        getGraph2().setSize(getGraph2().getWidth() + 1, getGraph2().getHeight() + 1);
     }
 
     public void addPoints() {
@@ -258,6 +268,8 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         //
         MyGraphXY_PG h = (MyGraphXY_PG) myGraphXY;
         h.setXValues(xValuesList);
+        //
+
         //
     }
 

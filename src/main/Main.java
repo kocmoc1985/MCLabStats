@@ -109,6 +109,12 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             jComboBoxTestName.setEnabled(false);
             jComboBoxBatch.setEnabled(false);
             //
+            jButton8.setVisible(false);
+            jButton9.setVisible(false);
+            //
+            jButton_Prev_test_name.setEnabled(false);
+            jButton_Next_test_name.setEnabled(false);
+            //
             Font currentFont = jComboBoxOrder.getFont();
             Font newFont = currentFont.deriveFont(currentFont.getSize() * 0.75F);
             jComboBoxOrder.setFont(newFont);
@@ -874,10 +880,6 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
                 jComboBoxTestCode.setEnabled(false);
             }
             //
-            if (Main.COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT) == true) {
-                jButton_Prev_test_name.setEnabled(false);
-                jButton_Next_test_name.setEnabled(false);
-            }
             //
             BUILD_GRAPH_BTN_CLICKED = true;
         }

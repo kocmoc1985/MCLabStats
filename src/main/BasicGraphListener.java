@@ -21,7 +21,7 @@ public interface BasicGraphListener extends DiffMarkerAction{
     
     public void addData(Sql_B sql,String q, String valueColName);
     
-    public void addData(Sql_B sql,ResultSet rs, String valueColName);
+    public void addData(Sql_B sql,ResultSet rs,String q, String valueColName);
     
     public String getRound();
     
