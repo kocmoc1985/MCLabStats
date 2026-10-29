@@ -667,7 +667,7 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="BATCH">
+                        <TitledBorder title="TEST NO">
                           <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder/>
                           </Border>
@@ -683,7 +683,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JComboBox" name="jComboBoxBatch">
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.BATCH,true)"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new other.JComboBoxA(sql.SQL_QQ.TESTNO,true)"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
                     </Component>

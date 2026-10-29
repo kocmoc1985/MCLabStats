@@ -53,7 +53,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
     public final static String TAB_MAIN = "Main";
     public final static String TAB_LOG = "Log";
     //
-    public static String DATE_FORMAT = "yy/MM/dd";
+    public static String DATE_FORMAT = "yy/MM/dd"; // yy-MM-dd
     public static boolean MY_SQL = false;
     //
     public final static String COMPANY_NAME = PROPS_MAIN.getProperty("company_name", "compounds");
@@ -144,7 +144,10 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_FEDERALMOGUL)) {
             MY_SQL = false;
             DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
-        } else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
+        }else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_TRELLEBORG)) {
+            MY_SQL = false;
+            DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
+        }  else if (COMPANY_NAME.equals(CONSTANTS.COMPANY_NAME_CEAT)) {
             MY_SQL = false;
 //            DATE_FORMAT = "dd/MM/yyyy";//
             DATE_FORMAT = "yyyy-MM-dd";//yyyy-MM-dd
@@ -160,7 +163,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
             SQL_QQ.PRIM_TABLE = "dbagb3.fnMC04V3()";
             SQL_QQ.QUALITY = "Recipe";
             SQL_QQ.ORDER = "Order";
-            SQL_QQ.BATCH = "Batch";
+            SQL_QQ.TESTNO = "Batch";
             SQL_QQ.TEST_CODE = "TestProcedure";
             SQL_QQ.TEST_NAME = "TestTag";
             SQL_QQ.TEST_DATE = "TestDate";
@@ -361,24 +364,24 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
         jTextFieldTest = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jComboBoxQuality = new other.JComboBoxA(SQL_QQ.QUALITY,false);
+        jComboBoxQuality = new other.JComboBoxA(sql.SQL_QQ.QUALITY,false);
         jPanel4 = new javax.swing.JPanel();
-        jComboBoxOrder = new other.JComboBoxA(SQL_QQ.ORDER,false);
+        jComboBoxOrder = new other.JComboBoxA(sql.SQL_QQ.ORDER,false);
         jPanel8 = new javax.swing.JPanel();
-        jComboBoxBatch = new other.JComboBoxA(SQL_QQ.BATCH,true);
+        jComboBoxBatch = new other.JComboBoxA(sql.SQL_QQ.TESTNO,true);
         jPanel5 = new javax.swing.JPanel();
-        jComboBoxTestCode = new other.JComboBoxA(SQL_QQ.TEST_CODE,false);
+        jComboBoxTestCode = new other.JComboBoxA(sql.SQL_QQ.TEST_CODE,false);
         jPanel1 = new javax.swing.JPanel();
-        jComboBoxTestName = new other.JComboBoxA(SQL_QQ.TEST_NAME,false);
+        jComboBoxTestName = new other.JComboBoxA(sql.SQL_QQ.TEST_NAME,false);
         jPanel17 = new javax.swing.JPanel();
         jButton_Prev_test_name = new javax.swing.JButton();
         jButton_Next_test_name = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
-        jComboBoxLSL = new other.JComboBoxA(SQL_QQ.LSL,true);
+        jComboBoxLSL = new other.JComboBoxA(sql.SQL_QQ.LSL,true);
         jPanel11 = new javax.swing.JPanel();
-        jComboBoxUSL = new other.JComboBoxA(SQL_QQ.USL,true);
+        jComboBoxUSL = new other.JComboBoxA(sql.SQL_QQ.USL,true);
         jPanel6 = new javax.swing.JPanel();
-        jComboBoxDate = new other.JComboBoxA(SQL_QQ.TEST_DATE,false);
+        jComboBoxDate = new other.JComboBoxA(sql.SQL_QQ.TEST_DATE,false);
         jPanel9 = new javax.swing.JPanel();
         datePickerA = new com.michaelbaranov.microba.calendar.DatePicker();
         jPanel18 = new javax.swing.JPanel();
@@ -565,7 +568,7 @@ public class Main extends javax.swing.JFrame implements ShowMessage, MouseListen
 
         jPanel12.add(jPanel4);
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "BATCH"));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "TEST NO"));
         jPanel8.setLayout(new java.awt.GridLayout(1, 1));
         jPanel8.add(jComboBoxBatch);
 

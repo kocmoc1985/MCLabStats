@@ -175,7 +175,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 p.addPointInfo("Order", rs.getString(SQL_QQ.ORDER));
                 //</#GFT-SPECIAL-DEMO>
                 //
-                p.addPointInfo("Batch", rs.getString(SQL_QQ.BATCH));
+                p.addPointInfo("Batch", rs.getString(SQL_QQ.TESTNO));
                 p.addPointInfo("Status", rs.getString(SQL_QQ.TEST_STATUS));
                 //
                 if (Math.abs(val) < (filterCoeff)) {
@@ -247,7 +247,7 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
                 p.addPointInfo("Order", rs.getString(SQL_QQ.ORDER));
                 //</#GFT-SPECIAL-DEMO>
                 //
-                p.addPointInfo("Batch", rs.getString(SQL_QQ.BATCH));
+                p.addPointInfo("Batch", rs.getString(SQL_QQ.TESTNO));
                 p.addPointInfo("Status", rs.getString(SQL_QQ.TEST_STATUS));
                 //
                 if (Math.abs(val) < (filterCoeff)) {

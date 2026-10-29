@@ -23,7 +23,7 @@ public class SQL_QQ {
     public static String PRIM_TABLE = loadFromProps();
     public static String QUALITY = "Quality";
     public static String ORDER = "order";
-    public static String BATCH = "BatchNo";
+    public static String TESTNO = "TestNo"; // Changed to TestNo on 2026-10-29 before it was BatchNo
     public static String TEST_CODE = "TestCode";
     public static String TEST_NAME = "Name";
     public static String LSL = "LSL";
@@ -35,7 +35,7 @@ public class SQL_QQ {
 //    public static final String PRIM_TABLE = "dbagb3.fnMC04V3()";
 //    public static final String QUALITY = "Recipe";
 //    public static final String ORDER = "Order";
-//    public static final String BATCH = "Batch";
+//    public static final String TESTNO = "Batch";
 //    public static final String TEST_CODE = "TestProcedure";
 //    public static final String TEST_NAME = "TestTag";
 //    public static final String LSL = "LSL";
@@ -72,7 +72,7 @@ public class SQL_QQ {
         //
         list.add(new FillAutoEntry(QUALITY, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxQuality), false));
         list.add(new FillAutoEntry(ORDER, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxOrder), false));
-        list.add(new FillAutoEntry(BATCH, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxBatch), true));
+        list.add(new FillAutoEntry(TESTNO, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxBatch), true));
         list.add(new FillAutoEntry(TEST_CODE, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxTestCode), false));
         list.add(new FillAutoEntry(TEST_NAME, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxTestName), false));
         list.add(new FillAutoEntry(LSL, HelpAB.getComboBoxSelectedValue_bb(gui.jComboBoxLSL), true));
@@ -281,7 +281,7 @@ public class SQL_QQ {
 //            query += " AND [" + ORDER + "]=" + quotes(order, false);
 //        }
 //        if (batch != null && batch.isEmpty() == false) {
-//            query += " AND [" + BATCH + "]=" + quotes(batch, isNumber(batch));
+//            query += " AND [" + TESTNO + "]=" + quotes(batch, isNumber(batch));
 //        }
 //        if (testCode != null && testCode.isEmpty() == false) {
 //            query += " AND [" + TEST_CODE + "]=" + quotes(testCode, false);
@@ -337,8 +337,8 @@ public class SQL_QQ {
 //        if (order != null && order.isEmpty() == false && actualComboParam.equals(ORDER) == false) {
 //            query += " AND [" + ORDER + "]=" + quotes(order, false);
 //        }
-//        if (batch != null && batch.isEmpty() == false && actualComboParam.equals(BATCH) == false) {
-//            query += " AND [" + BATCH + "]=" + quotes(batch, isNumber(batch)); // OBS! Is Integer
+//        if (batch != null && batch.isEmpty() == false && actualComboParam.equals(TESTNO) == false) {
+//            query += " AND [" + TESTNO + "]=" + quotes(batch, isNumber(batch)); // OBS! Is Integer
 //        }
 //        if (testCode != null && testCode.isEmpty() == false && actualComboParam.equals(TEST_CODE) == false) {
 //            query += " AND [" + TEST_CODE + "]=" + quotes(testCode, false);
